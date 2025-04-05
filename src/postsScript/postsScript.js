@@ -2,9 +2,8 @@ import fetch from "node-fetch";
 import fs from "fs";
 import { extractNameFromImage } from "./extractNameFromImage.js";
 
-const ACCESS_TOKEN =
-  "EAARFqvyaChQBO7ygsjZAkGq6uYabhZAn6X5riJZBYCKIirZBESR5aYqpMtfPIdG7iDroTEohKKzGZArQLPn58ZCNmDF8Dgs28ZBsW5AiDeTZBCruVpTzouThn7OOG5ZBPoToyM1nQjTAxpy4m12BT2EcTX6EdgRvOxcw8zJw2e0fFZCjZANoKAoBsZA35NY5sdgOqW2aZAQPlTsKYcUc1tYMQ3KXRxWsE0ZBc0PSF203bQ199h";
-const IG_USER_ID = "17841453211543989";
+const ACCESS_TOKEN = process.env.VITE_INSTAGRAM_API_KEY;
+const IG_USER_ID = process.env.VITE_IG_USERID;
 const OUTPUT_PATH = "public/soldiersData/soldiersData.json";
 
 async function fetchJSON(url) {
