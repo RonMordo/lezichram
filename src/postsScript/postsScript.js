@@ -1,10 +1,11 @@
 import fetch from "node-fetch";
 import fs from "fs";
 import { extractNameFromImage } from "./extractNameFromImage.js";
+
 const ACCESS_TOKEN =
   "EAARFqvyaChQBO7ygsjZAkGq6uYabhZAn6X5riJZBYCKIirZBESR5aYqpMtfPIdG7iDroTEohKKzGZArQLPn58ZCNmDF8Dgs28ZBsW5AiDeTZBCruVpTzouThn7OOG5ZBPoToyM1nQjTAxpy4m12BT2EcTX6EdgRvOxcw8zJw2e0fFZCjZANoKAoBsZA35NY5sdgOqW2aZAQPlTsKYcUc1tYMQ3KXRxWsE0ZBc0PSF203bQ199h";
 const IG_USER_ID = "17841453211543989";
-const OUTPUT_PATH = "public/soldiersData.json";
+const OUTPUT_PATH = "public/soldiersData/soldiersData.json";
 
 async function fetchJSON(url) {
   const res = await fetch(url);
@@ -16,7 +17,7 @@ async function fetchJSON(url) {
 }
 
 async function fetchAllMedia(igUserId) {
-  let url = `https://graph.facebook.com/v18.0/${igUserId}/media?fields=id,caption,media_url,like_count,permalink&access_token=${ACCESS_TOKEN}`;
+  let url = `https://graph.facebook.com/v18.0/${igUserId}/media?fields=id,caption,media_url,like_count,comments_count,permalink&access_token=${ACCESS_TOKEN}`;
   let allPosts = [];
 
   while (url) {
@@ -50,9 +51,7 @@ async function fetchInstagramPosts() {
           let name = nameMatch ? nameMatch[1].trim() : null;
 
           if (!name) {
-            console.log(
-              `🧠 No name in caption, using GPT for: ${post.media_url}`
-            );
+            console.log(`No name in caption, using GPT for: ${post.media_url}`);
             await new Promise((resolve) => setTimeout(resolve, 1500));
             name = await extractNameFromImage(post.media_url);
           }
@@ -62,6 +61,7 @@ async function fetchInstagramPosts() {
             caption,
             imgSrc: post.media_url,
             likeCount: post.like_count,
+            commentsCount: post.comments_count,
             permalink: post.permalink,
           };
         })

@@ -13,10 +13,26 @@ body {
 
 #root {
   min-height: 100vh;
+  text-align: center;
   display: flex;
   justify-content: center;
+  background: repeating-linear-gradient(
+    -45deg,
+    #427eff 0px,
+    #427eff 150px,
+    white 150px,
+    white 300px,
+    #427eff 300px,
+    #427eff 450px
+  );
+}
+
+.root {
   margin-top: 1.5rem;
-  text-align: center;
+  max-width: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title h1 {
@@ -43,4 +59,107 @@ input {
   direction: rtl;
   padding: 0.5rem;
   font-size: 1rem;
+}
+
+.soldiersContainer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 25rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+.soldierCard img {
+  width: 100%;
+}
+
+.soldierCard {
+  min-width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 1rem;
+  background-color: white;
+}
+
+.postHeader {
+  margin: 0.3rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.postHeader img {
+  width: 2rem;
+}
+
+.threeDots {
+  margin-right: 0.7rem;
+  display: flex;
+  align-items: center;
+}
+
+.threeDots img {
+  width: 1rem;
+}
+
+.profileImage {
+  margin-left: 0.7rem;
+  display: flex;
+  align-items: center;
+}
+
+.profileImage span {
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
+
+.profileImage img {
+  border-radius: 1rem;
+}
+
+.postImage {
+  width: 100%;
+  align-self: center;
+}
+
+.postReactions {
+  display: flex;
+  align-items: center;
+  margin-top: 0.6rem;
+  margin-left: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.postReactions img {
+  width: 1rem;
+  margin-right: 0.3rem;
+}
+
+.likes {
+  display: flex;
+  margin-right: 1rem;
+}
+
+.comments {
+  display: flex;
+  margin-right: 1rem;
+}
+
+.sharesIcon {
+  margin-top: 0.1rem;
+}
+
+.saveIcon {
+  margin-left: 11.5rem;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
 }
