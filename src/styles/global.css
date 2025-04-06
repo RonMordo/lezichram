@@ -13,6 +13,7 @@ body {
 
 #root {
   min-height: 100vh;
+  width: 100%;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -42,7 +43,7 @@ body {
 }
 
 .about {
-  font-size: 1rem;
+  font-size: 1.3rem;
   line-height: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -53,6 +54,8 @@ h2 {
 
 input {
   background-color: #eef0ff;
+  margin-top: 0.7rem;
+  border: 1px solid transparent;
   border-radius: 12px;
   min-height: 1.7rem;
   min-width: 15rem;
@@ -160,6 +163,22 @@ input {
 
 @media (max-width: 480px) {
   html {
-    font-size: 12px;
+    font-size: 15px;
+  }
+  input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 375px) {
+  html {
+    font-size: 13px;
+  }
+  .soldiersContainer {
+    width: 90%;
+  }
+
+  .soldierCard {
+    width: 100%;
   }
 }
