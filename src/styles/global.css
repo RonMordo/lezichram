@@ -80,7 +80,7 @@ input {
 }
 
 .soldierCard {
-  min-width: 100%;
+  width: 100%;
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
@@ -133,32 +133,33 @@ input {
 .postReactions {
   display: flex;
   align-items: center;
-  margin-top: 0.6rem;
-  margin-left: 1rem;
-  margin-bottom: 0.6rem;
+  width: 90%;
+  margin: 0.6rem auto;
 }
 
 .postReactions img {
-  width: 1rem;
+  width: 1.3rem;
   margin-right: 0.3rem;
 }
 
 .likes {
   display: flex;
+  align-items: center;
   margin-right: 1rem;
 }
 
 .comments {
   display: flex;
+  align-items: center;
   margin-right: 1rem;
 }
 
 .sharesIcon {
-  margin-top: 0.1rem;
+  margin-top: 0.2rem;
 }
 
 .saveIcon {
-  margin-left: 11.5rem;
+  margin-left: auto;
 }
 
 @media (max-width: 480px) {
@@ -173,12 +174,5 @@ input {
 @media (max-width: 375px) {
   html {
     font-size: 13px;
-  }
-  .soldiersContainer {
-    width: 100%;
-  }
-
-  .soldierCard {
-    width: 100%;
   }
 }

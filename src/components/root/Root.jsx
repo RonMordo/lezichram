@@ -23,7 +23,7 @@ function Root({ searchValue, setSearchValue, handleSearch, searchedSoldiers }) {
       <div className="soldiersContainer">
         {searchedSoldiers &&
           searchedSoldiers.map((soldier) => (
-            <SoldierCard soldierData={soldier} />
+            <SoldierCard soldierData={soldier} key={soldier.permalink} />
           ))}
       </div>
     </div>
