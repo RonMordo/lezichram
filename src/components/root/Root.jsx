@@ -1,7 +1,9 @@
-import SearchBar from "../searchBar/SearchBar";
-import SoldierCard from "../soldierCard/SoldierCard";
+import { Outlet, Link, useLocation } from "react-router-dom";
 
-function Root({ searchValue, setSearchValue, handleSearch, searchedSoldiers }) {
+function Root() {
+  const location = useLocation();
+  const isHowItStarted = location.pathname === "/how-it-started";
+
   return (
     <div className="root">
       <div className="title">
@@ -12,20 +14,15 @@ function Root({ searchValue, setSearchValue, handleSearch, searchedSoldiers }) {
         <p>המטרה להגדיל את המודעות לנופלים בחיי</p>
         <p>היומיום ולהנגיש את ההנצחה לכולם</p>
       </div>
+      <div className="howItStartedButton">
+        <Link to={isHowItStarted ? "/" : "/how-it-started"}>
+          <button>
+            {isHowItStarted ? "← חזרה לחיפוש" : "← איך הכל התחיל"}
+          </button>
+        </Link>
+      </div>
 
-      <div className="searchBar">
-        <SearchBar
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          handleSearch={handleSearch}
-        />
-      </div>
-      <div className="soldiersContainer">
-        {searchedSoldiers &&
-          searchedSoldiers.map((soldier) => (
-            <SoldierCard soldierData={soldier} key={soldier.permalink} />
-          ))}
-      </div>
+      <Outlet />
     </div>
   );
 }

@@ -17,15 +17,7 @@ body {
   text-align: center;
   display: flex;
   justify-content: center;
-  background: repeating-linear-gradient(
-    -45deg,
-    #427eff 0px,
-    #427eff 150px,
-    white 150px,
-    white 300px,
-    #427eff 300px,
-    #427eff 450px
-  );
+  background-color: rgb(196, 196, 196);
 }
 
 .root {
@@ -160,6 +152,69 @@ input {
 
 .saveIcon {
   margin-left: auto;
+}
+
+.howItStartedButton {
+  margin-bottom: 1rem;
+}
+
+.howItStartedButton button {
+  background-color: transparent;
+  border: transparent;
+  font-family: "Noto Sans Hebrew", sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.howItStartedButton button:hover {
+  color: blue;
+  font-size: 1.1rem;
+}
+
+.outerContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.howItStartedContainer {
+  width: 80%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  font-size: 0.8rem;
+  gap: 2rem;
+  border-radius: 1rem;
+  overflow: visible;
+}
+
+.contentSection {
+  display: flex;
+}
+
+.content {
+  width: 50%;
+}
+
+.contentImage {
+  width: 50%;
+  transform: translateX(30%);
+}
+.contentImageLeft {
+  width: 50%;
+  transform: translateX(-30%);
+}
+
+.contentImageLeft img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.contentImage img {
+  width: 100%;
+  border-radius: 1rem;
 }
 
 @media (max-width: 480px) {

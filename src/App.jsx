@@ -1,4 +1,6 @@
 import Root from "./components/root/Root";
+import SearchPage from "./components/searchPage/SearchPage";
+import HowItStarted from "./components/howItStarted/HowItStarted";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -32,17 +34,20 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          index
-          element={
-            <Root
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
-              handleSearch={handleSearch}
-              searchedSoldiers={searchedSoldiers}
-            />
-          }
-        />
+        <Route path="/" element={<Root />}>
+          <Route
+            index
+            element={
+              <SearchPage
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+                handleSearch={handleSearch}
+                searchedSoldiers={searchedSoldiers}
+              />
+            }
+          />
+          <Route path="how-it-started" element={<HowItStarted />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
