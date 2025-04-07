@@ -17,9 +17,10 @@ body {
   text-align: center;
   display: flex;
   justify-content: center;
-  /* background-color: rgb(196, 196, 196); */
-  background-image: url("/src/assets/יום-הזיכרון-לחללי-צהל.png");
+  background-image: url("/src/assets/backgroundImage.png");
+  background-repeat: repeat;
   background-size: cover;
+  background-attachment: fixed;
   background-position: center;
 }
 
@@ -44,6 +45,10 @@ body {
   line-height: 1.5rem;
   margin-bottom: 1.5rem;
   color: white;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  text-shadow: 0 0 6px rgba(0, 0, 0, 1);
+  border-radius: 1rem;
+  padding: 1rem;
 }
 
 h2 {
@@ -260,7 +265,7 @@ input {
 
 @media (max-width: 480px) {
   html {
-    font-size: 15px;
+    font-size: 16px;
   }
   input {
     width: 100%;
