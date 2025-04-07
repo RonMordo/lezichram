@@ -6,15 +6,13 @@ import threeDotsIcon from "../../assets/threeDotsIcon.svg";
 import profileImg from "../../assets/profileImage.jpg";
 
 function SoldierCard({ soldierData }) {
-  const handleClick = () => {
-    window.open(soldierData.permalink, "_blank", "noopener,noreferrer");
-  };
-
   return (
-    <div
+    <a
+      href={soldierData.permalink}
+      target="_blank"
+      rel="noopener noreferrer"
       className="soldierCard"
-      onClick={handleClick}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: "pointer", textDecoration: "none", color: "inherit" }}
     >
       <div className="postHeader">
         <div className="profileImage">
@@ -40,7 +38,7 @@ function SoldierCard({ soldierData }) {
         <img src={shareIcon} className="sharesIcon" alt="" />
         <img src={saveIcon} className="saveIcon" alt="" />
       </div>
-    </div>
+    </a>
   );
 }
 
