@@ -184,7 +184,7 @@ input {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  font-size: 0.8rem;
+  font-size: 1.3rem;
   gap: 2rem;
   border-radius: 1rem;
   overflow: visible;
@@ -228,6 +228,9 @@ input {
   }
   .outerContainer {
     width: 100%;
+  }
+  .howItStartedContainer {
+    font-size: 1rem;
   }
   .contentImageLeft img {
     width: 11rem;
