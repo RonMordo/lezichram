@@ -21,8 +21,9 @@ body {
 }
 
 .root {
+  width: 100%;
   margin-top: 1.5rem;
-  max-width: 25rem;
+  /* max-width: 25rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -174,6 +175,7 @@ input {
 .outerContainer {
   display: flex;
   justify-content: center;
+  width: 70%;
 }
 
 .howItStartedContainer {
@@ -207,7 +209,7 @@ input {
 
 .contentImageLeft img {
   width: 100%;
-  height: 250px;
+  height: 300px;
   object-fit: cover;
   border-radius: 1rem;
 }
@@ -223,6 +225,12 @@ input {
   }
   input {
     width: 100%;
+  }
+  .outerContainer {
+    width: 100%;
+  }
+  .contentImageLeft img {
+    width: 11rem;
   }
 }
 
