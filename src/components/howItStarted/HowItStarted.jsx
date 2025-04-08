@@ -3,7 +3,6 @@ import secondImage from "../../assets/secondImg.png";
 import thirdImage from "../../assets/thirdImg.jpg";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 const shakeTransition = {
   repeat: 1,
@@ -16,7 +15,6 @@ const shakeAnimation = {
 };
 
 function HowItStarted() {
-  const [enlargedImage, setEnlargedImage] = useState(null);
   return (
     <motion.div
       className="outerContainer"
@@ -36,10 +34,7 @@ function HowItStarted() {
               asdasdsfjiasdnfjisdanjf
             </p>
           </div>
-          <div
-            className="contentImage"
-            onClick={() => setEnlargedImage(firstImage)}
-          >
+          <div className="contentImage">
             <motion.img
               src={firstImage}
               alt="People looking at lezchiram statue"
@@ -50,10 +45,7 @@ function HowItStarted() {
           </div>
         </div>
         <div className="contentSection">
-          <div
-            className="contentImageLeft"
-            onClick={() => setEnlargedImage(secondImage)}
-          >
+          <div className="contentImageLeft">
             <motion.img
               src={secondImage}
               alt="A women looking into the statue which has a father and a child in it"
@@ -84,10 +76,7 @@ function HowItStarted() {
               asdasdsfjiasdnfjisdanjf
             </p>
           </div>
-          <div
-            className="contentImage"
-            onClick={() => setEnlargedImage(thirdImage)}
-          >
+          <div className="contentImage">
             <motion.img
               src={thirdImage}
               alt="Instagram profile of lezichram"
@@ -98,16 +87,6 @@ function HowItStarted() {
           </div>
         </div>
       </div>
-      {enlargedImage && (
-        <div className="overlay" onClick={() => setEnlargedImage(null)}>
-          <img
-            src={enlargedImage}
-            alt="enlarged"
-            className="enlargedImage"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      )}
     </motion.div>
   );
 }

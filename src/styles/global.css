@@ -216,14 +216,10 @@ input {
 .contentImage {
   width: 50%;
   transform: translateX(30%);
-  position: relative;
-  cursor: pointer;
 }
 .contentImageLeft {
   width: 50%;
   transform: translateX(-30%);
-  position: relative;
-  cursor: pointer;
 }
 
 .contentImageLeft img {
@@ -236,31 +232,6 @@ input {
 .contentImage img {
   width: 100%;
   border-radius: 1rem;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.enlargedImage {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 1rem;
-}
-
-@media (max-width: 940px) {
-  .howItStartedContainer {
-    font-size: 0.7rem;
-  }
 }
 
 @media (max-width: 480px) {
