@@ -10,7 +10,12 @@ function SearchBar({ searchValue, setSearchValue, handleSearch }) {
   return (
     <div>
       <h2>?מחפשים פוסט בעמוד</h2>
-      <input type="text" value={searchValue} onChange={handleChange} />
+      <input
+        type="text"
+        value={searchValue}
+        onChange={handleChange}
+        placeholder="חפש חלל"
+      />
     </div>
   );
 }

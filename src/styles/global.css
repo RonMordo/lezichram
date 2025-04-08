@@ -17,7 +17,7 @@ body {
   text-align: center;
   display: flex;
   justify-content: center;
-  background-image: url("/src/assets/backgroundImage.png");
+  background-image: url("/src/assets/backgroundImg.jpg");
   background-repeat: repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -43,7 +43,7 @@ body {
 .about {
   font-size: 1.3rem;
   line-height: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: white;
   /* background-color: rgba(0, 0, 0, 0.5); */
   text-shadow: 0 0 6px rgba(0, 0, 0, 1);
@@ -68,7 +68,7 @@ input {
   min-width: 15rem;
   direction: rtl;
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
 
 .soldiersContainer {
@@ -178,12 +178,15 @@ input {
   border: transparent;
   font-family: "Noto Sans Hebrew", sans-serif;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   color: white;
+  background-color: rgb(255, 166, 0);
+  border-radius: 1rem;
+  padding: 0.4rem;
 }
 
 .howItStartedButton button:hover {
-  color: blue;
   font-size: 1.1rem;
 }
 
@@ -195,7 +198,7 @@ input {
 
 .howItStartedContainer {
   width: 80%;
-  background-color: rgb(255, 255, 255, 0.7);
+  background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -216,6 +219,7 @@ input {
 .contentImage {
   width: 50%;
   transform: translateX(30%);
+  position: relative;
 }
 .contentImageLeft {
   width: 50%;
@@ -234,12 +238,56 @@ input {
   border-radius: 1rem;
 }
 
+.contentImage button,
+.contentImageLeft button {
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 10px;
+  left: 8px;
+  border: none;
+  background-color: rgba(65, 65, 65, 0.315);
+  border-radius: 50%;
+  padding: 0.3rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.contentImage button:hover {
+  transform: scale(1.1);
+}
+
+.contentImage button img,
+.contentImageLeft button img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+.imageModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.imageModal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 1rem;
+  cursor: default;
+}
+
 @media (max-width: 480px) {
   html {
-    font-size: 16px;
-  }
-  input {
-    width: 100%;
+    font-size: 13px;
   }
   .outerContainer {
     width: 100%;
@@ -248,7 +296,22 @@ input {
     font-size: 1rem;
   }
   .contentImageLeft img {
-    width: 11rem;
+    /* width: 11rem; */
+    width: 120%;
+  }
+  .contentImage.first {
+    transform: translateX(10%);
+  }
+  .contentImage .firstImage {
+    height: 300px;
+    width: 120%;
+  }
+  .contentImage.lastImage img {
+    height: 400px;
+    width: 120%;
+  }
+  .contentImage.lastImage {
+    transform: translateX(10%);
   }
 }
 

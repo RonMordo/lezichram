@@ -12,7 +12,7 @@ function SoldierCard({ soldierData }) {
       target="_blank"
       rel="noopener noreferrer"
       className="soldierCard"
-      style={{ cursor: "pointer", textDecoration: "none", color: "inherit" }}
+      style={{ cursor: "pointer", textDecoration: "none", color: "black" }}
     >
       <div className="postHeader">
         <div className="profileImage">

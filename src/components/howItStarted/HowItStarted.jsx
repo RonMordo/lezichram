@@ -1,8 +1,10 @@
 import firstImage from "../../assets/firstImg.jpg";
 import secondImage from "../../assets/secondImg.png";
 import thirdImage from "../../assets/thirdImg.jpg";
+import enlargeButton from "../../assets/maximize.png";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const shakeTransition = {
   repeat: 1,
@@ -15,6 +17,16 @@ const shakeAnimation = {
 };
 
 function HowItStarted() {
+  const [enlargedImage, setEnlargedImage] = useState(null);
+
+  const handleEnlarge = (image) => {
+    setEnlargedImage(image);
+  };
+
+  const closeModal = () => {
+    setEnlargedImage(null);
+  };
+
   return (
     <motion.div
       className="outerContainer"
@@ -34,14 +46,22 @@ function HowItStarted() {
               asdasdsfjiasdnfjisdanjf
             </p>
           </div>
-          <div className="contentImage">
+          <div className="contentImage first">
             <motion.img
+              className="firstImage"
               src={firstImage}
               alt="People looking at lezchiram statue"
               initial="hidden"
               animate={shakeAnimation}
               transition={shakeTransition}
             />
+            <button>
+              <img
+                src={enlargeButton}
+                alt="Enlarge button"
+                onClick={() => handleEnlarge(firstImage)}
+              />
+            </button>
           </div>
         </div>
         <div className="contentSection">
@@ -53,6 +73,13 @@ function HowItStarted() {
               animate={shakeAnimation}
               transition={shakeTransition}
             />
+            <button>
+              <img
+                src={enlargeButton}
+                alt="Enlarge button"
+                onClick={() => handleEnlarge(secondImage)}
+              />
+            </button>
           </div>
           <div className="content">
             <h2>הנצחה חדשה</h2>
@@ -76,7 +103,7 @@ function HowItStarted() {
               asdasdsfjiasdnfjisdanjf
             </p>
           </div>
-          <div className="contentImage">
+          <div className="contentImage lastImage">
             <motion.img
               src={thirdImage}
               alt="Instagram profile of lezichram"
@@ -84,9 +111,25 @@ function HowItStarted() {
               animate={shakeAnimation}
               transition={shakeTransition}
             />
+            <button>
+              <img
+                src={enlargeButton}
+                alt="Enlarge button"
+                onClick={() => handleEnlarge(thirdImage)}
+              />
+            </button>
           </div>
         </div>
       </div>
+      {enlargedImage && (
+        <div className="imageModal" onClick={closeModal}>
+          <img
+            src={enlargedImage}
+            alt="Enlarged view"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </motion.div>
   );
 }
