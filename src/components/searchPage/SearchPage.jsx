@@ -14,7 +14,7 @@ function SearchPage({
       className="searchPage"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 2 }}
     >
       <div className="searchBar">
         <SearchBar

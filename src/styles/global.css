@@ -1,4 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@100..900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@100..900&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -8,7 +10,8 @@
 html,
 body {
   font-size: 18px;
-  font-family: "Noto Sans Hebrew", sans-serif;
+  /* font-family: "Noto Sans Hebrew", sans-serif; */
+  font-family: "Rubik", sans-serif;
 }
 
 #root {
@@ -41,7 +44,7 @@ body {
 }
 
 .about {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   line-height: 1.5rem;
   margin-bottom: 1rem;
   color: white;
@@ -69,6 +72,7 @@ input {
   direction: rtl;
   padding: 0.5rem;
   font-size: 1.3rem;
+  font-family: "Rubik", sans-serif;
 }
 
 .soldiersContainer {
@@ -173,21 +177,31 @@ input {
   margin-bottom: 1rem;
 }
 
+.howItStartedButton a {
+  text-decoration: none;
+}
+
 .howItStartedButton button {
-  background-color: transparent;
-  border: transparent;
-  font-family: "Noto Sans Hebrew", sans-serif;
-  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  background-color: rgb(255, 166, 0);
+  border: none;
+  font-family: "Rubik", sans-serif;
+  font-size: 1.3rem;
+  width: 13rem;
   font-weight: 600;
   cursor: pointer;
   color: white;
-  background-color: rgb(255, 166, 0);
   border-radius: 1rem;
-  padding: 0.4rem;
+  padding: 0.4rem 1rem;
+  transition: font-size 0.2s ease;
 }
 
 .howItStartedButton button:hover {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
 }
 
 .outerContainer {
@@ -288,6 +302,13 @@ input {
 @media (max-width: 480px) {
   html {
     font-size: 13px;
+  }
+  .about {
+    font-size: 1.8rem;
+  }
+  .howItStartedButton button {
+    font-size: 1.5rem;
+    width: 14rem;
   }
   .outerContainer {
     width: 100%;

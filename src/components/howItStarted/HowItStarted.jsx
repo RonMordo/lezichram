@@ -6,16 +6,6 @@ import enlargeButton from "../../assets/maximize.png";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const shakeTransition = {
-  repeat: 1,
-  duration: 0.5,
-  ease: "easeInOut",
-};
-
-const shakeAnimation = {
-  rotate: [0, -5, 5, -5, 5, 0],
-};
-
 function HowItStarted() {
   const [enlargedImage, setEnlargedImage] = useState(null);
 
@@ -32,7 +22,7 @@ function HowItStarted() {
       className="outerContainer"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 2 }}
     >
       <div className="howItStartedContainer">
         <div className="contentSection">
@@ -51,9 +41,9 @@ function HowItStarted() {
               className="firstImage"
               src={firstImage}
               alt="People looking at lezchiram statue"
-              initial="hidden"
-              animate={shakeAnimation}
-              transition={shakeTransition}
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
             />
             <button>
               <img
@@ -69,9 +59,9 @@ function HowItStarted() {
             <motion.img
               src={secondImage}
               alt="A women looking into the statue which has a father and a child in it"
-              initial="hidden"
-              animate={shakeAnimation}
-              transition={shakeTransition}
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
             />
             <button>
               <img
@@ -107,9 +97,9 @@ function HowItStarted() {
             <motion.img
               src={thirdImage}
               alt="Instagram profile of lezichram"
-              initial="hidden"
-              animate={shakeAnimation}
-              transition={shakeTransition}
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
             />
             <button>
               <img
