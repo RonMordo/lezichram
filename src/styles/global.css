@@ -197,11 +197,12 @@ input {
   color: white;
   border-radius: 1rem;
   padding: 0.4rem 1rem;
-  transition: font-size 0.2s ease;
+  /* transition: font-size 0.2s ease; */
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .howItStartedButton button:hover {
-  font-size: 1.4rem;
+  transform: scale(1.05);
 }
 
 .outerContainer {
