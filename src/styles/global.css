@@ -43,17 +43,13 @@ body {
   width: 100%;
   height: 100vh;
   min-height: 100vh;
-  background-image: radial-gradient(
+  background-image: url("../assets/backgroundImg.png");
+  background-size: cover;
+  background-position: center;
+  /* background-image: radial-gradient(
     circle farthest-corner at 10% 20%,
     rgba(38, 51, 97, 1) 0%,
     rgba(65, 143, 222, 1) 79%
-  );
-  /* background: rgb(3, 74, 107);
-  background: linear-gradient(
-    158deg,
-    rgb(0, 68, 124) 0%,
-    rgb(10, 86, 173) 48%,
-    rgb(3, 70, 112) 100%
   ); */
   z-index: -1;
 }
