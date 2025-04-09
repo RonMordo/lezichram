@@ -317,7 +317,7 @@ input {
   width: 80%;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  /* gap: 2rem; */
   background-color: white;
   padding: 1rem;
   border-radius: 1rem;
@@ -339,6 +339,10 @@ input {
   border-radius: 1rem;
   padding: 0.2rem;
   cursor: pointer;
+}
+
+.partnerCard {
+  margin-top: 2rem;
 }
 
 .partnerCard h3 {

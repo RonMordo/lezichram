@@ -58,7 +58,11 @@ function PartnersSection() {
   const [selectedPartnerKey, setSelectedPartnerKey] = useState(null);
 
   const handleSelectedPartner = (key) => {
-    setSelectedPartnerKey(key);
+    if (key === selectedPartnerKey) {
+      setSelectedPartnerKey(null);
+    } else {
+      setSelectedPartnerKey(key);
+    }
   };
 
   const selectedPartner = partners.find((p) => p.key === selectedPartnerKey);
