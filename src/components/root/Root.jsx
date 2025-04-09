@@ -9,6 +9,7 @@ function Root() {
 
   return (
     <div className="root">
+      <div className="fixed-bg" />
       <div className="title">
         <h1>לזכרם</h1>
       </div>
