@@ -1,5 +1,6 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { FaChevronLeft, FaChevronDown } from "react-icons/fa";
+import PartnersSection from "../partnersSection/PartnersSection";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
@@ -34,6 +35,7 @@ function Root() {
       </div>
 
       <Outlet />
+      <PartnersSection />
     </div>
   );
 }
