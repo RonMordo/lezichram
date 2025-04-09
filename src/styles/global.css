@@ -230,6 +230,7 @@ input {
   gap: 2rem;
   border-radius: 1rem;
   overflow: visible;
+  box-shadow: 0 15px 8px rgba(0, 0, 0, 0.2);
 }
 
 .contentSection {
@@ -321,6 +322,7 @@ input {
   background-color: white;
   padding: 1rem;
   border-radius: 1rem;
+  box-shadow: 0 15px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logos {
@@ -334,8 +336,8 @@ input {
 }
 
 .logos img {
-  width: 7rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 5rem;
+  box-shadow: 0 15px 8px rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
   padding: 0.2rem;
   cursor: pointer;
@@ -351,7 +353,7 @@ input {
 }
 
 img.selectedPartnerLogo {
-  box-shadow: 0 0 10px 3px orange;
+  box-shadow: 0 0 10px 3px rgb(255, 166, 0);
   border-radius: 0.5rem;
   transition: box-shadow 0.3s ease;
 }
