@@ -10,7 +10,6 @@
 html,
 body {
   font-size: 18px;
-  /* font-family: "Noto Sans Hebrew", sans-serif; */
   font-family: "Rubik", sans-serif;
 }
 
@@ -20,35 +19,18 @@ body {
   text-align: center;
   display: flex;
   justify-content: center;
-  /* background-image: url("/src/assets/backgroundImg.jpg");
-  background-repeat: repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center; */
-  /* background: #2c3e50; /* fallback for old browsers */
-  /* background: -webkit-linear-gradient(to right, #3498db, #2c3e50);
-  background: linear-gradient(to right, #3498db, #2c3e50); */
-  /* background: rgb(0, 140, 210);
-  background: linear-gradient(
-    158deg,
-    rgb(0, 87, 131) 0%,
-    rgba(45, 135, 235, 1) 48%,
-    rgb(0, 73, 119) 100%
-  ); */
-  /* background-attachment: fixed; */
 }
 
 .root {
   width: 100%;
   margin-top: 1.5rem;
-  /* max-width: 25rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .title h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 500;
   margin-bottom: 1rem;
   color: white;
@@ -61,11 +43,11 @@ body {
   width: 100%;
   height: 100vh;
   min-height: 100vh;
-  background: rgb(0, 140, 210);
+  background: rgb(0, 57, 83);
   background: linear-gradient(
     158deg,
     rgb(0, 87, 131) 0%,
-    rgba(45, 135, 235, 1) 48%,
+    rgb(4, 58, 119) 48%,
     rgb(0, 73, 119) 100%
   );
   z-index: -1;
@@ -76,13 +58,12 @@ body {
   line-height: 2rem;
   margin-bottom: 1rem;
   color: white;
-  /* background-color: rgba(0, 0, 0, 0.5); */
-  /* text-shadow: 0 0 6px rgba(0, 0, 0, 1); */
   border-radius: 1rem;
   padding: 1rem;
 }
 
 h2 {
+  font-size: 2.3rem;
   font-weight: 600;
 }
 
@@ -363,10 +344,19 @@ input {
   .contentImage.lastImage {
     transform: translateX(10%);
   }
+  h2 {
+    font-size: 2.5rem;
+  }
+  input {
+    width: 20rem;
+  }
 }
 
 @media (max-width: 375px) {
   html {
     font-size: 13px;
+  }
+  .about {
+    font-size: 1.1rem;
   }
 }
