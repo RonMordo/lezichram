@@ -325,6 +325,11 @@ input {
   box-shadow: 0 15px 8px rgba(0, 0, 0, 0.2);
 }
 
+.partnersContainer h2 {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
 .logos {
   display: flex;
   column-gap: 1rem;

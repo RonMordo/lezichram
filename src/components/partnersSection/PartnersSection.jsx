@@ -69,6 +69,7 @@ function PartnersSection() {
 
   return (
     <div className="partnersContainer">
+      <h2>שותפים למיזם</h2>
       <div className="logos">
         {partners.map(({ key, logo }) => (
           <img
