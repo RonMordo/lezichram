@@ -14,7 +14,7 @@ function SearchBar({ searchValue, setSearchValue, handleSearch }) {
         type="text"
         value={searchValue}
         onChange={handleChange}
-        placeholder="חפש חלל"
+        placeholder="חפשו לפי שם"
       />
     </div>
   );
