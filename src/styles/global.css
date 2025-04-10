@@ -40,8 +40,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  min-height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   background-image: url("../assets/backgroundImg.png");
   background-size: cover;
   background-position: center;
@@ -191,7 +190,7 @@ input {
   justify-content: center;
   gap: 0.5rem;
 
-  background-color: rgb(255, 166, 0);
+  background-color: #ff8500;
   border: none;
   font-family: "Rubik", sans-serif;
   font-size: 1.3rem;
@@ -308,31 +307,31 @@ input {
   display: flex;
   flex-direction: column;
   color: white;
+  min-height: 300px;
   margin-top: 3rem;
   margin-bottom: 3rem;
   width: 50%;
   align-items: center;
-  justify-content: center;
   background-color: rgba(1, 81, 156, 0.1);
   padding: 1rem 0;
   border-radius: 1rem;
-  box-shadow: 0 15px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 6.3px 0px #00000036;
 }
 
 .partnersContainer h2 {
   font-weight: 500;
-  margin-bottom: 1rem;
   font-size: 2rem;
 }
 
 .partnersContainer h3 {
   font-size: 1.3rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .logos {
   display: flex;
   overflow-x: auto;
+  margin-top: 1.5rem;
   scroll-behavior: auto;
   gap: 1rem;
   padding: 1rem 0;
@@ -350,7 +349,7 @@ input {
   height: 100px;
   object-fit: cover;
   padding: 2px;
-  box-shadow: 0px 6px 5px 1px #4c65b885;
+  box-shadow: 0px 6px 5.6px 1px #294072ab;
   border: 1px solid #4c65b885;
   border-radius: 15px;
   transition: transform 0.3s ease;
@@ -368,7 +367,6 @@ input {
 
 img.selectedPartnerLogo {
   box-shadow: 0 0 10px 3px #ff8500;
-  border-radius: 0.5rem;
   transition: box-shadow 0.3s ease;
 }
 

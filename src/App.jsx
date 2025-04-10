@@ -1,6 +1,7 @@
 import Root from "./components/root/Root";
 import SearchPage from "./components/searchPage/SearchPage";
 import HowItStarted from "./components/howItStarted/HowItStarted";
+import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -33,6 +34,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Root />}>
           <Route
