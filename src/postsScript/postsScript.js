@@ -1,6 +1,9 @@
 import fetch from "node-fetch";
 import fs from "fs";
 import { extractNameFromImage } from "./extractNameFromImage.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const ACCESS_TOKEN = process.env.VITE_INSTAGRAM_API_KEY;
 const IG_USER_ID = process.env.VITE_IG_USERID;
