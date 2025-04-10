@@ -70,9 +70,7 @@ function PartnersSection() {
   useEffect(() => {
     if (selectedPartnerKey) {
       pausedBySelectionRef.current = true;
-      if (resumeTimeoutRef.current) {
-        clearTimeout(resumeTimeoutRef.current);
-      }
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
       resumeTimeoutRef.current = setTimeout(() => {
         pausedBySelectionRef.current = false;
       }, 2000);
@@ -108,9 +106,7 @@ function PartnersSection() {
     let lastTime = null;
 
     const animate = (time) => {
-      if (lastTime === null) {
-        lastTime = time;
-      }
+      if (lastTime === null) lastTime = time;
       const delta = time - lastTime;
       lastTime = time;
 
@@ -127,37 +123,33 @@ function PartnersSection() {
       requestAnimationFrame(animate);
     };
 
+    let touchHandlers = {};
     if (isMobile) {
-      const handleTouchStart = () => {
+      touchHandlers.handleTouchStart = () => {
         manualScrollRef.current = true;
-        if (manualTimeoutRef.current) {
-          clearTimeout(manualTimeoutRef.current);
-        }
+        if (manualTimeoutRef.current) clearTimeout(manualTimeoutRef.current);
       };
-      const handleTouchEnd = () => {
+      touchHandlers.handleTouchEnd = () => {
         manualTimeoutRef.current = setTimeout(() => {
           manualScrollRef.current = false;
         }, 1000);
       };
-      el.addEventListener("touchstart", handleTouchStart);
-      el.addEventListener("touchend", handleTouchEnd);
-      el.addEventListener("touchcancel", handleTouchEnd);
 
-      return () => {
-        el.removeEventListener("touchstart", handleTouchStart);
-        el.removeEventListener("touchend", handleTouchEnd);
-        el.removeEventListener("touchcancel", handleTouchEnd);
-        if (manualTimeoutRef.current) {
-          clearTimeout(manualTimeoutRef.current);
-        }
-      };
+      el.addEventListener("touchstart", touchHandlers.handleTouchStart);
+      el.addEventListener("touchend", touchHandlers.handleTouchEnd);
+      el.addEventListener("touchcancel", touchHandlers.handleTouchEnd);
     }
 
     requestAnimationFrame(animate);
+
     return () => {
-      if (resumeTimeoutRef.current) {
-        clearTimeout(resumeTimeoutRef.current);
+      if (isMobile && touchHandlers.handleTouchStart) {
+        el.removeEventListener("touchstart", touchHandlers.handleTouchStart);
+        el.removeEventListener("touchend", touchHandlers.handleTouchEnd);
+        el.removeEventListener("touchcancel", touchHandlers.handleTouchEnd);
+        if (manualTimeoutRef.current) clearTimeout(manualTimeoutRef.current);
       }
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     };
   }, []);
 
