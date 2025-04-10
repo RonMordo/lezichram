@@ -57,8 +57,44 @@ const partners = [
 function PartnersSection() {
   const [selectedPartnerKey, setSelectedPartnerKey] = useState(null);
   const scrollRef = useRef(null);
+  // This ref reflects the currently selected partner key
+  const selectedPartnerRef = useRef(selectedPartnerKey);
+  // This ref determines if auto scroll should be paused due to a partner selection
+  const pausedBySelectionRef = useRef(false);
+  const resumeTimeoutRef = useRef(null);
+
+  // Update the selected partner ref whenever state changes.
+  useEffect(() => {
+    selectedPartnerRef.current = selectedPartnerKey;
+  }, [selectedPartnerKey]);
+
+  // When a partner is selected, mark auto scroll as paused and set a 2 sec timer to resume.
+  useEffect(() => {
+    if (selectedPartnerKey) {
+      pausedBySelectionRef.current = true;
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
+      }
+      resumeTimeoutRef.current = setTimeout(() => {
+        pausedBySelectionRef.current = false;
+      }, 2000);
+    } else {
+      pausedBySelectionRef.current = false;
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
+        resumeTimeoutRef.current = null;
+      }
+    }
+    return () => {
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
+        resumeTimeoutRef.current = null;
+      }
+    };
+  }, [selectedPartnerKey]);
 
   const handleSelectedPartner = (key) => {
+    // Toggle partner selection—clicking again deselects.
     setSelectedPartnerKey((prev) => (prev === key ? null : key));
   };
 
@@ -71,13 +107,9 @@ function PartnersSection() {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(
       window.navigator.userAgent
     );
-    const mobileSpeed = 60;
-    const desktopSpeed = 70;
-    const speed = isMobile ? mobileSpeed : desktopSpeed;
+    const speed = 60; // using the same speed for mobile and desktop
 
     let lastTime = null;
-    let paused = false;
-    let timeoutID;
 
     const animate = (time) => {
       if (lastTime === null) {
@@ -86,9 +118,10 @@ function PartnersSection() {
       const delta = time - lastTime;
       lastTime = time;
 
-      if (!paused) {
+      // Update scroll position only if no partner is selected,
+      // or if a partner is selected but the 2 sec pause has expired
+      if (!selectedPartnerRef.current || !pausedBySelectionRef.current) {
         el.scrollLeft += (speed * delta) / 1000;
-
         const cycleWidth = el.scrollWidth / 2;
         if (el.scrollLeft >= cycleWidth) {
           el.scrollLeft -= cycleWidth;
@@ -97,44 +130,12 @@ function PartnersSection() {
       requestAnimationFrame(animate);
     };
 
-    const pauseAutoScroll = () => {
-      paused = true;
-      clearTimeout(timeoutID);
-    };
-
-    const resumeAutoScroll = () => {
-      clearTimeout(timeoutID);
-      timeoutID = setTimeout(() => {
-        paused = false;
-        lastTime = null;
-      }, 3000);
-    };
-
-    if (isMobile) {
-      el.addEventListener("touchstart", pauseAutoScroll);
-      el.addEventListener("touchend", resumeAutoScroll);
-      el.addEventListener("touchcancel", resumeAutoScroll);
-    } else {
-      el.addEventListener("mousedown", pauseAutoScroll);
-      el.addEventListener("mouseup", resumeAutoScroll);
-      el.addEventListener("wheel", pauseAutoScroll);
-      el.addEventListener("scroll", pauseAutoScroll);
-    }
-
     requestAnimationFrame(animate);
 
     return () => {
-      if (isMobile) {
-        el.removeEventListener("touchstart", pauseAutoScroll);
-        el.removeEventListener("touchend", resumeAutoScroll);
-        el.removeEventListener("touchcancel", resumeAutoScroll);
-      } else {
-        el.removeEventListener("mousedown", pauseAutoScroll);
-        el.removeEventListener("mouseup", resumeAutoScroll);
-        el.removeEventListener("wheel", pauseAutoScroll);
-        el.removeEventListener("scroll", pauseAutoScroll);
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
       }
-      clearTimeout(timeoutID);
     };
   }, []);
 
