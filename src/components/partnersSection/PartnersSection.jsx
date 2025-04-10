@@ -74,7 +74,8 @@ function PartnersSection() {
     );
     const mobileSpeed = 40; // slower speed for mobile devices
     const desktopSpeed = 70; // regular speed for desktops
-    const speed = isMobile ? mobileSpeed : desktopSpeed;
+    // const speed = isMobile ? mobileSpeed : desktopSpeed;
+    const speed = 70;
 
     let lastTime = null;
     let paused = false;
