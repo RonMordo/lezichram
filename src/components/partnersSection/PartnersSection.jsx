@@ -68,12 +68,11 @@ function PartnersSection() {
     const el = scrollRef.current;
     if (!el) return;
 
-    // Determine if the device is mobile
     const isMobile = /iPhone|iPad|iPod|Android/i.test(
       window.navigator.userAgent
     );
-    const mobileSpeed = 60; // slower speed for mobile devices
-    const desktopSpeed = 70; // regular speed for desktops
+    const mobileSpeed = 60;
+    const desktopSpeed = 70;
     const speed = isMobile ? mobileSpeed : desktopSpeed;
 
     let lastTime = null;
@@ -88,7 +87,6 @@ function PartnersSection() {
       lastTime = time;
 
       if (!paused) {
-        // Apply the correct speed based on the device type
         el.scrollLeft += (speed * delta) / 1000;
 
         const cycleWidth = el.scrollWidth / 2;
