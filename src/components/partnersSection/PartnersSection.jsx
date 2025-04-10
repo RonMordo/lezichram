@@ -68,7 +68,14 @@ function PartnersSection() {
     const el = scrollRef.current;
     if (!el) return;
 
-    const speed = 70;
+    // Determine if the device is mobile
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(
+      window.navigator.userAgent
+    );
+    const mobileSpeed = 40; // slower speed for mobile devices
+    const desktopSpeed = 70; // regular speed for desktops
+    const speed = isMobile ? mobileSpeed : desktopSpeed;
+
     let lastTime = null;
     let paused = false;
     let timeoutID;
@@ -81,6 +88,7 @@ function PartnersSection() {
       lastTime = time;
 
       if (!paused) {
+        // Apply the correct speed based on the device type
         el.scrollLeft += (speed * delta) / 1000;
 
         const cycleWidth = el.scrollWidth / 2;
@@ -90,10 +98,6 @@ function PartnersSection() {
       }
       requestAnimationFrame(animate);
     };
-
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(
-      window.navigator.userAgent
-    );
 
     const pauseAutoScroll = () => {
       paused = true;
@@ -139,6 +143,7 @@ function PartnersSection() {
   return (
     <div className="partnersContainer">
       <h2>שותפים למיזם</h2>
+      <h3>לחצו על לוגו למידע</h3>
       <div className="logos" ref={scrollRef}>
         {[...partners, ...partners].map(({ key, logo }, index) => (
           <img
