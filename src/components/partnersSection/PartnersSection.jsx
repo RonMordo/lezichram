@@ -72,10 +72,9 @@ function PartnersSection() {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(
       window.navigator.userAgent
     );
-    const mobileSpeed = 40; // slower speed for mobile devices
+    const mobileSpeed = 60; // slower speed for mobile devices
     const desktopSpeed = 70; // regular speed for desktops
-    // const speed = isMobile ? mobileSpeed : desktopSpeed;
-    const speed = 70;
+    const speed = isMobile ? mobileSpeed : desktopSpeed;
 
     let lastTime = null;
     let paused = false;
