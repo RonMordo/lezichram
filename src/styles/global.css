@@ -417,6 +417,7 @@ img.selectedPartnerLogo {
   }
   .partnersContainer {
     width: 90%;
+    min-height: 230px;
   }
 }
 
