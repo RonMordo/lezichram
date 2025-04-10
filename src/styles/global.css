@@ -28,11 +28,8 @@ body {
   align-items: center;
 }
 
-.title h1 {
-  font-size: 4rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  color: white;
+.title img {
+  width: 20rem;
 }
 
 .fixed-bg {
@@ -177,7 +174,7 @@ input {
 }
 
 .howItStartedButton {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .howItStartedButton a {
@@ -319,8 +316,8 @@ input {
 }
 
 .partnersContainer h2 {
-  font-weight: 500;
-  font-size: 2rem;
+  font-weight: 600;
+  font-size: 2.5rem;
 }
 
 .partnersContainer h3 {

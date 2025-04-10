@@ -141,7 +141,7 @@ function PartnersSection() {
   return (
     <div className="partnersContainer">
       <h2>שותפים למיזם</h2>
-      <h3>לחצו על לוגו למידע</h3>
+      <h3>לחצו על לוגו לעוד למידע</h3>
       <div className="logos" ref={scrollRef}>
         {[...partners, ...partners].map(({ key, logo }, index) => (
           <img

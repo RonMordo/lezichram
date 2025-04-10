@@ -1,6 +1,7 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { FaChevronLeft, FaChevronDown } from "react-icons/fa";
 import PartnersSection from "../partnersSection/PartnersSection";
+import lezichramLogo from "../../assets/lezichramLogo.svg";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
@@ -12,7 +13,7 @@ function Root() {
     <div className="root">
       <div className="fixed-bg" />
       <div className="title">
-        <h1>לזכרם</h1>
+        <img src={lezichramLogo} alt="Lezichram logo" />
       </div>
       <div className="about">
         <p>הנצחה חדשה לעולם חדש</p>
