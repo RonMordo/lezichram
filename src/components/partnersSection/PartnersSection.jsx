@@ -57,18 +57,16 @@ const partners = [
 function PartnersSection() {
   const [selectedPartnerKey, setSelectedPartnerKey] = useState(null);
   const scrollRef = useRef(null);
-  // This ref reflects the currently selected partner key
   const selectedPartnerRef = useRef(selectedPartnerKey);
-  // This ref determines if auto scroll should be paused due to a partner selection
   const pausedBySelectionRef = useRef(false);
   const resumeTimeoutRef = useRef(null);
+  const manualScrollRef = useRef(false);
+  const manualTimeoutRef = useRef(null);
 
-  // Update the selected partner ref whenever state changes.
   useEffect(() => {
     selectedPartnerRef.current = selectedPartnerKey;
   }, [selectedPartnerKey]);
 
-  // When a partner is selected, mark auto scroll as paused and set a 2 sec timer to resume.
   useEffect(() => {
     if (selectedPartnerKey) {
       pausedBySelectionRef.current = true;
@@ -94,7 +92,6 @@ function PartnersSection() {
   }, [selectedPartnerKey]);
 
   const handleSelectedPartner = (key) => {
-    // Toggle partner selection—clicking again deselects.
     setSelectedPartnerKey((prev) => (prev === key ? null : key));
   };
 
@@ -107,8 +104,7 @@ function PartnersSection() {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(
       window.navigator.userAgent
     );
-    const speed = 60; // using the same speed for mobile and desktop
-
+    const speed = 60;
     let lastTime = null;
 
     const animate = (time) => {
@@ -118,9 +114,10 @@ function PartnersSection() {
       const delta = time - lastTime;
       lastTime = time;
 
-      // Update scroll position only if no partner is selected,
-      // or if a partner is selected but the 2 sec pause has expired
-      if (!selectedPartnerRef.current || !pausedBySelectionRef.current) {
+      if (
+        (!selectedPartnerRef.current || !pausedBySelectionRef.current) &&
+        !manualScrollRef.current
+      ) {
         el.scrollLeft += (speed * delta) / 1000;
         const cycleWidth = el.scrollWidth / 2;
         if (el.scrollLeft >= cycleWidth) {
@@ -130,8 +127,33 @@ function PartnersSection() {
       requestAnimationFrame(animate);
     };
 
-    requestAnimationFrame(animate);
+    if (isMobile) {
+      const handleTouchStart = () => {
+        manualScrollRef.current = true;
+        if (manualTimeoutRef.current) {
+          clearTimeout(manualTimeoutRef.current);
+        }
+      };
+      const handleTouchEnd = () => {
+        manualTimeoutRef.current = setTimeout(() => {
+          manualScrollRef.current = false;
+        }, 1000);
+      };
+      el.addEventListener("touchstart", handleTouchStart);
+      el.addEventListener("touchend", handleTouchEnd);
+      el.addEventListener("touchcancel", handleTouchEnd);
 
+      return () => {
+        el.removeEventListener("touchstart", handleTouchStart);
+        el.removeEventListener("touchend", handleTouchEnd);
+        el.removeEventListener("touchcancel", handleTouchEnd);
+        if (manualTimeoutRef.current) {
+          clearTimeout(manualTimeoutRef.current);
+        }
+      };
+    }
+
+    requestAnimationFrame(animate);
     return () => {
       if (resumeTimeoutRef.current) {
         clearTimeout(resumeTimeoutRef.current);
