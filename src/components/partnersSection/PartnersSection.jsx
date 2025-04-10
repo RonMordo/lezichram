@@ -68,7 +68,7 @@ function PartnersSection() {
     const el = scrollRef.current;
     if (!el) return;
 
-    const speed = 70;
+    const speed = 70; // pixels per second (adjust as needed)
     let lastTime = null;
     let paused = false;
     let timeoutID;
@@ -81,15 +81,23 @@ function PartnersSection() {
       lastTime = time;
 
       if (!paused) {
+        // Update the scrollLeft based on elapsed time
         el.scrollLeft += (speed * delta) / 1000;
 
+        // Calculate the width of one cycle (first set)
         const cycleWidth = el.scrollWidth / 2;
+        // When we've scrolled past the first set, wrap around by subtracting cycleWidth
         if (el.scrollLeft >= cycleWidth) {
           el.scrollLeft -= cycleWidth;
         }
       }
       requestAnimationFrame(animate);
     };
+
+    // Detect mobile devices
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(
+      window.navigator.userAgent
+    );
 
     const pauseAutoScroll = () => {
       paused = true;
@@ -100,29 +108,36 @@ function PartnersSection() {
       clearTimeout(timeoutID);
       timeoutID = setTimeout(() => {
         paused = false;
-        lastTime = null;
+        lastTime = null; // Reset lastTime to prevent jump
       }, 3000);
     };
 
-    el.addEventListener("mousedown", pauseAutoScroll);
-    el.addEventListener("touchstart", pauseAutoScroll);
-    el.addEventListener("wheel", pauseAutoScroll);
-    el.addEventListener("scroll", pauseAutoScroll);
-
-    el.addEventListener("mouseup", resumeAutoScroll);
-    el.addEventListener("touchend", resumeAutoScroll);
-    el.addEventListener("wheel", resumeAutoScroll);
+    // For mobile, attach only touch events (avoid the "scroll" event)
+    if (isMobile) {
+      el.addEventListener("touchstart", pauseAutoScroll);
+      el.addEventListener("touchend", resumeAutoScroll);
+      el.addEventListener("touchcancel", resumeAutoScroll);
+    } else {
+      // For desktop, attach mouse & wheel events plus a scroll listener
+      el.addEventListener("mousedown", pauseAutoScroll);
+      el.addEventListener("mouseup", resumeAutoScroll);
+      el.addEventListener("wheel", pauseAutoScroll);
+      el.addEventListener("scroll", pauseAutoScroll);
+    }
 
     requestAnimationFrame(animate);
 
     return () => {
-      el.removeEventListener("mousedown", pauseAutoScroll);
-      el.removeEventListener("touchstart", pauseAutoScroll);
-      el.removeEventListener("wheel", pauseAutoScroll);
-      el.removeEventListener("scroll", pauseAutoScroll);
-      el.removeEventListener("mouseup", resumeAutoScroll);
-      el.removeEventListener("touchend", resumeAutoScroll);
-      el.removeEventListener("wheel", resumeAutoScroll);
+      if (isMobile) {
+        el.removeEventListener("touchstart", pauseAutoScroll);
+        el.removeEventListener("touchend", resumeAutoScroll);
+        el.removeEventListener("touchcancel", resumeAutoScroll);
+      } else {
+        el.removeEventListener("mousedown", pauseAutoScroll);
+        el.removeEventListener("mouseup", resumeAutoScroll);
+        el.removeEventListener("wheel", pauseAutoScroll);
+        el.removeEventListener("scroll", pauseAutoScroll);
+      }
       clearTimeout(timeoutID);
     };
   }, []);
