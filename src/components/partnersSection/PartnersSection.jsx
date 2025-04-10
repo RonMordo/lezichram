@@ -68,7 +68,7 @@ function PartnersSection() {
     const el = scrollRef.current;
     if (!el) return;
 
-    const speed = 70; // pixels per second (adjust as needed)
+    const speed = 70;
     let lastTime = null;
     let paused = false;
     let timeoutID;
@@ -81,12 +81,9 @@ function PartnersSection() {
       lastTime = time;
 
       if (!paused) {
-        // Update the scrollLeft based on elapsed time
         el.scrollLeft += (speed * delta) / 1000;
 
-        // Calculate the width of one cycle (first set)
         const cycleWidth = el.scrollWidth / 2;
-        // When we've scrolled past the first set, wrap around by subtracting cycleWidth
         if (el.scrollLeft >= cycleWidth) {
           el.scrollLeft -= cycleWidth;
         }
@@ -94,7 +91,6 @@ function PartnersSection() {
       requestAnimationFrame(animate);
     };
 
-    // Detect mobile devices
     const isMobile = /iPhone|iPad|iPod|Android/i.test(
       window.navigator.userAgent
     );
@@ -108,17 +104,15 @@ function PartnersSection() {
       clearTimeout(timeoutID);
       timeoutID = setTimeout(() => {
         paused = false;
-        lastTime = null; // Reset lastTime to prevent jump
+        lastTime = null;
       }, 3000);
     };
 
-    // For mobile, attach only touch events (avoid the "scroll" event)
     if (isMobile) {
       el.addEventListener("touchstart", pauseAutoScroll);
       el.addEventListener("touchend", resumeAutoScroll);
       el.addEventListener("touchcancel", resumeAutoScroll);
     } else {
-      // For desktop, attach mouse & wheel events plus a scroll listener
       el.addEventListener("mousedown", pauseAutoScroll);
       el.addEventListener("mouseup", resumeAutoScroll);
       el.addEventListener("wheel", pauseAutoScroll);
