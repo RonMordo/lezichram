@@ -187,7 +187,7 @@ input {
   justify-content: center;
   gap: 0.5rem;
 
-  background-color: #ff8500;
+  background-color: rgb(255, 166, 0);
   border: none;
   font-family: "Rubik", sans-serif;
   font-size: 1.3rem;
