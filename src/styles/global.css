@@ -28,6 +28,20 @@ body {
   align-items: center;
 }
 
+.loadingGif {
+  width: 100%;
+  background-image: url("../assets/backgroundImg.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingGif img {
+  width: 20rem;
+}
+
 .title img {
   width: 20rem;
 }

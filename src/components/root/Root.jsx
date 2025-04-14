@@ -1,13 +1,30 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { FaChevronLeft, FaChevronDown } from "react-icons/fa";
+import loadingGif from "../../assets/loadingGif.gif";
 import PartnersSection from "../partnersSection/PartnersSection";
 import lezichramLogo from "../../assets/lezichramLogo.svg";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 function Root() {
   const location = useLocation();
   const isHowItStarted = location.pathname === "/how-it-started";
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setInterval(() => {
+      setLoading(false);
+    }, 5500);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="loadingGif">
+        <img src={loadingGif} alt="Loading gif" />
+      </div>
+    );
+  }
 
   return (
     <div className="root">
