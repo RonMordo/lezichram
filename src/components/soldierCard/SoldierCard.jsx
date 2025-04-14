@@ -5,13 +5,18 @@ import saveIcon from "../../assets/saveIcon.svg";
 import threeDotsIcon from "../../assets/threeDotsIcon.svg";
 import profileImg from "../../assets/profileImage.jpg";
 
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
+
 function SoldierCard({ soldierData }) {
   return (
-    <a
+    <motion.a
       href={soldierData.permalink}
       target="_blank"
       rel="noopener noreferrer"
       className="soldierCard"
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 400, damping: 10 }}
       style={{ cursor: "pointer", textDecoration: "none", color: "black" }}
     >
       <div className="postHeader">
@@ -38,7 +43,7 @@ function SoldierCard({ soldierData }) {
         <img src={shareIcon} className="sharesIcon" alt="" />
         <img src={saveIcon} className="saveIcon" alt="" />
       </div>
-    </a>
+    </motion.a>
   );
 }
 

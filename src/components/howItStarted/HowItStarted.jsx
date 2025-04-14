@@ -2,12 +2,20 @@ import firstImage from "../../assets/firstImg.jpg";
 import secondImage from "../../assets/secondImg.png";
 import thirdImage from "../../assets/thirdImg.jpg";
 import enlargeButton from "../../assets/maximize.png";
+import { ClimbingBoxLoader } from "react-spinners";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function HowItStarted() {
   const [enlargedImage, setEnlargedImage] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const LoadingScreenOverride = {
+    display: "block",
+    width: "100%",
+    margin: "0 auto",
+  };
 
   const handleEnlarge = (image) => {
     setEnlargedImage(image);
@@ -16,6 +24,43 @@ function HowItStarted() {
   const closeModal = () => {
     setEnlargedImage(null);
   };
+
+  useEffect(() => {
+    const imageSources = [firstImage, secondImage, thirdImage];
+    let loadedCount = 0;
+
+    const startTime = Date.now();
+    const minDelay = 2000;
+
+    imageSources.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === imageSources.length) {
+          const elapsed = Date.now() - startTime;
+          const remaining = Math.max(minDelay - elapsed, 0);
+
+          setTimeout(() => {
+            setLoading(false);
+          }, remaining);
+        }
+      };
+    });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="howItStartedLoadingScreen">
+        <ClimbingBoxLoader
+          loading={loading}
+          cssOverride={LoadingScreenOverride}
+          size={window.innerWidth < 480 ? 20 : 30}
+          color="rgb(255, 166, 0)"
+        />
+      </div>
+    );
+  }
 
   return (
     <motion.div

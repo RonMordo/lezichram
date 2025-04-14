@@ -204,6 +204,14 @@ input {
   transform: scale(1.05);
 }
 
+.howItStartedLoadingScreen {
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .outerContainer {
   display: flex;
   justify-content: center;
