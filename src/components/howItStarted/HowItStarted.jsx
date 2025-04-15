@@ -1,6 +1,11 @@
-import firstImage from "../../assets/firstImg.jpg";
-import secondImage from "../../assets/secondImg.png";
-import thirdImage from "../../assets/thirdImg.jpg";
+import firstImage from "../../assets/firstImg.webp";
+import secondImage from "../../assets/women.webp";
+import soldierGif from "../../assets/soldierGifR.gif";
+import thirdImage from "../../assets/secondImg.webp";
+import fourthImage from "../../assets/secondImg1.webp";
+import fifthImage from "../../assets/soldierStatue.webp";
+import sixthImage from "../../assets/thirdImg.webp";
+import seventhImage from "../../assets/soldierPostImage.webp";
 import enlargeButton from "../../assets/maximize.png";
 import { ClimbingBoxLoader } from "react-spinners";
 // eslint-disable-next-line no-unused-vars
@@ -9,7 +14,7 @@ import { useState, useEffect } from "react";
 
 function HowItStarted() {
   const [enlargedImage, setEnlargedImage] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const LoadingScreenOverride = {
     display: "block",
@@ -25,42 +30,18 @@ function HowItStarted() {
     setEnlargedImage(null);
   };
 
-  useEffect(() => {
-    const imageSources = [firstImage, secondImage, thirdImage];
-    let loadedCount = 0;
-
-    const startTime = Date.now();
-    const minDelay = 2000;
-
-    imageSources.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === imageSources.length) {
-          const elapsed = Date.now() - startTime;
-          const remaining = Math.max(minDelay - elapsed, 0);
-
-          setTimeout(() => {
-            setLoading(false);
-          }, remaining);
-        }
-      };
-    });
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="howItStartedLoadingScreen">
-        <ClimbingBoxLoader
-          loading={loading}
-          cssOverride={LoadingScreenOverride}
-          size={window.innerWidth < 480 ? 20 : 30}
-          color="rgb(255, 166, 0)"
-        />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="howItStartedLoadingScreen">
+  //       <ClimbingBoxLoader
+  //         loading={loading}
+  //         cssOverride={LoadingScreenOverride}
+  //         size={window.innerWidth < 480 ? 20 : 30}
+  //         color="rgb(255, 166, 0)"
+  //       />
+  //     </div>
+  //   );
+  // }
 
   return (
     <motion.div
@@ -72,89 +53,125 @@ function HowItStarted() {
       <div className="howItStartedContainer">
         <div className="contentSection">
           <div className="content">
-            <h2>?מה זה חלל</h2>
-            <p>
-              dasdasdndnjaskndfjkaj
-              <br />
-              fdasfkdsafksdklffdsasd
-              <br />
-              asdasdsfjiasdnfjisdanjf
+            <h2>המטרה</h2>
+            <p dir="rtl">
+              בשנת 2022 הוקם מיזם ״לזכרם״ להנצחת חללי מערכות ישראל ונרצחי פעולות
+              האיבה בחיי היומיום באונליין ובאופליין, במטרה לעזור לאנשים, בעיקר
+              צעירים, להתחבר ולזכור.
             </p>
           </div>
-          <div className="contentImage first">
-            <motion.img
-              className="firstImage"
-              src={firstImage}
-              alt="People looking at lezchiram statue"
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-            />
-            <button>
-              <img
-                src={enlargeButton}
-                alt="Enlarge button"
-                onClick={() => handleEnlarge(firstImage)}
-              />
-            </button>
-          </div>
+          <motion.div className="image right">
+            <img src={firstImage} alt="Lezichram statue" />
+          </motion.div>
         </div>
-        <div className="contentSection">
-          <div className="contentImageLeft">
-            <motion.img
+        <div className="contentSection gifSection">
+          <motion.div className="gif left">
+            <img
+              src={soldierGif}
+              alt="Soldier life passing inside of his image"
+            />
+            <img
               src={secondImage}
-              alt="A women looking into the statue which has a father and a child in it"
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              alt="Women reaching to the soldiers life"
+              className="women"
             />
-            <button>
-              <img
-                src={enlargeButton}
-                alt="Enlarge button"
-                onClick={() => handleEnlarge(secondImage)}
-              />
-            </button>
-          </div>
+          </motion.div>
           <div className="content">
-            <h2>הנצחה חדשה</h2>
-            <p>
-              dasdasdndnjaskndfjkaj
-              <br />
-              fdasfkdsafksdklffdsasd
-              <br />
-              asdasdsfjiasdnfjisdanjf
+            <h2>ההשראה</h2>
+            <p dir="rtl">
+              הרעיון למיזם נולד ביום הזיכרון 2021 כשישבתי עם עצמי ושמעתי שיר
+              שנקרא ״Pray”, בפזמון, דמיינתי אמא שכולה, מגיעה למקום שמיימי ופוגשת
+              חלל בצורת הגוף של הבן שלה, מושיטה יד כדי לגעת בו וברגע אחד הופך
+              החלל לחלון זכרונות ובתוכו רצים רגעים מחייו בצורת פלאשבקים, מהרגע
+              שנולד ועד רגע הפרידה מהמשפחה.
             </p>
+            <p dir="rtl">(יגל בר - יזם הפרויקט)</p>
           </div>
         </div>
         <div className="contentSection">
           <div className="content">
-            <h2>מקום בחיי היומיום</h2>
-            <p>
-              dasdasdndnjaskndfjkaj
+            <h2 dir="rtl">מה זה חלל?</h2>
+            <p dir="rtl">
+              הדמיון הדהד בי חזק וגרם לי לחשוב;
               <br />
-              fdasfkdsafksdklffdsasd
-              <br />
-              asdasdsfjiasdnfjisdanjf
+              <strong>
+                אולי ה- ׳חלל׳ שהותיר הנופל לא ריק. הוא בעצם מלא בזיכרונות ורגעים
+                מחייו של הנופל, והם אלו שיוצרים את הכאב והגעגוע.
+              </strong>
             </p>
           </div>
-          <div className="contentImage lastImage">
-            <motion.img
+          <motion.div className="image right">
+            <img
               src={thirdImage}
-              alt="Instagram profile of lezichram"
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              alt="Women looking into soldier figure with his life shown"
             />
-            <button>
-              <img
-                src={enlargeButton}
-                alt="Enlarge button"
-                onClick={() => handleEnlarge(thirdImage)}
-              />
-            </button>
+          </motion.div>
+        </div>
+        <div className="contentSection">
+          <motion.div className="image left double">
+            <img
+              src={fourthImage}
+              alt="Women touching a soldier figure shows his childhood"
+              className="primary"
+            />
+            <img
+              src={fifthImage}
+              alt="Lezichram statue"
+              className="secondery"
+            />
+          </motion.div>
+          <div className="content double">
+            <h2>מיצגי הנצחה</h2>
+            <p dir="rtl">
+              יצרנו מיצגים בדמויות חללים - גוף ריק עם מסגרת בלבד, ופרסנו אותם
+              במקומות מרכזיים בארץ כדי שאנשים ילכו ברחוב, ייתקלו בהם ויזכרו.
+            </p>
+            <p dir="rtl">
+              המיצג ממחיש את החוסר, ובו זמנית מסמל תקווה - דרכו משתקפים החיים
+              בחוץ שממשיכים בזכות הנופלים; זוגות מטיילים, משפחות, ילדים משחקים.
+            </p>
           </div>
         </div>
+        <div className="contentSection lastSection">
+          <div className="content">
+            <h2>עמוד אינסטגרם</h2>
+            <p dir="rtl">
+              בנוסף, פתחנו את עמוד האינסטגרם ״לזכרם״ - עמוד ההנצחה המרכזי כיום
+              ברשת, בו יש מאות פוסטים. כל פוסט מוקדש לחלל אחר, ואת הפוסטים אנשים
+              משתפים בקלות בסטורי, כדי להגדיל את המודעות ברשת
+            </p>
+            <p dir="trl">(!אלפים שיתפו פוסטים)</p>
+          </div>
+          <motion.div className="image right double">
+            <img
+              src={seventhImage}
+              alt="Soldier Instagram post"
+              className="secondery"
+            />
+            <img
+              src={sixthImage}
+              alt="Lezichram Instagram profile"
+              className="primary"
+            />
+          </motion.div>
+        </div>
+        <div className="quotes">
+          <p dir="rtl">
+            ״לקחת את המושג ׳חלל׳ שהוא ריק וכלום, והכנסת בו חיים. אתה פשוט הבאת
+            את הגאולה״
+          </p>
+          <p dir="rtl" className="by">
+            נאוה, אמו של עמית בן יגאל ז״ל
+          </p>
+          <p dir="rtl" className="quotes">
+            ״זו יוזמה חסרת תקדים, שמתאימה ממש לזמן הזה - נוגעת בצעירים ומאפשרת
+            הנצחה בחיי היום-יום״
+          </p>
+          <p dir="rtl" className="by">
+            איריס, אמו של אייל יפרח ז״ל
+          </p>
+        </div>
+        <button>סגירה</button>
       </div>
       {enlargedImage && (
         <div className="imageModal" onClick={closeModal}>
