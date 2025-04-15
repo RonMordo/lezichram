@@ -515,6 +515,14 @@ img.selectedPartnerLogo {
   .gifSection .gif {
     min-width: 130px;
   }
+  .gifSection .gif .women {
+    width: 110px;
+    height: 200px;
+  }
+  .gifSection .gif img {
+    width: 110px;
+    height: 220px;
+  }
   .lastSection {
     margin-top: 6rem;
   }
