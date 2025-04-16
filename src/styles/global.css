@@ -515,6 +515,7 @@ img.selectedPartnerLogo {
   }
   .howItStartedContainer {
     font-size: 1rem;
+    width: 90%;
   }
   .content p {
     font-size: 1.3rem;
@@ -536,7 +537,7 @@ img.selectedPartnerLogo {
     margin-top: 3rem;
   }
   .right {
-    transform: translateX(-10%);
+    transform: translateX(-15%);
   }
   .right.double .primary {
     min-width: 130px;
@@ -545,32 +546,41 @@ img.selectedPartnerLogo {
   }
   .right.double .secondery {
     width: 120px;
-    transform: translate(110%, -30%);
+    transform: translate(100%, -30%);
   }
   .left .primary {
-    transform: translateX(-20%);
+    transform: translateX(-10%);
   }
   .content.double p {
-    width: 13rem;
+    width: 16rem;
+    line-height: 2rem;
   }
   .content.whatIs p {
-    width: 13rem;
+    width: 16rem;
     margin-bottom: 3rem;
+    line-height: 2rem;
   }
   .contentSection.gifSection .content p {
-    width: 15rem;
+    width: 17rem;
+    line-height: 2rem;
   }
   .content.goal p {
-    width: 13rem;
+    width: 14rem;
+    line-height: 2rem;
   }
   .contentSection.lastSection .content p {
-    width: 13rem;
+    width: 16rem;
+    line-height: 2rem;
   }
   .howItStartedContainer h2 {
     font-size: 1.9rem;
   }
+  .quotes {
+    margin-top: 2rem;
+  }
   .quotes p {
     font-size: 1.3rem;
+    line-height: 2rem;
   }
   .howItStartedContainer button {
     font-size: 1.2rem;
