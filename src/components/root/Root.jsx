@@ -10,7 +10,7 @@ function Root() {
   const isHowItStarted = location.pathname === "/how-it-started";
 
   return (
-    <div className="root">
+    <div id="scroll-container" className="root">
       <div className="fixed-bg" />
       <div className="title">
         <img src={lezichramLogo} alt="Lezichram logo" />

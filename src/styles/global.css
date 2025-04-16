@@ -8,12 +8,16 @@
 
 html,
 body {
+  height: 100%;
   font-size: 18px;
   font-family: "Rubik", sans-serif;
+  scroll-behavior: smooth;
 }
 
-#root {
-  min-height: 100vh;
+#root,
+#scroll-container {
+  /* min-height: 100vh; */
+  overflow-y: auto;
   width: 100%;
   text-align: center;
   display: flex;
