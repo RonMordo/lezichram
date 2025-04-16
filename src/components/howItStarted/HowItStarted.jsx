@@ -11,6 +11,7 @@ import { ClimbingBoxLoader } from "react-spinners";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function HowItStarted() {
   const [enlargedImage, setEnlargedImage] = useState(null);
@@ -48,11 +49,11 @@ function HowItStarted() {
       className="outerContainer"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 2 }}
+      transition={{ duration: 1 }}
     >
       <div className="howItStartedContainer">
         <div className="contentSection">
-          <div className="content">
+          <div className="content goal">
             <h2>המטרה</h2>
             <p dir="rtl">
               בשנת 2022 הוקם מיזם ״לזכרם״ להנצחת חללי מערכות ישראל ונרצחי פעולות
@@ -89,7 +90,7 @@ function HowItStarted() {
           </div>
         </div>
         <div className="contentSection">
-          <div className="content">
+          <div className="content whatIs">
             <h2 dir="rtl">מה זה חלל?</h2>
             <p dir="rtl">
               הדמיון הדהד בי חזק וגרם לי לחשוב;
@@ -171,7 +172,9 @@ function HowItStarted() {
             איריס, אמו של אייל יפרח ז״ל
           </p>
         </div>
-        <button>סגירה</button>
+        <Link to="/">
+          <button>סגירה</button>
+        </Link>
       </div>
       {enlargedImage && (
         <div className="imageModal" onClick={closeModal}>

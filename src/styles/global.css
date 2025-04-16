@@ -512,6 +512,12 @@ img.selectedPartnerLogo {
   .howItStartedContainer {
     font-size: 1rem;
   }
+  .content p {
+    font-size: 1.3rem;
+  }
+  .gifSection {
+    margin-bottom: 1rem;
+  }
   .gifSection .gif {
     min-width: 130px;
   }
@@ -522,20 +528,48 @@ img.selectedPartnerLogo {
   .gifSection .gif img {
     width: 110px;
     height: 220px;
-  }
-  .lastSection {
-    margin-top: 6rem;
+    transform: translateX(-50%);
+    margin-top: 3rem;
   }
   .right {
     transform: translateX(-10%);
   }
   .right.double .primary {
     min-width: 130px;
+    height: 300px;
     transform: translateX(30%);
   }
   .right.double .secondery {
     width: 120px;
-    transform: translateX(80%);
+    transform: translate(110%, -30%);
+  }
+  .left .primary {
+    transform: translateX(-20%);
+  }
+  .content.double p {
+    width: 13rem;
+  }
+  .content.whatIs p {
+    width: 13rem;
+    margin-bottom: 3rem;
+  }
+  .contentSection.gifSection .content p {
+    width: 15rem;
+  }
+  .content.goal p {
+    width: 13rem;
+  }
+  .contentSection.lastSection .content p {
+    width: 13rem;
+  }
+  .howItStartedContainer h2 {
+    font-size: 1.9rem;
+  }
+  .quotes p {
+    font-size: 1.3rem;
+  }
+  .howItStartedContainer button {
+    font-size: 1.2rem;
   }
 }
 
