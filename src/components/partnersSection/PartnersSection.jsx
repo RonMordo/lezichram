@@ -5,6 +5,7 @@ import lightLogo from "../../assets/partners/light.png";
 import rabinskyLogo from "../../assets/partners/rabinsky.png";
 import telAvivLogo from "../../assets/partners/tel-aviv.png";
 import zambergLogo from "../../assets/partners/zamberg.png";
+import gelemLogo from "../../assets/gelem.png";
 
 import PartnerCard from "../partnerCard/PartnerCard";
 import { useState, useRef, useEffect } from "react";
@@ -14,35 +15,35 @@ const partners = [
     key: "rabinsky",
     logo: rabinskyLogo,
     paragraph: "אפשרו לנו לאחסן את המיצגים בשטחם באהבה.",
-    companyName: "רבינסקי",
+    companyName: "שיש רבינסקי בע״מ",
   },
   {
     key: "levi",
     logo: leviLogo,
     paragraph:
       "בתרומה גילוונו את המיצגים, כדי שיישמרו לאורך שנים בכל מזג אוויר, ולא יחלידו.",
-    companyName: "א.ל. מתכות",
+    companyName: "א.לוי מתכות בע״מ",
   },
   {
     key: "asaf",
     logo: asafLogo,
     paragraph:
       "תרמו בנדיבות שלטים המצורפים למיצגים – הדפסה מקצועית על לוחות PVC ופרספקס, יצירת מדבקות 3M עמידות, והתקנה על המיצגים.",
-    companyName: "אסף דהן",
+    companyName: "אסף דהן מדיה",
   },
   {
     key: "akr",
     logo: akrLogo,
     paragraph:
       "תרמו בנדיבות אלמנטים מעוצבים מבטון ששימשו כבסיס ל6 מיצגי הנצחה.",
-    companyName: "אקרשטיין",
+    companyName: "חברת אקרשטיין",
   },
   {
     key: "light",
     logo: lightLogo,
     paragraph:
       "מהתומכים הראשונים במיזם. סייעו בשרטוט אב-הטיפוס הראשוני של המיצג, ולקחו חלק בהובלה ובהצבה של המיצגים בתל אביב בשנים 2022 ו-2023, בהתנדבות.",
-    companyName: "לייט קונקט",
+    companyName: "חברת לייט קונקט",
   },
   {
     key: "telAviv",
@@ -56,7 +57,13 @@ const partners = [
     logo: zambergLogo,
     paragraph:
       "הפכו רעיון למיצג אמיתי ומרגש – מהעיצוב וההנדסה ועד לייצור ולצביעה של 6 מיצגים, והכל בהתנדבות. תודה מיוחדת לנדב המנכ״ל, וליעל מנהלת הפרויקטים, שהאמינו בפרויקט מהרגע הראשון ודחפו לקידומו בחברה.",
-    companyName: "זמברג",
+    companyName: "י׳ זמברג מוצרי מתכת בע״מ",
+  },
+  {
+    key: "gelem",
+    logo: gelemLogo,
+    paragraph: "תרמו בנדיבות לוחות פח 8ממ מהם הופקו 6 מיצגים.",
+    companyName: "גלם מתכות ופלסטיק 2000 בע״מ",
   },
 ];
 

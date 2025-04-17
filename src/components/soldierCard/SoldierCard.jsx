@@ -4,7 +4,6 @@ import shareIcon from "../../assets/shareIcon.svg";
 import saveIcon from "../../assets/saveIcon.svg";
 import threeDotsIcon from "../../assets/threeDotsIcon.svg";
 import profileImg from "../../assets/profileImage.jpg";
-import clickIcon from "../../assets/click.webp";
 
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
