@@ -66,6 +66,21 @@ h2 {
   color: white;
 }
 
+.searchBar {
+  position: relative;
+}
+
+.searchBar button {
+  position: absolute;
+  left: 3rem;
+  top: 4rem;
+  font-family: "Rubik";
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  color: black;
+}
+
 input {
   background-color: #eef0ff;
   margin-top: 0.7rem;
@@ -96,12 +111,38 @@ input {
 
 .soldierCard {
   width: 100%;
+  position: relative;
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
   box-shadow: 0px 4px 7.7px 3px #00000040;
   border-radius: 1rem;
   background-color: white;
+}
+
+.cardOverlay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 1rem;
+}
+
+.cardOverlay p {
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.cardOverlay img {
+  width: 7rem;
+  margin-top: 2rem;
 }
 
 .postHeader {
@@ -348,6 +389,54 @@ input {
   border: none;
 }
 
+.enlargeButton {
+  width: 2rem;
+}
+
+.enlargeButton img {
+  width: 100%;
+  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  padding: 0.2rem;
+}
+
+.image.right button {
+  position: absolute;
+  left: 4rem;
+  top: 1rem;
+}
+
+#whatIs {
+  top: 14.5rem;
+  left: 3.5rem;
+}
+
+.image.left button {
+  position: absolute;
+}
+
+#leftPrimary {
+  top: 1rem;
+  right: 1rem;
+}
+
+#leftSecondery {
+  top: 16.5rem;
+  right: 1.5rem;
+}
+
+#rightSecondery {
+  top: 21rem;
+  left: 1.9rem;
+  z-index: 1000;
+}
+
+#videoButton {
+  width: 2rem;
+  position: absolute;
+}
+
 .imageModal {
   position: fixed;
   top: 0;
@@ -367,6 +456,23 @@ input {
   max-height: 90%;
   border-radius: 1rem;
   cursor: default;
+}
+
+.videoModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+.videoModal video {
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .partnersContainer {
@@ -427,7 +533,13 @@ input {
 
 .partnerCard h3 {
   margin-bottom: 2rem;
+  font-size: 3rem;
+  font-weight: 500;
   color: #ff8500;
+}
+
+.partnerCard p {
+  font-size: 1.5rem;
 }
 
 img.selectedPartnerLogo {
@@ -497,12 +609,21 @@ img.selectedPartnerLogo {
   }
   .howItStartedContainer {
     font-size: 1rem;
+    gap: 5rem;
   }
   h2 {
     font-size: 2.5rem;
   }
+  .searchBar button {
+    top: 4.2rem;
+    left: 1rem;
+    font-size: 1.3rem;
+  }
   input {
     width: 23rem;
+  }
+  .soldierCard {
+    width: 120%;
   }
   .logos img {
     width: 80px;
@@ -523,6 +644,9 @@ img.selectedPartnerLogo {
   .gifSection {
     margin-bottom: 1rem;
   }
+  .gifSection .content {
+    transform: translateX(7%);
+  }
   .gifSection .gif {
     min-width: 130px;
   }
@@ -535,6 +659,14 @@ img.selectedPartnerLogo {
     height: 220px;
     transform: translateX(-50%);
     margin-top: 3rem;
+  }
+  #videoButton {
+    width: 2rem;
+    bottom: 7rem;
+  }
+  #videoButton img {
+    width: 100%;
+    object-fit: contain;
   }
   .right {
     transform: translateX(-15%);

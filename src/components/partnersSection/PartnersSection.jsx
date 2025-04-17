@@ -13,43 +13,49 @@ const partners = [
   {
     key: "rabinsky",
     logo: rabinskyLogo,
-    paragraph: "fasdjklfndsajkolfnsjkeod\naskojldnasjdnaosd\nasjkndasjkldljkna",
+    paragraph: "אפשרו לנו לאחסן את המיצגים בשטחם באהבה.",
     companyName: "רבינסקי",
   },
   {
     key: "levi",
     logo: leviLogo,
-    paragraph: "fasdjklfndsajkolfnsjkeod\naskojldnasjdnaosd\nasjkndasjkldljkna",
+    paragraph:
+      "בתרומה גילוונו את המיצגים, כדי שיישמרו לאורך שנים בכל מזג אוויר, ולא יחלידו.",
     companyName: "א.ל. מתכות",
   },
   {
     key: "asaf",
     logo: asafLogo,
-    paragraph: "fasdjklfndsajkolfnsjkeod\naskojldnasjdnaosd\nasjkndasjkldljkna",
+    paragraph:
+      "תרמו בנדיבות שלטים המצורפים למיצגים – הדפסה מקצועית על לוחות PVC ופרספקס, יצירת מדבקות 3M עמידות, והתקנה על המיצגים.",
     companyName: "אסף דהן",
   },
   {
     key: "akr",
     logo: akrLogo,
-    paragraph: "fasdjklfndsajkolfnsjkeod\naskojldnasjdnaosd\nasjkndasjkldljkna",
+    paragraph:
+      "תרמו בנדיבות אלמנטים מעוצבים מבטון ששימשו כבסיס ל6 מיצגי הנצחה.",
     companyName: "אקרשטיין",
   },
   {
     key: "light",
     logo: lightLogo,
-    paragraph: "fasdjklfndsajkolfnsjkeod\naskojldnasjdnaosd\nasjkndasjkldljkna",
+    paragraph:
+      "מהתומכים הראשונים במיזם. סייעו בשרטוט אב-הטיפוס הראשוני של המיצג, ולקחו חלק בהובלה ובהצבה של המיצגים בתל אביב בשנים 2022 ו-2023, בהתנדבות.",
     companyName: "לייט קונקט",
   },
   {
     key: "telAviv",
     logo: telAvivLogo,
-    paragraph: "fasdjklfndsajkolfnsjkeod\naskojldnasjdnaosd\nasjkndasjkldljkna",
+    paragraph:
+      "העייריה הראשונה שהאמינה בפרויקט, ראתה ערך בחשיבותו, ואיפשרה להציב מיצגים בשטחה בשנים 2022-2024. אנו שואפים להמשיך להציב מיצגים ברחבי תל אביב - גם באופן קבע.",
     companyName: "עיריית תל אביב",
   },
   {
     key: "zamberg",
     logo: zambergLogo,
-    paragraph: "fasdjklfndsajkolfnsjkeod\naskojldnasjdnaosd\nasjkndasjkldljkna",
+    paragraph:
+      "הפכו רעיון למיצג אמיתי ומרגש – מהעיצוב וההנדסה ועד לייצור ולצביעה של 6 מיצגים, והכל בהתנדבות. תודה מיוחדת לנדב המנכ״ל, וליעל מנהלת הפרויקטים, שהאמינו בפרויקט מהרגע הראשון ודחפו לקידומו בחברה.",
     companyName: "זמברג",
   },
 ];

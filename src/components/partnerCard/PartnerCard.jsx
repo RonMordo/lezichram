@@ -2,7 +2,7 @@ function PartnerCard({ companyName, paragraph }) {
   return (
     <div className="partnerCard">
       <h3>חברת ״{companyName}״</h3>
-      <p>{paragraph}</p>
+      <p dir="rtl">{paragraph}</p>
     </div>
   );
 }

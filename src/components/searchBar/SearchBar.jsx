@@ -16,6 +16,14 @@ function SearchBar({ searchValue, setSearchValue, handleSearch }) {
         onChange={handleChange}
         placeholder="חפשו לפי שם"
       />
+      <button
+        onClick={() => {
+          setSearchValue("");
+          handleSearch("");
+        }}
+      >
+        נקה
+      </button>
     </div>
   );
 }

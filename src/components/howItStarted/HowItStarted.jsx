@@ -6,7 +6,9 @@ import fourthImage from "../../assets/secondImg1.webp";
 import fifthImage from "../../assets/soldierStatue.webp";
 import sixthImage from "../../assets/thirdImg.webp";
 import seventhImage from "../../assets/soldierPostImage.webp";
+import gifVideo from "../../assets/gifVideo.mp4";
 import enlargeButton from "../../assets/maximize.png";
+import videoButton from "../../assets/videoCam.webp";
 import { ClimbingBoxLoader } from "react-spinners";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
@@ -15,6 +17,8 @@ import { Link } from "react-router-dom";
 
 function HowItStarted() {
   const [enlargedImage, setEnlargedImage] = useState(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
   // const [loading, setLoading] = useState(true);
 
   const LoadingScreenOverride = {
@@ -26,6 +30,9 @@ function HowItStarted() {
   const handleEnlarge = (image) => {
     setEnlargedImage(image);
   };
+
+  const openVideo = () => setIsVideoOpen(true);
+  const closeVideoModal = () => setIsVideoOpen(false);
 
   const closeModal = () => {
     setEnlargedImage(null);
@@ -63,6 +70,12 @@ function HowItStarted() {
           </div>
           <motion.div className="image right">
             <img src={firstImage} alt="Lezichram statue" />
+            <button
+              className="enlargeButton"
+              onClick={() => handleEnlarge(firstImage)}
+            >
+              <img src={enlargeButton} alt="Enlarge" />
+            </button>
           </motion.div>
         </div>
         <div className="contentSection gifSection">
@@ -76,6 +89,9 @@ function HowItStarted() {
               alt="Women reaching to the soldiers life"
               className="women"
             />
+            <button id="videoButton" onClick={openVideo}>
+              <img src={videoButton} alt="Video button" />
+            </button>
           </motion.div>
           <div className="content">
             <h2>ההשראה</h2>
@@ -106,6 +122,13 @@ function HowItStarted() {
               src={thirdImage}
               alt="Women looking into soldier figure with his life shown"
             />
+            <button
+              className="enlargeButton"
+              id="whatIs"
+              onClick={() => handleEnlarge(thirdImage)}
+            >
+              <img src={enlargeButton} alt="Enlarge" />
+            </button>
           </motion.div>
         </div>
         <div className="contentSection">
@@ -115,11 +138,25 @@ function HowItStarted() {
               alt="Women touching a soldier figure shows his childhood"
               className="primary"
             />
+            <button
+              className="enlargeButton"
+              id="leftPrimary"
+              onClick={() => handleEnlarge(fourthImage)}
+            >
+              <img src={enlargeButton} alt="Enlarge" />
+            </button>
             <img
               src={fifthImage}
               alt="Lezichram statue"
               className="secondery"
             />
+            <button
+              className="enlargeButton"
+              id="leftSecondery"
+              onClick={() => handleEnlarge(fifthImage)}
+            >
+              <img src={enlargeButton} alt="Enlarge" />
+            </button>
           </motion.div>
           <div className="content double">
             <h2>מיצגי הנצחה</h2>
@@ -149,11 +186,24 @@ function HowItStarted() {
               alt="Soldier Instagram post"
               className="secondery"
             />
+            <button
+              className="enlargeButton"
+              id="rightSecondery"
+              onClick={() => handleEnlarge(seventhImage)}
+            >
+              <img src={enlargeButton} alt="Enlarge" />
+            </button>
             <img
               src={sixthImage}
               alt="Lezichram Instagram profile"
               className="primary"
             />
+            <button
+              className="enlargeButton"
+              onClick={() => handleEnlarge(sixthImage)}
+            >
+              <img src={enlargeButton} alt="Enlarge" />
+            </button>
           </motion.div>
         </div>
         <div className="quotes">
@@ -181,6 +231,16 @@ function HowItStarted() {
           <img
             src={enlargedImage}
             alt="Enlarged view"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+      {isVideoOpen && (
+        <div className="videoModal" onClick={closeVideoModal}>
+          <video
+            src={gifVideo}
+            controls
+            autoPlay
             onClick={(e) => e.stopPropagation()}
           />
         </div>
