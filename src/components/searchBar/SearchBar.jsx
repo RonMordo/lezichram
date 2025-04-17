@@ -1,4 +1,5 @@
 import "../../styles/global.css";
+import xIcon from "../../assets/xIcon.svg";
 
 function SearchBar({ searchValue, setSearchValue, handleSearch }) {
   const handleChange = (e) => {
@@ -22,7 +23,7 @@ function SearchBar({ searchValue, setSearchValue, handleSearch }) {
           handleSearch("");
         }}
       >
-        נקה
+        {/* <img src={xIcon} alt="Clear button" /> */}
       </button>
     </div>
   );

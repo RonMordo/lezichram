@@ -70,6 +70,8 @@ h2 {
   position: relative;
 }
 
+/* clear button */
+
 .searchBar button {
   position: absolute;
   left: 3rem;
@@ -79,6 +81,11 @@ h2 {
   border: none;
   font-size: 1rem;
   color: black;
+  border: none;
+}
+
+.searchBar button img {
+  width: 100%;
 }
 
 input {
@@ -133,6 +140,7 @@ input {
   left: 0;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 1rem;
+  border: none;
 }
 
 .cardOverlay p {
@@ -265,7 +273,9 @@ input {
 
 .howItStartedContainer {
   width: 80%;
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(212, 212, 212); */
+  background-color: rgba(255, 255, 255, 0.01);
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -274,7 +284,8 @@ input {
   gap: 3rem;
   border-radius: 1rem;
   overflow: visible;
-  box-shadow: 0 15px 8px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 5px 8px 10px rgba(0, 0, 0, 0.2); */
+  box-shadow: 0px 4px 9px 5px rgba(0, 0, 0, 0.2);
 }
 
 .contentSection {
@@ -283,7 +294,8 @@ input {
 }
 
 .contentSection h2 {
-  color: #342dff;
+  /* color: #342dff; */
+  color: #ff8500;
   font-weight: 500;
   font-size: 1.5rem;
 }
@@ -383,9 +395,10 @@ input {
   font-weight: bold;
   margin-bottom: 1rem;
 }
+
 .howItStartedContainer button {
   background-color: transparent;
-  color: black;
+  color: rgb(255, 255, 255);
   border: none;
 }
 
@@ -623,7 +636,7 @@ img.selectedPartnerLogo {
     width: 23rem;
   }
   .soldierCard {
-    width: 120%;
+    width: 110%;
   }
   .logos img {
     width: 80px;
@@ -695,6 +708,9 @@ img.selectedPartnerLogo {
   .contentSection.gifSection .content p {
     width: 17rem;
     line-height: 2rem;
+  }
+  .content.goal {
+    margin-top: 2rem;
   }
   .content.goal p {
     width: 14rem;

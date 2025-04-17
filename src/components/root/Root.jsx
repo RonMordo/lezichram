@@ -30,7 +30,7 @@ function Root() {
             >
               <FaChevronLeft />
             </motion.span>
-            {isHowItStarted ? "חזרה לחיפוש" : "איך הכל התחיל"}
+            {isHowItStarted ? "חזרה לחיפוש" : "הכירו את המיזם"}
           </button>
         </Link>
       </div>
