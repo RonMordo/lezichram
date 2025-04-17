@@ -7,7 +7,7 @@ import fifthImage from "../../assets/soldierStatue.webp";
 import sixthImage from "../../assets/thirdImg.webp";
 import seventhImage from "../../assets/soldierPostImage.webp";
 import gifVideo from "../../assets/gifVideo.mp4";
-import enlargeButton from "../../assets/maximize.png";
+import enlargeButton from "../../assets/maximize.svg";
 import videoButton from "../../assets/videoCam.webp";
 import { ClimbingBoxLoader } from "react-spinners";
 // eslint-disable-next-line no-unused-vars
@@ -19,12 +19,18 @@ function HowItStarted() {
   const [enlargedImage, setEnlargedImage] = useState(null);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const LoadingScreenOverride = {
     display: "block",
     width: "100%",
     margin: "0 auto",
+  };
+
+  const handleLoading = () => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   };
 
   const handleEnlarge = (image) => {
@@ -38,18 +44,22 @@ function HowItStarted() {
     setEnlargedImage(null);
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="howItStartedLoadingScreen">
-  //       <ClimbingBoxLoader
-  //         loading={loading}
-  //         cssOverride={LoadingScreenOverride}
-  //         size={window.innerWidth < 480 ? 20 : 30}
-  //         color="rgb(255, 166, 0)"
-  //       />
-  //     </div>
-  //   );
-  // }
+  useEffect(() => {
+    handleLoading();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="howItStartedLoadingScreen">
+        <ClimbingBoxLoader
+          loading={loading}
+          cssOverride={LoadingScreenOverride}
+          size={window.innerWidth < 480 ? 20 : 30}
+          color="rgb(255, 166, 0)"
+        />
+      </div>
+    );
+  }
 
   return (
     <motion.div

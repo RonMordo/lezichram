@@ -9,7 +9,7 @@ import clickIcon from "../../assets/click.webp";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
-function SoldierCard({ soldierData, showOverlay }) {
+function SoldierCard({ soldierData }) {
   return (
     <motion.a
       href={soldierData.permalink}
@@ -20,13 +20,6 @@ function SoldierCard({ soldierData, showOverlay }) {
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
       style={{ cursor: "pointer", textDecoration: "none", color: "black" }}
     >
-      {showOverlay && (
-        <div className="cardOverlay">
-          <p>לחצו על הפוסט</p>
-          <p>ושתפו בסטורי</p>
-          <img src={clickIcon} alt="Left click icon" />
-        </div>
-      )}
       <div className="postHeader">
         <div className="profileImage">
           <img src={profileImg} alt="Instagram profile image" />

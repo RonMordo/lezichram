@@ -23,7 +23,7 @@ function SearchBar({ searchValue, setSearchValue, handleSearch }) {
           handleSearch("");
         }}
       >
-        {/* <img src={xIcon} alt="Clear button" /> */}
+        <img src={xIcon} alt="Clear button" />
       </button>
     </div>
   );
