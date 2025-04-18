@@ -2,6 +2,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import { FaChevronLeft, FaChevronDown } from "react-icons/fa";
 import PartnersSection from "../partnersSection/PartnersSection";
 import lezichramLogo from "../../assets/lezichramLogo.svg";
+import Gallery from "../../gallery/Gallery";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
@@ -37,6 +38,7 @@ function Root() {
 
       <Outlet />
       <PartnersSection />
+      <Gallery />
     </div>
   );
 }

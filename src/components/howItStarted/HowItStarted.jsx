@@ -8,7 +8,7 @@ import sixthImage from "../../assets/thirdImg.webp";
 import seventhImage from "../../assets/soldierPostImage.webp";
 import gifVideo from "../../assets/gifVideo.mp4";
 import enlargeButton from "../../assets/maximize.svg";
-import videoButton from "../../assets/videoCam.webp";
+import { PiVideoLight } from "react-icons/pi";
 import { ClimbingBoxLoader } from "react-spinners";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
@@ -100,7 +100,7 @@ function HowItStarted() {
               className="women"
             />
             <button id="videoButton" onClick={openVideo}>
-              <img src={videoButton} alt="Video button" />
+              <PiVideoLight size={"2.5rem"} />
             </button>
           </motion.div>
           <div className="content">

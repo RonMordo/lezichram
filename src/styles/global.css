@@ -67,13 +67,14 @@ h2 {
 
 .searchBar {
   position: relative;
+  height: 7rem;
 }
 
 .searchBar button {
   position: absolute;
   width: 2rem;
-  left: 3rem;
-  top: 4rem;
+  left: 7rem;
+  top: 3.7rem;
   font-family: "Rubik";
   background-color: transparent;
   border: none;
@@ -105,7 +106,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 25rem;
+  width: 30rem;
   margin-left: auto;
   margin-right: auto;
   padding: 0 1rem;
@@ -533,6 +534,17 @@ img.selectedPartnerLogo {
   transition: box-shadow 0.3s ease;
 }
 
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery h2 {
+  color: white;
+}
+
 @media (max-width: 1200px) {
   .howItStartedContainer {
     font-size: 1.2rem;
@@ -602,14 +614,13 @@ img.selectedPartnerLogo {
   }
   .searchBar button {
     top: 4.2rem;
-    left: 1rem;
-    font-size: 1.3rem;
+    left: 4rem;
   }
   input {
     width: 23rem;
   }
   .soldierCard {
-    width: 110%;
+    width: 100%;
   }
   .logos img {
     width: 80px;
@@ -654,7 +665,8 @@ img.selectedPartnerLogo {
   }
   #videoButton {
     width: 2rem;
-    bottom: 7rem;
+    top: 2rem;
+    right: 1rem;
   }
   #videoButton img {
     width: 100%;
