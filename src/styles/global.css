@@ -273,6 +273,7 @@ input {
 .image {
   width: 150%;
   min-width: 160px;
+  position: relative;
 }
 
 .image img {
@@ -387,32 +388,38 @@ input {
 
 .image.right button {
   position: absolute;
-  left: 2rem;
+  left: 3rem;
   top: 0rem;
 }
 
 #whatIs {
-  top: 13rem;
-  left: 1.5rem;
-}
-
-.image.left button {
   position: absolute;
+  top: 24rem;
+  left: 5rem;
+  height: 5rem;
 }
 
 #leftPrimary {
-  top: -0.5rem;
-  right: -1rem;
+  position: absolute;
+  top: 0rem;
+  right: 4rem;
 }
 
 #leftSecondery {
-  top: 15rem;
-  right: -1rem;
+  position: absolute;
+  bottom: -3rem;
+  right: 1rem;
+}
+
+.image.right.double button {
+  position: absolute;
+  left: -1rem;
 }
 
 #rightSecondery {
-  top: 20rem;
-  left: -0.5rem;
+  position: absolute;
+  bottom: -25rem;
+  left: -7rem;
   z-index: 1000;
 }
 
@@ -804,6 +811,28 @@ img.selectedPartnerLogo {
   }
   .howItStartedContainer button {
     font-size: 1.2rem;
+  }
+  .image.right button {
+    left: 2rem;
+  }
+  #whatIs {
+    top: 13rem;
+    left: 1.5rem;
+  }
+  #leftPrimary {
+    top: -1rem;
+    right: -1rem;
+  }
+  #leftSecondery {
+    right: -1rem;
+  }
+  .image.right.double button {
+    left: 1rem;
+    top: -0.5rem;
+  }
+  #rightSecondery {
+    left: -0.5rem;
+    top: -3rem;
   }
   .contactForm {
     width: 90%;
