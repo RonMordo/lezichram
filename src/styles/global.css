@@ -89,6 +89,7 @@ h2 {
 }
 
 input {
+  outline: none;
   background-color: #eef0ff;
   margin-top: 0.7rem;
   border: 1px solid transparent;
@@ -212,7 +213,6 @@ input {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-
   background-color: rgb(255, 166, 0);
   border: none;
   font-family: "Rubik", sans-serif;
@@ -545,6 +545,87 @@ img.selectedPartnerLogo {
   color: white;
 }
 
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgba(1, 81, 156, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0px 8px 6.3px 0px #00000036;
+  color: white;
+  padding: 1rem;
+  margin: 3rem;
+}
+
+.formGroup {
+  width: 100%;
+}
+
+.formGroup label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.formGroup input {
+  margin-top: 0;
+}
+
+.formGroup input:focus {
+  outline: none;
+  box-shadow: 0 0 10px 3px #ff8500;
+  transition: box-shadow 0.3s ease;
+}
+
+#email,
+#phone {
+  direction: ltr !important;
+}
+
+.formGroup textarea {
+  width: 17rem;
+  font-family: "Rubik";
+  font-size: 1rem;
+  background-color: #eef0ff;
+  border: none;
+  resize: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+}
+
+.formGroup textarea:focus {
+  outline: none;
+  box-shadow: 0 0 10px 3px #ff8500;
+  transition: box-shadow 0.3s ease;
+}
+
+.fieldError {
+  text-align: left;
+  color: rgb(255, 166, 0);
+  margin-top: 0.4rem;
+}
+
+.contactForm button {
+  background-color: rgb(255, 166, 0);
+  border: none;
+  color: white;
+  font-family: "Rubik";
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  padding: 0.2rem 1rem;
+  margin-top: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contactForm button:hover {
+  transform: scale(1.05);
+}
+
 @media (max-width: 1200px) {
   .howItStartedContainer {
     font-size: 1.2rem;
@@ -723,6 +804,24 @@ img.selectedPartnerLogo {
   }
   .howItStartedContainer button {
     font-size: 1.2rem;
+  }
+  .contactForm {
+    width: 90%;
+    text-align: start;
+  }
+  .formGroup label {
+    gap: 0;
+  }
+  .contactForm label input {
+    width: 65%;
+  }
+  .contactForm textarea {
+    width: 65%;
+  }
+  .contactForm button {
+    width: 6rem;
+    height: 3rem;
+    font-size: 1.6rem;
   }
 }
 
