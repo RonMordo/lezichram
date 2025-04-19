@@ -370,6 +370,7 @@ input {
 .howItStartedContainer button {
   background-color: transparent;
   color: rgb(255, 255, 255);
+  font-size: 1.5rem;
   border: none;
   cursor: pointer;
 }

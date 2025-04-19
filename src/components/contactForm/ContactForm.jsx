@@ -48,7 +48,6 @@ function ContactForm({
             name="phone"
             id="phone"
             inputMode="numeric"
-            pattern="[0-9]"
             value={formData.phone}
             onChange={onChange}
           />
