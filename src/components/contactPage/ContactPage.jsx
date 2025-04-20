@@ -70,8 +70,8 @@ function ContactPage() {
 
     try {
       await emailjs.send(
-        "service_y1aobfl",
-        "template_upjj7k6",
+        "service_9aua3aj",
+        "template_t5k3zln",
         {
           name: formData.name,
           email: formData.email,
