@@ -6,21 +6,16 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
+html {
   font-size: 18px;
   font-family: "Rubik", sans-serif;
   scroll-behavior: smooth;
 }
 
-#root,
-#scroll-container {
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
   overflow-y: auto;
-  width: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
 }
 
 .root {
@@ -29,6 +24,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .title img {
@@ -554,11 +550,7 @@ img.selectedPartnerLogo {
   justify-content: center;
   width: 25rem;
   gap: 2rem;
-  margin-bottom: 3rem;
-  background-color: rgba(1, 81, 156, 0.1);
-  box-shadow: 0px 8px 6.3px 0px #00000036;
-  padding: 1.5rem;
-  border-radius: 15px;
+  margin: 3rem 0;
 }
 
 .gallery h2 {
@@ -568,18 +560,35 @@ img.selectedPartnerLogo {
 .galleryImages {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  grid-auto-rows: 250px;
 }
 
 .galleryImages img {
   width: 100%;
-  height: 300px;
-  border-radius: 15px;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-.galleryImages .tall {
+.galleryImages #tall {
   grid-row: span 2;
   height: 100%;
+}
+
+.gridImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.galleryImages .enlarge {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: -20px;
+  left: -20px;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .contactForm {
@@ -665,6 +674,13 @@ img.selectedPartnerLogo {
 
 .contactForm button:hover {
   transform: scale(1.05);
+}
+
+.app-credit {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-bottom: 3rem;
+  color: white;
 }
 
 @media (max-width: 2600px) {
@@ -1037,7 +1053,7 @@ img.selectedPartnerLogo {
   #rightSecondery {
     left: -0.5rem;
     top: -3rem;
-    transform: translate(-15%, 1%);
+    transform: translate(-5%, -2%);
   }
   #rightPrimary {
     transform: translate(-10%, 1%);
@@ -1056,6 +1072,19 @@ img.selectedPartnerLogo {
   }
   .gallery {
     width: 90%;
+  }
+  #notFoundError {
+    font-size: 1.5rem;
+  }
+  .lastSection {
+    margin-bottom: 6rem;
+  }
+  .image.right.double .secondery {
+    width: 140px;
+    transform: translate(90%, -20%);
+  }
+  .app-credit {
+    font-size: 1.4rem;
   }
 }
 

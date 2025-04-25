@@ -5,7 +5,7 @@ import four from "../assets/galleryImages/four.webp";
 import gif from "../assets/galleryImages/statueGif.gif";
 import six from "../assets/galleryImages/six.webp";
 import seven from "../assets/galleryImages/7.webp";
-import eight from "../assets/galleryImages/8.webp";
+import eight from "../assets/galleryImages/secondGif.gif";
 import nine from "../assets/galleryImages/9.webp";
 import ten from "../assets/galleryImages/10.webp";
 import eleven from "../assets/galleryImages/11.webp";
@@ -15,31 +15,94 @@ import fourteen from "../assets/galleryImages/14.webp";
 import fifteen from "../assets/galleryImages/15.webp";
 import sixteen from "../assets/galleryImages/16.webp";
 import seventeen from "../assets/galleryImages/17.webp";
+import video from "../assets/gifVideo.mp4";
+import enlargeButton from "../assets/maximize.svg";
+
+import { useState } from "react";
 
 function Gallery() {
+  const [enlargedImage, setEnlargedImage] = useState(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
+  const images = [
+    one,
+    two,
+    three,
+    four,
+    gif,
+    six,
+    seven,
+    eight,
+    nine,
+    ten,
+    eleven,
+    twelve,
+    thirteen,
+    fourteen,
+    fifteen,
+    sixteen,
+    seventeen,
+  ];
+
+  const handleEnlarge = (src) => {
+    setEnlargedImage(src);
+    setIsVideoOpen(false);
+  };
+
+  const openVideo = () => {
+    setIsVideoOpen(true);
+    setEnlargedImage(null);
+  };
+
+  const closeModal = () => {
+    setEnlargedImage(null);
+    setIsVideoOpen(false);
+  };
+
   return (
-    <div className="gallery">
-      <h2>גלריה</h2>
-      <div className="galleryImages">
-        <img src={one} alt="" />
-        <img src={two} alt="" />
-        <img src={three} alt="" />
-        <img src={four} alt="" />
-        <img src={gif} alt="" />
-        <img src={six} alt="" className="tall" />
-        <img src={seven} alt="" />
-        <img src={eight} alt="" />
-        <img src={nine} alt="" />
-        <img src={ten} alt="" />
-        <img src={eleven} alt="" />
-        <img src={twelve} alt="" />
-        <img src={thirteen} alt="" />
-        <img src={fourteen} alt="" />
-        <img src={fifteen} alt="" />
-        <img src={sixteen} alt="" />
-        <img src={seventeen} alt="" />
+    <>
+      <div className="gallery">
+        <h2>גלריה</h2>
+        <div className="galleryImages">
+          {images.map((src, i) => (
+            <div
+              className="gridImage"
+              key={i}
+              id={i === 5 ? "tall" : undefined}
+            >
+              <img src={src} alt="" />
+              <img
+                src={enlargeButton}
+                alt="Enlarge"
+                className="enlarge"
+                onClick={() => (i === 7 ? openVideo() : handleEnlarge(src))}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {enlargedImage && (
+        <div className="imageModal" onClick={closeModal}>
+          <img
+            src={enlargedImage}
+            alt="Enlarged"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
+      {isVideoOpen && (
+        <div className="videoModal" onClick={closeModal}>
+          <video
+            src={video}
+            controls
+            autoPlay
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
   );
 }
 

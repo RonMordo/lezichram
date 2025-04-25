@@ -27,7 +27,7 @@ function SearchPage({
       <div className="soldiersContainer">
         {notFoundError && (
           <p id="notFoundError" dir="rtl">
-            סליחה, לא מצאנו את הפוסט שחיפשת.
+            מצטערים, לא מצאנו את הפוסט שחיפשת😔.
           </p>
         )}
         {searchedSoldiers &&

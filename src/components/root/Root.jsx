@@ -41,6 +41,10 @@ function Root() {
       <PartnersSection />
       <ContactPage />
       <Gallery />
+      <p className="app-credit">
+        Developed by Ron Mordukhovich
+        <br />© {new Date().getFullYear()} All rights reserved.
+      </p>
     </div>
   );
 }
