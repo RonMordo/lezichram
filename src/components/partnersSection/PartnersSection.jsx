@@ -1,3 +1,5 @@
+import { useState, useRef, useEffect } from "react";
+
 import akrLogo from "../../assets/partners/akr.png";
 import asafLogo from "../../assets/partners/asaf-dahan.png";
 import leviLogo from "../../assets/partners/levi.png";
@@ -8,7 +10,6 @@ import zambergLogo from "../../assets/partners/zamberg.png";
 import gelemLogo from "../../assets/partners/gelem.png";
 
 import PartnerCard from "../partnerCard/PartnerCard";
-import { useState, useRef, useEffect } from "react";
 
 const partners = [
   {
@@ -72,13 +73,15 @@ function PartnersSection() {
   const scrollRef = useRef(null);
   const selectedPartnerRef = useRef(selectedPartnerKey);
   const manualScrollRef = useRef(false);
-  const manualTimeoutRef = useRef(null);
 
+  // keep ref in sync with state
   useEffect(() => {
     selectedPartnerRef.current = selectedPartnerKey;
   }, [selectedPartnerKey]);
 
+  // click handler: toggle selection, clear manual pause, center logo
   const handleSelectedPartner = (key, event) => {
+    manualScrollRef.current = false;
     setSelectedPartnerKey((prev) => (prev === key ? null : key));
     event.currentTarget.scrollIntoView({
       behavior: "smooth",
@@ -89,6 +92,7 @@ function PartnersSection() {
 
   const selectedPartner = partners.find((p) => p.key === selectedPartnerKey);
 
+  // auto-scroll + touch handlers (no delay)
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -96,7 +100,7 @@ function PartnersSection() {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(
       window.navigator.userAgent
     );
-    const speed = 60;
+    const speed = 60; // pixels per second
     let lastTime = null;
 
     const animate = (time) => {
@@ -104,6 +108,7 @@ function PartnersSection() {
       const delta = time - lastTime;
       lastTime = time;
 
+      // only auto-scroll when nothing is selected and not manually touching
       if (!selectedPartnerRef.current && !manualScrollRef.current) {
         el.scrollLeft += (speed * delta) / 1000;
         const cycleWidth = el.scrollWidth / 2;
@@ -114,17 +119,15 @@ function PartnersSection() {
       requestAnimationFrame(animate);
     };
 
-    let touchHandlers = {};
+    const touchHandlers = {};
     if (isMobile) {
       touchHandlers.handleTouchStart = () => {
         manualScrollRef.current = true;
-        if (manualTimeoutRef.current) clearTimeout(manualTimeoutRef.current);
       };
       touchHandlers.handleTouchEnd = () => {
-        manualTimeoutRef.current = setTimeout(() => {
-          manualScrollRef.current = false;
-        }, 1000);
+        manualScrollRef.current = false;
       };
+
       el.addEventListener("touchstart", touchHandlers.handleTouchStart);
       el.addEventListener("touchend", touchHandlers.handleTouchEnd);
       el.addEventListener("touchcancel", touchHandlers.handleTouchEnd);
@@ -137,7 +140,6 @@ function PartnersSection() {
         el.removeEventListener("touchstart", touchHandlers.handleTouchStart);
         el.removeEventListener("touchend", touchHandlers.handleTouchEnd);
         el.removeEventListener("touchcancel", touchHandlers.handleTouchEnd);
-        if (manualTimeoutRef.current) clearTimeout(manualTimeoutRef.current);
       }
     };
   }, []);
