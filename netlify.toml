@@ -1,5 +1,0 @@
-[functions]
-  directory = "netlify/functions"
-
-[[functions.daily-fetch.scheduled]]
-  cron = "* * * * *"  # Every minute (for testing)
