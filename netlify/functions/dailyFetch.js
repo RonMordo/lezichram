@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import { Buffer } from "buffer";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
-// import { extractNameFromImage } from "./extractNameFromImage.js";
+// import { extractNameFromImage } from "../../src/postsScript/extractNameFromImage.js";
 
 dotenv.config();
 
@@ -11,19 +11,6 @@ const ACCESS_TOKEN = process.env.VITE_INSTAGRAM_API_KEY;
 const IG_USER_ID = process.env.VITE_IG_USERID;
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-console.log("Starting script");
-console.log({
-  ACCESS_TOKEN: !!ACCESS_TOKEN,
-  IG_USER_ID,
-  SUPABASE_URL: !!SUPABASE_URL,
-  SERVICE_KEY: !!SERVICE_KEY,
-});
-
-if (!ACCESS_TOKEN || !IG_USER_ID || !SUPABASE_URL || !SERVICE_KEY) {
-  console.error("Missing one of the required env vars!");
-  process.exit(1);
-}
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY);
 
@@ -73,7 +60,6 @@ async function run() {
     console.log("\n---");
     console.log("Post permalink:", post.permalink);
 
-    // 3) Check duplicate
     const { data: exists, error: chkErr } = await supabase
       .from("posts")
       .select("permalink")
@@ -88,7 +74,6 @@ async function run() {
       continue;
     }
 
-    // 4) Determine name
     let name = null;
     const match = (post.caption || "").match(/^(.*?)\s+ז["״׳’']{0,2}ל/);
     if (match) {
@@ -97,13 +82,12 @@ async function run() {
     } else {
       console.log("Could not extract name.");
       name = "UnNamed";
-      // console.log("No name in caption, calling GPT…");
-      // await new Promise((r) => setTimeout(r, 1500));
-      // name = await extractNameFromImage(post.media_url);
-      // console.log("GPT returned name:", name);
+      //   console.log("No name in caption, calling GPT…");
+      //   await new Promise((r) => setTimeout(r, 1500));
+      //   name = await extractNameFromImage(post.media_url);
+      //   console.log("GPT returned name:", name);
     }
 
-    // 5) Download image
     let buffer, contentType;
     try {
       console.log("Downloading image from:", post.media_url);
@@ -116,7 +100,6 @@ async function run() {
       continue;
     }
 
-    // 6) Upload to storage
     const ext = contentType?.split("/")[1] || "jpg";
     const fileName = `${Date.now()}_${Math.random()
       .toString(36)
@@ -129,13 +112,13 @@ async function run() {
       console.error("Storage upload error:", upErr);
       continue;
     }
-    const key = upData.Key;
+
+    const key = upData?.path || upData?.Key;
     const { data: urlData } = supabase.storage
       .from("post-images")
       .getPublicUrl(key);
     console.log("Uploaded → publicURL:", urlData.publicUrl);
 
-    // 7) Insert row
     console.log("Inserting row into posts table…");
     const { error: insErr } = await supabase.from("posts").insert([
       {
@@ -149,9 +132,9 @@ async function run() {
     ]);
     if (insErr) {
       console.error("Insert error:", insErr);
-      insertedPostsCount++;
     } else {
       console.log("Inserted:", post.permalink);
+      insertedPostsCount++;
     }
   }
 
@@ -159,6 +142,20 @@ async function run() {
   console.log(`Inserted: ${insertedPostsCount}, new posts.`);
 }
 
-run().catch((err) => {
-  console.error("Fatal error:", err);
-});
+// Exported handler for Netlify
+export async function handler() {
+  console.log("💡 Netlify Scheduled Function Triggered");
+  try {
+    await run();
+    return {
+      statusCode: 200,
+      body: "Scheduled script ran successfully.",
+    };
+  } catch (error) {
+    console.error("❌ Script failed:", error);
+    return {
+      statusCode: 500,
+      body: `Scheduled script error: ${error.message}`,
+    };
+  }
+}
