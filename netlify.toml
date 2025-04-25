@@ -2,4 +2,4 @@
   directory = "netlify/functions"
 
 [[functions.daily-fetch.scheduled]]
-  cron = "52 18 * * *"
+  cron = "2 19 * * *"  # Runs at 22:02 Israel time (19:02 UTC)

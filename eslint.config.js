@@ -38,4 +38,14 @@ export default [
       globals: globals.node,
     },
   },
+  (module.exports = {
+    overrides: [
+      {
+        files: ["netlify/functions/**/*.js"],
+        env: {
+          node: true,
+        },
+      },
+    ],
+  }),
 ];
