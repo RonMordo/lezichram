@@ -50,7 +50,7 @@ const partners = [
     key: "telAviv",
     logo: telAvivLogo,
     paragraph:
-      "העייריה הראשונה שהאמינה בפרויקט, ראתה ערך בחשיבותו, ואיפשרה להציב מיצגים בשטחה בשנים 2022-2024. אנו שואפים להמשיך להציב מיצגים ברחבי תל אביב - גם באופן קבע.",
+      "העירייה הראשונה שהאמינה בפרויקט, ראתה ערך בחחשיבותו, ואיפשרה להציב מיצגים בשטחה בשנים 2022-2024. אנו שואפים להמשיך להציב מיצגים ברחבי תל אביב - גם באופן קבע.",
     companyName: "עיריית תל אביב",
   },
   {
@@ -68,39 +68,37 @@ const partners = [
   },
 ];
 
-function PartnersSection() {
+export default function PartnersSection() {
   const [selectedPartnerKey, setSelectedPartnerKey] = useState(null);
   const scrollRef = useRef(null);
   const selectedPartnerRef = useRef(selectedPartnerKey);
   const manualScrollRef = useRef(false);
+  const manualTimeoutRef = useRef(null);
 
-  // keep ref in sync with state
   useEffect(() => {
     selectedPartnerRef.current = selectedPartnerKey;
   }, [selectedPartnerKey]);
 
-  // click handler: toggle selection, clear manual pause, center logo
-  const handleSelectedPartner = (key, event) => {
+  const handleSelectedPartner = (key, e) => {
+    if (manualTimeoutRef.current) {
+      clearTimeout(manualTimeoutRef.current);
+      manualTimeoutRef.current = null;
+    }
     manualScrollRef.current = false;
     setSelectedPartnerKey((prev) => (prev === key ? null : key));
-    event.currentTarget.scrollIntoView({
+    e.currentTarget.scrollIntoView({
       behavior: "smooth",
       inline: "center",
       block: "nearest",
     });
   };
 
-  const selectedPartner = partners.find((p) => p.key === selectedPartnerKey);
-
-  // auto-scroll + touch handlers (no delay)
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(
-      window.navigator.userAgent
-    );
-    const speed = 60; // pixels per second
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const speed = 60;
     let lastTime = null;
 
     const animate = (time) => {
@@ -108,67 +106,74 @@ function PartnersSection() {
       const delta = time - lastTime;
       lastTime = time;
 
-      // only auto-scroll when nothing is selected and not manually touching
       if (!selectedPartnerRef.current && !manualScrollRef.current) {
         el.scrollLeft += (speed * delta) / 1000;
-        const cycleWidth = el.scrollWidth / 2;
-        if (el.scrollLeft >= cycleWidth) {
-          el.scrollLeft -= cycleWidth;
-        }
+        const half = el.scrollWidth / 2;
+        if (el.scrollLeft >= half) el.scrollLeft -= half;
       }
       requestAnimationFrame(animate);
     };
 
-    const touchHandlers = {};
-    if (isMobile) {
-      touchHandlers.handleTouchStart = () => {
-        manualScrollRef.current = true;
-      };
-      touchHandlers.handleTouchEnd = () => {
-        manualScrollRef.current = false;
-      };
-
-      el.addEventListener("touchstart", touchHandlers.handleTouchStart);
-      el.addEventListener("touchend", touchHandlers.handleTouchEnd);
-      el.addEventListener("touchcancel", touchHandlers.handleTouchEnd);
-    }
-
     requestAnimationFrame(animate);
 
-    return () => {
-      if (isMobile) {
-        el.removeEventListener("touchstart", touchHandlers.handleTouchStart);
-        el.removeEventListener("touchend", touchHandlers.handleTouchEnd);
-        el.removeEventListener("touchcancel", touchHandlers.handleTouchEnd);
-      }
-    };
+    if (isMobile) {
+      const onTouchStart = () => {
+        manualScrollRef.current = true;
+        if (manualTimeoutRef.current) {
+          clearTimeout(manualTimeoutRef.current);
+          manualTimeoutRef.current = null;
+        }
+      };
+      const onTouchEnd = () => {
+        manualTimeoutRef.current = setTimeout(() => {
+          manualScrollRef.current = false;
+          manualTimeoutRef.current = null;
+        }, 500);
+      };
+
+      el.addEventListener("touchstart", onTouchStart, { passive: true });
+      el.addEventListener("touchend", onTouchEnd);
+      el.addEventListener("touchcancel", onTouchEnd);
+
+      return () => {
+        el.removeEventListener("touchstart", onTouchStart);
+        el.removeEventListener("touchend", onTouchEnd);
+        el.removeEventListener("touchcancel", onTouchEnd);
+        if (manualTimeoutRef.current) {
+          clearTimeout(manualTimeoutRef.current);
+          manualTimeoutRef.current = null;
+        }
+      };
+    }
   }, []);
+
+  const selected = partners.find((p) => p.key === selectedPartnerKey);
 
   return (
     <div className="partnersContainer">
       <h2>שותפים למיזם</h2>
       <h3>לחצו על לוגו לעוד מידע</h3>
+
       <div className="logos" ref={scrollRef}>
-        {[...partners, ...partners].map(({ key, logo }, index) => (
+        {[...partners, ...partners].map(({ key, logo }, i) => (
           <img
-            key={`${key}-${index}`}
+            key={`${key}-${i}`}
             src={logo}
-            alt={`${key} logo`}
+            alt={key}
             className={key === selectedPartnerKey ? "selectedPartnerLogo" : ""}
             onClick={(e) => handleSelectedPartner(key, e)}
           />
         ))}
       </div>
+
       <div className="selectedPartner">
-        {selectedPartner && (
+        {selected && (
           <PartnerCard
-            companyName={selectedPartner.companyName}
-            paragraph={selectedPartner.paragraph}
+            companyName={selected.companyName}
+            paragraph={selected.paragraph}
           />
         )}
       </div>
     </div>
   );
 }
-
-export default PartnersSection;
