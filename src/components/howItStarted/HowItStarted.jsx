@@ -1,37 +1,21 @@
 import firstImage from "../../assets/firstImg.webp";
-import secondImage from "../../assets/women.webp";
-import soldierGif from "../../assets/soldierGifR.gif";
+import soldierGif from "../../assets/gif.gif";
 import thirdImage from "../../assets/secondImg.webp";
 import fourthImage from "../../assets/secondImg1.webp";
 import fifthImage from "../../assets/soldierStatue.webp";
-import sixthImage from "../../assets/thirdImg.webp";
+import sixthImage from "../../assets/instagramPage.webp";
 import seventhImage from "../../assets/soldierPostImage.webp";
 import gifVideo from "../../assets/gifVideo.mp4";
 import enlargeButton from "../../assets/maximize.svg";
 import { PiVideoLight } from "react-icons/pi";
-import { ClimbingBoxLoader } from "react-spinners";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function HowItStarted() {
   const [enlargedImage, setEnlargedImage] = useState(null);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
-
-  const [loading, setLoading] = useState(true);
-
-  const LoadingScreenOverride = {
-    display: "block",
-    width: "100%",
-    margin: "0 auto",
-  };
-
-  const handleLoading = () => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  };
 
   const handleEnlarge = (image) => {
     setEnlargedImage(image);
@@ -43,23 +27,6 @@ function HowItStarted() {
   const closeModal = () => {
     setEnlargedImage(null);
   };
-
-  useEffect(() => {
-    handleLoading();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="howItStartedLoadingScreen">
-        <ClimbingBoxLoader
-          loading={loading}
-          cssOverride={LoadingScreenOverride}
-          size={window.innerWidth < 480 ? 20 : 30}
-          color="rgb(255, 166, 0)"
-        />
-      </div>
-    );
-  }
 
   return (
     <motion.div
@@ -82,6 +49,7 @@ function HowItStarted() {
             <img src={firstImage} alt="Lezichram statue" />
             <button
               className="enlargeButton"
+              id="firstEnlarge"
               onClick={() => handleEnlarge(firstImage)}
             >
               <img src={enlargeButton} alt="Enlarge" />
@@ -93,11 +61,6 @@ function HowItStarted() {
             <img
               src={soldierGif}
               alt="Soldier life passing inside of his image"
-            />
-            <img
-              src={secondImage}
-              alt="Women reaching to the soldiers life"
-              className="women"
             />
             <button id="videoButton" onClick={openVideo}>
               <PiVideoLight size={"2.5rem"} />
@@ -181,7 +144,7 @@ function HowItStarted() {
           </div>
         </div>
         <div className="contentSection lastSection">
-          <div className="content">
+          <div id="contentLast" className="content">
             <h2>עמוד אינסטגרם</h2>
             <p dir="rtl">
               בנוסף, פתחנו את עמוד האינסטגרם ״לזכרם״ - עמוד ההנצחה המרכזי כיום
@@ -210,6 +173,7 @@ function HowItStarted() {
             />
             <button
               className="enlargeButton"
+              id="rightPrimary"
               onClick={() => handleEnlarge(sixthImage)}
             >
               <img src={enlargeButton} alt="Enlarge" />

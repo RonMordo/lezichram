@@ -41,7 +41,7 @@ body {
   left: 0;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
-  background-image: url("../assets/backgroundImg.png");
+  background-image: url("../assets/background.webp");
   background-size: cover;
   background-position: center;
   z-index: -1;
@@ -72,9 +72,9 @@ h2 {
 
 .searchBar button {
   position: absolute;
-  width: 2rem;
+  width: 1.3rem;
   left: 7rem;
-  top: 3.7rem;
+  top: 4rem;
   font-family: "Rubik";
   background-color: transparent;
   border: none;
@@ -100,6 +100,11 @@ input {
   padding: 0.5rem;
   font-size: 1.3rem;
   font-family: "Rubik", sans-serif;
+}
+
+#notFoundError {
+  color: rgb(255, 166, 0);
+  font-size: 2rem;
 }
 
 .soldiersContainer {
@@ -474,7 +479,7 @@ input {
   min-height: 300px;
   margin-top: 3rem;
   margin-bottom: 3rem;
-  width: 50%;
+  width: 35%;
   align-items: center;
   background-color: rgba(1, 81, 156, 0.1);
   padding: 1rem 0;
@@ -527,8 +532,8 @@ input {
 }
 
 .partnerCard h3 {
-  margin-bottom: 2rem;
-  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
   font-weight: 500;
   color: rgb(255, 166, 0);
 }
@@ -555,6 +560,7 @@ img.selectedPartnerLogo {
 
 .contactForm {
   display: flex;
+  width: 30%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -568,18 +574,16 @@ img.selectedPartnerLogo {
 }
 
 .formGroup {
-  width: 100%;
-}
-
-.formGroup label {
+  width: 80%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
 }
 
 .formGroup input {
   margin-top: 0;
+  width: 100%;
 }
 
 .formGroup input:focus {
@@ -593,10 +597,15 @@ img.selectedPartnerLogo {
   direction: ltr !important;
 }
 
+#email::placeholder,
+#phone::placeholder {
+  text-align: right;
+}
+
 .formGroup textarea {
-  width: 17rem;
+  width: 100%;
   font-family: "Rubik";
-  font-size: 1rem;
+  font-size: 1.3rem;
   background-color: #eef0ff;
   border: none;
   resize: none;
@@ -634,49 +643,210 @@ img.selectedPartnerLogo {
   transform: scale(1.05);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 2600px) {
+  .outerContainer {
+    width: 40%;
+  }
+  .partnersContainer {
+    width: 25rem;
+  }
   .howItStartedContainer {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
   .lastSection {
     margin-top: 10rem;
     margin-bottom: 8rem;
   }
+  .gifSection {
+    margin-top: 3rem;
+  }
+  .contentSection.gifSection .gif img {
+    width: 250%;
+    transform: translate(-30%, -10%);
+  }
+  #videoButton {
+    transform: translate(200%, -1100%);
+  }
+  #whatIs {
+    transform: translate(-15%, -25%);
+  }
+  .content.whatIs {
+    margin-bottom: 15rem;
+  }
+  .lastSection {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+  }
+  #rightSecondery {
+    transform: translate(10%, 10%);
+  }
+  .contactForm {
+    width: 25rem;
+  }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 2000px) {
   .howItStartedContainer {
-    font-size: 1rem;
+    font-size: 1.3rem;
+  }
+  #videoButton {
+    transform: translate(150%, -750%);
+  }
+  .content.goal {
+    margin-top: 2rem;
+  }
+  #firstEnlarge {
+    transform: translate(-50%, -20%);
+  }
+  #whatIs {
+    transform: translate(-70%, -200%);
+  }
+  .content.whatIs {
+    margin-bottom: 6rem;
+  }
+  #leftPrimary {
+    transform: translate(50%, -10%);
+  }
+  #leftSecondery {
+    transform: translate(40%, -1%);
+  }
+  .lastSection {
+    margin-top: 5rem;
+    margin-bottom: 15rem;
+  }
+  #rightPrimary {
+    transform: translate(-15%, -10%);
+  }
+  #rightSecondery {
+    transform: translate(30%, -1%);
+  }
+}
+
+@media (max-width: 1600px) {
+  .outerContainer {
+    width: 50%;
+  }
+  #firstEnlarge {
+    transform: translate(-40%, -15%);
+  }
+  #videoButton {
+    transform: translate(150%, -800%);
+  }
+  #whatIs {
+    transform: translate(-70%, -200%);
+  }
+  #leftPrimary {
+    transform: translate(50%, -10%);
+  }
+  #leftSecondery {
+    transform: translate(40%, 5%);
+  }
+  .content.whatIs {
+    margin-bottom: 7rem;
   }
   .lastSection {
     margin-top: 6rem;
-    margin-bottom: 6rem;
+    margin-bottom: 13rem;
+  }
+  #rightPrimary {
+    transform: translate(-30%, -10%);
+  }
+  #rightSecondery {
+    transform: translate(35%, 0);
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
+  .outerContainer {
+    width: 60%;
+  }
   .howItStartedContainer {
-    font-size: 0.8rem;
+    font-size: 1rem;
+  }
+  #firstEnlarge {
+    transform: translate(-40%, -20%);
+  }
+  #videoButton {
+    transform: translate(60%, -800%);
+  }
+  #whatIs {
+    transform: translate(-60%, -200%);
+  }
+  #leftPrimary {
+    transform: translate(40%, -10%);
+  }
+  #leftSecondery {
+    transform: translate(30%, -1%);
+  }
+  #rightPrimary {
+    transform: translate(-20%, -10%);
+  }
+  #rightSecondery {
+    transform: translate(30%, 1%);
+  }
+  .content.whatIs {
+    margin-bottom: 10rem;
+  }
+  .lastSection {
+    margin-top: 13rem;
+    margin-bottom: 13rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .outerContainer {
+    width: 80%;
+  }
+  .howItStartedContainer {
+    font-size: 1rem;
+  }
+  .gifSection .gif img {
+    width: 250%;
+    transform: translateX(-35%);
+  }
+  .image.right button {
+    width: 50%;
+  }
+  #firstEnlarge {
+    transform: translate(-60%, -10%);
+  }
+  #whatIs {
+    transform: translate(-100%, -300%);
+  }
+  #videoButton {
+    transform: translate(30%, -650%);
+  }
+  #leftSecondery {
+    transform: translate(50%, 0);
+  }
+  #leftPrimary {
+    transform: translate(80%, -20%);
+  }
+  .contentSection.gifSection {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .contentSection.gifSection .content p {
+    width: 100%;
   }
   .lastSection {
     margin-top: 0;
+    margin-bottom: 10rem;
+  }
+  #rightPrimary {
+    transform: translate(-30%);
+  }
+  #rightSecondery {
+    transform: translate(50%, -2%);
   }
 }
 
 @media (max-width: 600px) {
+  .outerContainer {
+    width: 100%;
+  }
   .howItStartedContainer {
-    font-size: 0.7rem;
-  }
-  .gifSection .gif {
-    min-width: 130px;
-  }
-  .right.double .primary {
-    min-width: 170px;
-    transform: translateX(30%);
-  }
-  .right.double .secondery {
-    width: 120px;
-    transform: translateX(90%);
+    width: 80%;
   }
 }
 
@@ -702,7 +872,7 @@ img.selectedPartnerLogo {
     font-size: 2.5rem;
   }
   .searchBar button {
-    top: 4.2rem;
+    top: 4.5rem;
     left: 4rem;
   }
   input {
@@ -742,20 +912,17 @@ img.selectedPartnerLogo {
   .gifSection .gif {
     min-width: 130px;
   }
-  .gifSection .gif .women {
-    width: 110px;
-    height: 200px;
-  }
-  .gifSection .gif img {
-    width: 110px;
-    height: 220px;
-    transform: translateX(-50%);
+  .contentSection.gifSection .gif img {
+    width: 300%;
+    height: auto;
+    transform: translate(-35%, -10%);
     margin-top: 3rem;
   }
   #videoButton {
     width: 2rem;
     top: 2rem;
     right: 1rem;
+    transform: translate(-10%);
   }
   #videoButton img {
     width: 100%;
@@ -777,27 +944,33 @@ img.selectedPartnerLogo {
     transform: translateX(-10%);
   }
   .content.double p {
-    width: 16rem;
+    width: 100%;
     line-height: 2rem;
   }
+  .content.whatIs {
+    margin-bottom: 0;
+  }
   .content.whatIs p {
-    width: 16rem;
+    width: 100%;
     margin-bottom: 3rem;
     line-height: 2rem;
   }
+  .contentSection.gifSection .content {
+    transform: translateX(0);
+  }
   .contentSection.gifSection .content p {
-    width: 17rem;
+    width: 100%;
     line-height: 2rem;
   }
   .content.goal {
     margin-top: 2rem;
   }
   .content.goal p {
-    width: 14rem;
+    width: 100%;
     line-height: 2rem;
   }
   .contentSection.lastSection .content p {
-    width: 16rem;
+    width: 100%;
     line-height: 2rem;
   }
   .howItStartedContainer h2 {
@@ -816,16 +989,22 @@ img.selectedPartnerLogo {
   .image.right button {
     left: 2rem;
   }
+  #firstEnlarge {
+    transform: translate(-20%, -20%);
+  }
   #whatIs {
     top: 13rem;
     left: 1.5rem;
+    transform: translate(-10%, -10%);
   }
   #leftPrimary {
     top: -1rem;
     right: -1rem;
+    transform: translate(-10%, 10%);
   }
   #leftSecondery {
     right: -1rem;
+    transform: translate(-10%, 10%);
   }
   .image.right.double button {
     left: 1rem;
@@ -834,6 +1013,10 @@ img.selectedPartnerLogo {
   #rightSecondery {
     left: -0.5rem;
     top: -3rem;
+    transform: translate(-15%, 1%);
+  }
+  #rightPrimary {
+    transform: translate(-10%, 1%);
   }
   .contactForm {
     width: 90%;
@@ -841,12 +1024,6 @@ img.selectedPartnerLogo {
   }
   .formGroup label {
     gap: 0;
-  }
-  .contactForm label input {
-    width: 65%;
-  }
-  .contactForm textarea {
-    width: 65%;
   }
   .contactForm button {
     width: 6rem;
@@ -865,16 +1042,52 @@ img.selectedPartnerLogo {
   .howItStartedContainer {
     font-size: 0.8rem;
   }
+  #firstEnlarge {
+    transform: translate(-35%, -10%);
+  }
   .gifSection .gif {
     min-width: 100px;
+  }
+  .contentSection.gifSection .content p {
+    width: 95%;
+  }
+  #whatIs {
+    transform: translate(-25%, -80%);
   }
   .image {
     min-width: 120px;
   }
   .lastSection {
     margin-top: 0;
+    margin-bottom: 0;
+  }
+  #contentLast p {
+    width: 100%;
+  }
+  .image.right.double .primary {
+    min-width: 0;
+    width: 150px;
+    height: auto;
+  }
+  .image.right.double .secondery {
+    min-width: 0;
+    width: 100px;
+    transform: translate(100%, 10%);
+  }
+  #rightPrimary {
+    transform: translate(-15%, -10%);
+  }
+  #rightSecondery {
+    transform: translate(-1%, -3%);
+  }
+  .contentSection h2 {
+    font-size: 1.6rem;
   }
   .contentSection .content p {
     width: 90%;
+    font-size: 1rem;
+  }
+  #videoButton {
+    transform: translate(-10%, -10%);
   }
 }

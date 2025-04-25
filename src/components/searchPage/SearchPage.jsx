@@ -8,6 +8,7 @@ function SearchPage({
   setSearchValue,
   handleSearch,
   searchedSoldiers,
+  notFoundError,
 }) {
   return (
     <motion.div
@@ -24,6 +25,11 @@ function SearchPage({
         />
       </div>
       <div className="soldiersContainer">
+        {notFoundError && (
+          <p id="notFoundError" dir="rtl">
+            סליחה, לא מצאנו את הפוסט שחיפשת.
+          </p>
+        )}
         {searchedSoldiers &&
           searchedSoldiers.map((soldier) => (
             <SoldierCard soldierData={soldier} key={soldier.permalink} />

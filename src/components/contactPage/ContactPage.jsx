@@ -24,7 +24,6 @@ function ContactPage() {
 
     if (name === "phone") {
       const onlyDigits = value.replace(/\D/g, "");
-
       let formattedPhone = onlyDigits;
       if (onlyDigits.length > 3 && onlyDigits.length <= 6) {
         formattedPhone = `${onlyDigits.slice(0, 3)}-${onlyDigits.slice(3)}`;
@@ -36,30 +35,34 @@ function ContactPage() {
       }
 
       setFormData((prev) => ({ ...prev, phone: formattedPhone }));
-
-      const phonePattern = /^05\d-\d{3}-\d{4}$/;
-      if (!phonePattern.test(formattedPhone)) {
-        setErrors((prev) => ({
-          ...prev,
-          phone: "מספר טלפון אינו בפורמט הנכון.",
-        }));
-      } else {
-        setErrors((prev) => ({ ...prev, phone: "" }));
-      }
-    } else if (name === "email") {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(value)) {
-        setErrors((prev) => ({
-          ...prev,
-          email: "כתובת דואר אלקטרוני אינה תקינה.",
-        }));
-      } else {
-        setErrors((prev) => ({ ...prev, email: "" }));
-      }
-      setFormData((prev) => ({ ...prev, [name]: value }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    const phonePattern = /^05\d-\d{3}-\d{4}$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!formData.name.trim()) {
+      newErrors.name = "נא להזין שם.";
+    }
+
+    if (!emailPattern.test(formData.email)) {
+      newErrors.email = "כתובת דואר אלקטרוני אינה תקינה.";
+    }
+
+    if (!phonePattern.test(formData.phone)) {
+      newErrors.phone = "מספר טלפון אינו בפורמט הנכון.";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "נא להזין הודעה.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
@@ -67,6 +70,12 @@ function ContactPage() {
     setIsSubmitting(true);
     setError(null);
     setSuccess(false);
+
+    const isValid = validateForm();
+    if (!isValid) {
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       await emailjs.send(
@@ -82,9 +91,10 @@ function ContactPage() {
       );
       setSuccess(true);
       setFormData({ name: "", email: "", phone: "", message: "" });
+      setErrors({ name: "", email: "", phone: "", message: "" });
     } catch (err) {
       console.error(err);
-      setError("Failed to send message.");
+      setError("שליחת ההודעה נכשלה.");
     } finally {
       setIsSubmitting(false);
     }

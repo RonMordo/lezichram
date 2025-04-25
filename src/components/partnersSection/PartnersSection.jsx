@@ -5,7 +5,7 @@ import lightLogo from "../../assets/partners/light.png";
 import rabinskyLogo from "../../assets/partners/rabinsky.png";
 import telAvivLogo from "../../assets/partners/tel-aviv.png";
 import zambergLogo from "../../assets/partners/zamberg.png";
-import gelemLogo from "../../assets/gelem.png";
+import gelemLogo from "../../assets/partners/gelem.png";
 
 import PartnerCard from "../partnerCard/PartnerCard";
 import { useState, useRef, useEffect } from "react";
@@ -71,8 +71,6 @@ function PartnersSection() {
   const [selectedPartnerKey, setSelectedPartnerKey] = useState(null);
   const scrollRef = useRef(null);
   const selectedPartnerRef = useRef(selectedPartnerKey);
-  const pausedBySelectionRef = useRef(false);
-  const resumeTimeoutRef = useRef(null);
   const manualScrollRef = useRef(false);
   const manualTimeoutRef = useRef(null);
 
@@ -80,30 +78,13 @@ function PartnersSection() {
     selectedPartnerRef.current = selectedPartnerKey;
   }, [selectedPartnerKey]);
 
-  useEffect(() => {
-    if (selectedPartnerKey) {
-      pausedBySelectionRef.current = true;
-      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
-      resumeTimeoutRef.current = setTimeout(() => {
-        pausedBySelectionRef.current = false;
-      }, 2000);
-    } else {
-      pausedBySelectionRef.current = false;
-      if (resumeTimeoutRef.current) {
-        clearTimeout(resumeTimeoutRef.current);
-        resumeTimeoutRef.current = null;
-      }
-    }
-    return () => {
-      if (resumeTimeoutRef.current) {
-        clearTimeout(resumeTimeoutRef.current);
-        resumeTimeoutRef.current = null;
-      }
-    };
-  }, [selectedPartnerKey]);
-
-  const handleSelectedPartner = (key) => {
+  const handleSelectedPartner = (key, event) => {
     setSelectedPartnerKey((prev) => (prev === key ? null : key));
+    event.currentTarget.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
   };
 
   const selectedPartner = partners.find((p) => p.key === selectedPartnerKey);
@@ -123,10 +104,7 @@ function PartnersSection() {
       const delta = time - lastTime;
       lastTime = time;
 
-      if (
-        (!selectedPartnerRef.current || !pausedBySelectionRef.current) &&
-        !manualScrollRef.current
-      ) {
+      if (!selectedPartnerRef.current && !manualScrollRef.current) {
         el.scrollLeft += (speed * delta) / 1000;
         const cycleWidth = el.scrollWidth / 2;
         if (el.scrollLeft >= cycleWidth) {
@@ -147,7 +125,6 @@ function PartnersSection() {
           manualScrollRef.current = false;
         }, 1000);
       };
-
       el.addEventListener("touchstart", touchHandlers.handleTouchStart);
       el.addEventListener("touchend", touchHandlers.handleTouchEnd);
       el.addEventListener("touchcancel", touchHandlers.handleTouchEnd);
@@ -156,13 +133,12 @@ function PartnersSection() {
     requestAnimationFrame(animate);
 
     return () => {
-      if (isMobile && touchHandlers.handleTouchStart) {
+      if (isMobile) {
         el.removeEventListener("touchstart", touchHandlers.handleTouchStart);
         el.removeEventListener("touchend", touchHandlers.handleTouchEnd);
         el.removeEventListener("touchcancel", touchHandlers.handleTouchEnd);
         if (manualTimeoutRef.current) clearTimeout(manualTimeoutRef.current);
       }
-      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     };
   }, []);
 
@@ -177,7 +153,7 @@ function PartnersSection() {
             src={logo}
             alt={`${key} logo`}
             className={key === selectedPartnerKey ? "selectedPartnerLogo" : ""}
-            onClick={() => handleSelectedPartner(key)}
+            onClick={(e) => handleSelectedPartner(key, e)}
           />
         ))}
       </div>

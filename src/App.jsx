@@ -11,6 +11,7 @@ function App() {
   const [searchValue, setSearchValue] = useState("");
   const [soldiersData, setSoldiersData] = useState([]);
   const [searchedSoldiers, setSearchedSoldiers] = useState([]);
+  const [notFoundError, setNotFoundError] = useState(false);
 
   useEffect(() => {
     async function loadSoldiers() {
@@ -38,11 +39,16 @@ function App() {
   const handleSearch = (searchText) => {
     setSearchValue(searchText);
     const trimmed = searchText.trim();
+
     if (!trimmed) {
       setSearchedSoldiers([]);
+      setNotFoundError(false);
       return;
     }
-    setSearchedSoldiers(soldiersData.filter((s) => s.name.includes(trimmed)));
+
+    const filtered = soldiersData.filter((s) => s.name.includes(trimmed));
+    setSearchedSoldiers(filtered);
+    setNotFoundError(filtered.length === 0);
   };
 
   return (
@@ -58,6 +64,7 @@ function App() {
                 setSearchValue={setSearchValue}
                 handleSearch={handleSearch}
                 searchedSoldiers={searchedSoldiers}
+                notFoundError={notFoundError}
               />
             }
           />

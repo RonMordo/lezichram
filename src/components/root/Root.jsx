@@ -39,8 +39,8 @@ function Root() {
 
       <Outlet />
       <PartnersSection />
-      <Gallery />
       <ContactPage />
+      <Gallery />
     </div>
   );
 }
