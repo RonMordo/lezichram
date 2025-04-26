@@ -12,16 +12,17 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function FadeImage({ src, alt, className, ...props }) {
+function FadeImage({ src, alt, className, disableFade = false, ...props }) {
   const [loaded, setLoaded] = useState(false);
+
   return (
     <motion.img
       src={src}
       alt={alt}
       className={className}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: loaded ? 1 : 0 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      initial={{ opacity: disableFade ? 1 : 0 }}
+      animate={{ opacity: loaded || disableFade ? 1 : 0 }}
+      transition={{ duration: disableFade ? 0 : 0.8, ease: "easeInOut" }}
       onLoad={() => setLoaded(true)}
       {...props}
     />
@@ -54,7 +55,7 @@ function HowItStarted() {
               צעירים, להתחבר ולזכור.
             </p>
           </div>
-          <motion.div className="image right">
+          <motion.div className="image right" id="firstImage">
             <FadeImage src={firstImage} alt="Lezichram statue" />
             <button
               className="enlargeButton"
@@ -161,9 +162,9 @@ function HowItStarted() {
           <div id="contentLast" className="content">
             <h2>עמוד אינסטגרם</h2>
             <p dir="rtl">
-              בנוסף, פתחנו את עמוד האינסטגרם ״לזכרם״ - עמוד ההנצחה המרכזי כיום
-              ברשת, בו יש מאות פוסטים. כל פוסט מוקדש לחלל אחר, ואת הפוסטים אנשים
-              משתפים בקלות בסטורי, כדי להגדיל את המודעות ברשת.
+              בנוסף, פתחנו את עמוד האינסטגרם <span>״לזכרם״</span> - עמוד ההנצחה
+              המרכזי כיום ברשת, בו יש מאות פוסטים. כל פוסט מוקדש לחלל אחר, ואת
+              הפוסטים אנשים משתפים בקלות בסטורי, כדי להגדיל את המודעות ברשת.
             </p>
             <p dir="rtl">(!אלפים שיתפו פוסטים)</p>
           </div>
@@ -220,11 +221,20 @@ function HowItStarted() {
 
       {enlargedImage && (
         <div className="imageModal" onClick={closeModal}>
-          <FadeImage
-            src={enlargedImage}
-            alt="Enlarged view"
+          <div
+            className="enlargedImageContainer"
             onClick={(e) => e.stopPropagation()}
-          />
+          >
+            <button className="closeButton" onClick={closeModal}>
+              ✖
+            </button>
+
+            <FadeImage
+              src={enlargedImage}
+              alt="Enlarged view"
+              disableFade={true}
+            />
+          </div>
         </div>
       )}
 

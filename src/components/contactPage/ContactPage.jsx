@@ -76,7 +76,6 @@ function ContactPage() {
       setIsSubmitting(false);
       return;
     }
-
     try {
       await emailjs.send(
         "service_9aua3aj",
@@ -108,7 +107,7 @@ function ContactPage() {
       isSubmitting={isSubmitting}
       error={error}
       errors={errors}
-      seccess={success}
+      success={success}
     />
   );
 }

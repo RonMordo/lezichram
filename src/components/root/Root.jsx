@@ -16,7 +16,7 @@ function Root() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIntro(false);
-    }, 3000); // 3 seconds total (hold, then fade-out)
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -27,18 +27,18 @@ function Root() {
           <motion.div
             key="intro"
             className="intro"
-            initial={{ opacity: 1 }} // start fully visible
-            animate={{ opacity: 1 }} // no fade-in
-            exit={{ opacity: 0 }} // fade-out
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 1, ease: "easeInOut" }}
           >
             <motion.p
               dir="rtl"
-              initial={{ opacity: 0 }} // fade-in for the text
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{
-                opacity: { duration: 1, delay: 0.5 }, // keep fade-in on p
+                opacity: { duration: 1, delay: 0.5 },
                 ease: "easeInOut",
               }}
             >

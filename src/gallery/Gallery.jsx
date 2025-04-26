@@ -3,7 +3,7 @@ import two from "../assets/galleryImages/second.webp";
 import three from "../assets/galleryImages/three.webp";
 import four from "../assets/galleryImages/four.webp";
 import gif from "../assets/galleryImages/statueGif.gif";
-import six from "../assets/galleryImages/six.webp";
+import six from "../assets/galleryImages/instPage.webp";
 import seven from "../assets/galleryImages/7.webp";
 import eight from "../assets/galleryImages/secondGif.gif";
 import nine from "../assets/galleryImages/9.webp";
@@ -16,8 +16,7 @@ import fifteen from "../assets/galleryImages/15.webp";
 import sixteen from "../assets/galleryImages/16.webp";
 import seventeen from "../assets/galleryImages/17.webp";
 import video from "../assets/gifVideo.mp4";
-import enlargeButton from "../assets/maximize.svg";
-
+import { ImEnlarge } from "react-icons/im";
 import { useState } from "react";
 
 function Gallery() {
@@ -71,12 +70,12 @@ function Gallery() {
               id={i === 5 ? "tall" : undefined}
             >
               <img src={src} alt="" />
-              <img
-                src={enlargeButton}
-                alt="Enlarge"
+              <div
                 className="enlarge"
                 onClick={() => (i === 7 ? openVideo() : handleEnlarge(src))}
-              />
+              >
+                <ImEnlarge size={20} />
+              </div>
             </div>
           ))}
         </div>
@@ -84,22 +83,34 @@ function Gallery() {
 
       {enlargedImage && (
         <div className="imageModal" onClick={closeModal}>
-          <img
-            src={enlargedImage}
-            alt="Enlarged"
+          <div
+            className="enlargedImageContainer"
             onClick={(e) => e.stopPropagation()}
-          />
+          >
+            <button className="closeButton" onClick={closeModal}>
+              ✖
+            </button>
+            <img src={enlargedImage} alt="Enlarged" />
+          </div>
         </div>
       )}
 
       {isVideoOpen && (
         <div className="videoModal" onClick={closeModal}>
-          <video
-            src={video}
-            controls
-            autoPlay
+          <div
+            className="enlargedImageContainer"
             onClick={(e) => e.stopPropagation()}
-          />
+          >
+            <button className="closeButton" onClick={closeModal}>
+              ✖
+            </button>
+            <video
+              src={video}
+              controls
+              autoPlay
+              style={{ maxWidth: "90%", maxHeight: "90%" }}
+            />
+          </div>
         </div>
       )}
     </>
