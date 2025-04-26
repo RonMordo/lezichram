@@ -50,10 +50,10 @@ function ContactPage() {
     }
 
     if (!emailPattern.test(formData.email)) {
-      newErrors.email = "כתובת דואר אלקטרוני אינה תקינה.";
+      newErrors.email = "כתובת מייל אינה תקינה.";
     }
 
-    if (!phonePattern.test(formData.phone)) {
+    if (formData.phone.trim() && !phonePattern.test(formData.phone)) {
       newErrors.phone = "מספר טלפון אינו בפורמט הנכון.";
     }
 

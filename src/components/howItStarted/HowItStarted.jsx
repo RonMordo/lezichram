@@ -8,25 +8,34 @@ import seventhImage from "../../assets/soldierPostImage.webp";
 import gifVideo from "../../assets/gifVideo.mp4";
 import enlargeButton from "../../assets/maximize.svg";
 import { PiVideoLight } from "react-icons/pi";
-// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+function FadeImage({ src, alt, className, ...props }) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <motion.img
+      src={src}
+      alt={alt}
+      className={className}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: loaded ? 1 : 0 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      onLoad={() => setLoaded(true)}
+      {...props}
+    />
+  );
+}
 
 function HowItStarted() {
   const [enlargedImage, setEnlargedImage] = useState(null);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-  const handleEnlarge = (image) => {
-    setEnlargedImage(image);
-  };
-
+  const handleEnlarge = (image) => setEnlargedImage(image);
   const openVideo = () => setIsVideoOpen(true);
   const closeVideoModal = () => setIsVideoOpen(false);
-
-  const closeModal = () => {
-    setEnlargedImage(null);
-  };
+  const closeModal = () => setEnlargedImage(null);
 
   return (
     <motion.div
@@ -46,7 +55,7 @@ function HowItStarted() {
             </p>
           </div>
           <motion.div className="image right">
-            <img src={firstImage} alt="Lezichram statue" />
+            <FadeImage src={firstImage} alt="Lezichram statue" />
             <button
               className="enlargeButton"
               id="firstEnlarge"
@@ -56,14 +65,15 @@ function HowItStarted() {
             </button>
           </motion.div>
         </div>
+
         <div className="contentSection gifSection">
           <motion.div className="gif left">
-            <img
+            <FadeImage
               src={soldierGif}
               alt="Soldier life passing inside of his image"
             />
             <button id="videoButton" onClick={openVideo}>
-              <PiVideoLight size={"2.5rem"} />
+              <PiVideoLight size="2.5rem" />
             </button>
           </motion.div>
           <div className="content">
@@ -78,6 +88,7 @@ function HowItStarted() {
             <p dir="rtl">(יגל בר - יזם הפרויקט)</p>
           </div>
         </div>
+
         <div className="contentSection">
           <div className="content whatIs">
             <h2 dir="rtl">מה זה חלל?</h2>
@@ -91,7 +102,7 @@ function HowItStarted() {
             </p>
           </div>
           <motion.div className="image right">
-            <img
+            <FadeImage
               src={thirdImage}
               alt="Women looking into soldier figure with his life shown"
             />
@@ -104,9 +115,10 @@ function HowItStarted() {
             </button>
           </motion.div>
         </div>
+
         <div className="contentSection">
           <motion.div className="image left double">
-            <img
+            <FadeImage
               src={fourthImage}
               alt="Women touching a soldier figure shows his childhood"
               className="primary"
@@ -118,7 +130,8 @@ function HowItStarted() {
             >
               <img src={enlargeButton} alt="Enlarge" />
             </button>
-            <img
+
+            <FadeImage
               src={fifthImage}
               alt="Lezichram statue"
               className="secondery"
@@ -143,6 +156,7 @@ function HowItStarted() {
             </p>
           </div>
         </div>
+
         <div className="contentSection lastSection">
           <div id="contentLast" className="content">
             <h2>עמוד אינסטגרם</h2>
@@ -151,10 +165,10 @@ function HowItStarted() {
               ברשת, בו יש מאות פוסטים. כל פוסט מוקדש לחלל אחר, ואת הפוסטים אנשים
               משתפים בקלות בסטורי, כדי להגדיל את המודעות ברשת.
             </p>
-            <p dir="trl">(!אלפים שיתפו פוסטים)</p>
+            <p dir="rtl">(!אלפים שיתפו פוסטים)</p>
           </div>
           <motion.div className="image right double">
-            <img
+            <FadeImage
               src={seventhImage}
               alt="Soldier Instagram post"
               className="secondery"
@@ -166,7 +180,8 @@ function HowItStarted() {
             >
               <img src={enlargeButton} alt="Enlarge" />
             </button>
-            <img
+
+            <FadeImage
               src={sixthImage}
               alt="Lezichram Instagram profile"
               className="primary"
@@ -180,6 +195,7 @@ function HowItStarted() {
             </button>
           </motion.div>
         </div>
+
         <div className="quotes">
           <p dir="rtl">
             ״לקחת את המושג ׳חלל׳ שהוא ריק וכלום, והכנסת בו חיים. אתה פשוט הבאת
@@ -196,25 +212,29 @@ function HowItStarted() {
             איריס, אמו של אייל יפרח ז״ל
           </p>
         </div>
+
         <Link to="/">
           <button>סגירה</button>
         </Link>
       </div>
+
       {enlargedImage && (
         <div className="imageModal" onClick={closeModal}>
-          <img
+          <FadeImage
             src={enlargedImage}
             alt="Enlarged view"
             onClick={(e) => e.stopPropagation()}
           />
         </div>
       )}
+
       {isVideoOpen && (
         <div className="videoModal" onClick={closeVideoModal}>
           <video
             src={gifVideo}
             controls
             autoPlay
+            style={{ maxWidth: "90%", maxHeight: "90%" }}
             onClick={(e) => e.stopPropagation()}
           />
         </div>
@@ -222,4 +242,5 @@ function HowItStarted() {
     </motion.div>
   );
 }
+
 export default HowItStarted;

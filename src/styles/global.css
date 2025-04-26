@@ -27,6 +27,27 @@ body {
   text-align: center;
 }
 
+.intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/background.webp");
+  background-size: cover;
+  background-position: center;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro p {
+  font-size: 3rem;
+  font-weight: 600;
+  color: rgb(255, 166, 0);
+}
+
 .title img {
   width: 20rem;
 }
