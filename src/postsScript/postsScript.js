@@ -2,17 +2,20 @@ import fetch from "node-fetch";
 import { Buffer } from "buffer";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
-// import { extractNameFromImage } from "./extractNameFromImage.js";
 
 dotenv.config();
 
 //–– Config & clients
 const ACCESS_TOKEN = process.env.VITE_INSTAGRAM_API_KEY;
-const IG_USER_ID = process.env.VITE_IG_USERID;
+const IG_USER_ID = process.env.VITE_IGUSERID;
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-console.log("Starting script");
+const BUCKET_NAME = "post-images";
+const FOLDER_NAME = "posts"; // ✅ target subfolder
+const BUCKET_URL_PREFIX = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET_NAME}/${FOLDER_NAME}/`;
+
+console.log("Starting script...");
 console.log({
   ACCESS_TOKEN: !!ACCESS_TOKEN,
   IG_USER_ID,
@@ -43,13 +46,23 @@ async function fetchAllMedia(igUserId) {
     `?fields=id,caption,media_url,like_count,comments_count,permalink` +
     `&access_token=${ACCESS_TOKEN}`;
   const all = [];
+
   while (url) {
-    const { data, paging } = await fetchJSON(url);
-    all.push(...data);
-    url = paging?.next || null;
-    console.log(`  ↳ Fetched ${data.length} posts, total so far ${all.length}`);
-    await new Promise((r) => setTimeout(r, 300));
+    try {
+      const { data, paging } = await fetchJSON(url);
+      all.push(...data);
+      url = paging?.next || null;
+      console.log(
+        `  ↳ Fetched ${data.length} posts, total so far ${all.length}`
+      );
+      await new Promise((r) => setTimeout(r, 300));
+    } catch (err) {
+      console.error("⚠️ Error fetching page:", err.message);
+      console.warn("⚠️ Stopping pagination early.");
+      break; // safe exit on server error
+    }
   }
+
   return all;
 }
 
@@ -59,7 +72,6 @@ function extractHashtags(caption = "") {
 
 async function run() {
   console.log("1) Fetching all media…");
-  let insertedPostsCount = 0;
   const posts = await fetchAllMedia(IG_USER_ID);
   console.log(`→ Total posts fetched: ${posts.length}`);
 
@@ -73,19 +85,27 @@ async function run() {
     console.log("\n---");
     console.log("Post permalink:", post.permalink);
 
-    // 3) Check duplicate
-    const { data: exists, error: chkErr } = await supabase
+    // 3) Check if post already exists
+    const { data: existingPost, error: chkErr } = await supabase
       .from("posts")
-      .select("permalink")
+      .select("id, img_url")
       .eq("permalink", post.permalink)
       .maybeSingle();
+
     if (chkErr) {
       console.error("Error checking DB:", chkErr);
       continue;
     }
-    if (exists) {
-      console.log("Already in DB, skipping");
-      continue;
+
+    if (existingPost) {
+      console.log("Post exists in DB, checking img_url...");
+
+      if (existingPost.img_url?.startsWith(BUCKET_URL_PREFIX)) {
+        console.log("✅ img_url is already from Supabase bucket. Skipping.");
+        continue;
+      } else {
+        console.log("⚠️ img_url is NOT from Supabase. Will re-upload and fix.");
+      }
     }
 
     // 4) Determine name
@@ -97,10 +117,6 @@ async function run() {
     } else {
       console.log("Could not extract name.");
       name = "UnNamed";
-      // console.log("No name in caption, calling GPT…");
-      // await new Promise((r) => setTimeout(r, 1500));
-      // name = await extractNameFromImage(post.media_url);
-      // console.log("GPT returned name:", name);
     }
 
     // 5) Download image
@@ -108,6 +124,10 @@ async function run() {
     try {
       console.log("Downloading image from:", post.media_url);
       const res = await fetch(post.media_url);
+      if (!res.ok) {
+        console.error(`Failed to download image. HTTP status ${res.status}`);
+        continue;
+      }
       contentType = res.headers.get("content-type");
       const array = await res.arrayBuffer();
       buffer = Buffer.from(array);
@@ -121,42 +141,63 @@ async function run() {
     const fileName = `${Date.now()}_${Math.random()
       .toString(36)
       .slice(2, 8)}.${ext}`;
-    console.log("Uploading to bucket as:", fileName);
-    const { data: upData, error: upErr } = await supabase.storage
-      .from("post-images")
-      .upload(fileName, buffer, { contentType });
-    if (upErr) {
-      console.error("Storage upload error:", upErr);
+
+    console.log(
+      "Uploading to Supabase Storage as:",
+      `${FOLDER_NAME}/${fileName}`
+    );
+
+    const { data: uploadData, error: uploadErr } = await supabase.storage
+      .from(BUCKET_NAME)
+      .upload(`${FOLDER_NAME}/${fileName}`, buffer, { contentType });
+
+    if (uploadErr) {
+      console.error("Storage upload error:", uploadErr);
       continue;
     }
-    const key = upData.Key;
-    const { data: urlData } = supabase.storage
-      .from("post-images")
-      .getPublicUrl(key);
-    console.log("Uploaded → publicURL:", urlData.publicUrl);
 
-    // 7) Insert row
-    console.log("Inserting row into posts table…");
-    const { error: insErr } = await supabase.from("posts").insert([
-      {
-        name,
-        caption: post.caption,
-        img_url: urlData.publicUrl,
-        like_count: post.like_count,
-        comments_count: post.comments_count,
-        permalink: post.permalink,
-      },
-    ]);
-    if (insErr) {
-      console.error("Insert error:", insErr);
-      insertedPostsCount++;
+    const { data: publicUrlData } = supabase.storage
+      .from(BUCKET_NAME)
+      .getPublicUrl(`${FOLDER_NAME}/${fileName}`);
+    const publicUrl = publicUrlData?.publicUrl;
+
+    console.log("Image uploaded. Public URL:", publicUrl);
+
+    // 7) Insert or Update row
+    if (existingPost) {
+      console.log("Updating existing post...");
+      const { error: updateErr } = await supabase
+        .from("posts")
+        .update({ img_url: publicUrl })
+        .eq("id", existingPost.id);
+
+      if (updateErr) {
+        console.error("Update error:", updateErr);
+      } else {
+        console.log("✅ Post updated successfully.");
+      }
     } else {
-      console.log("Inserted:", post.permalink);
+      console.log("Inserting new post...");
+      const { error: insertErr } = await supabase.from("posts").insert([
+        {
+          name,
+          caption: post.caption,
+          img_url: publicUrl,
+          like_count: post.like_count,
+          comments_count: post.comments_count,
+          permalink: post.permalink,
+        },
+      ]);
+
+      if (insertErr) {
+        console.error("Insert error:", insertErr);
+      } else {
+        console.log("✅ Post inserted successfully.");
+      }
     }
   }
 
-  console.log("\nDone.");
-  console.log(`Inserted: ${insertedPostsCount}, new posts.`);
+  console.log("\n✅ Script finished.");
 }
 
 run().catch((err) => {
