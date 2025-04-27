@@ -12,7 +12,7 @@ const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const BUCKET_NAME = "post-images";
-const FOLDER_NAME = "posts"; // ✅ target subfolder
+const FOLDER_NAME = "posts";
 const BUCKET_URL_PREFIX = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET_NAME}/${FOLDER_NAME}/`;
 
 console.log("Starting script...");
@@ -59,7 +59,7 @@ async function fetchAllMedia(igUserId) {
     } catch (err) {
       console.error("⚠️ Error fetching page:", err.message);
       console.warn("⚠️ Stopping pagination early.");
-      break; // safe exit on server error
+      break;
     }
   }
 
@@ -85,7 +85,6 @@ async function run() {
     console.log("\n---");
     console.log("Post permalink:", post.permalink);
 
-    // 3) Check if post already exists
     const { data: existingPost, error: chkErr } = await supabase
       .from("posts")
       .select("id, img_url")
@@ -108,7 +107,7 @@ async function run() {
       }
     }
 
-    // 4) Determine name
+    // Determine name
     let name = null;
     const match = (post.caption || "").match(/^(.*?)\s+ז["״׳’']{0,2}ל/);
     if (match) {
@@ -119,7 +118,7 @@ async function run() {
       name = "UnNamed";
     }
 
-    // 5) Download image
+    // Download image
     let buffer, contentType;
     try {
       console.log("Downloading image from:", post.media_url);
@@ -136,7 +135,7 @@ async function run() {
       continue;
     }
 
-    // 6) Upload to storage
+    // Upload to storage
     const ext = contentType?.split("/")[1] || "jpg";
     const fileName = `${Date.now()}_${Math.random()
       .toString(36)
@@ -163,7 +162,7 @@ async function run() {
 
     console.log("Image uploaded. Public URL:", publicUrl);
 
-    // 7) Insert or Update row
+    // Insert or Update row
     if (existingPost) {
       console.log("Updating existing post...");
       const { error: updateErr } = await supabase

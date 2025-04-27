@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import PartnersSection from "../partnersSection/PartnersSection";
 import lezichramLogo from "/lezichramLogo.svg";
-import Gallery from "../../gallery/Gallery";
+import Gallery from "../gallery/Gallery";
 import ContactPage from "../contactPage/ContactPage";
 
 function Root() {

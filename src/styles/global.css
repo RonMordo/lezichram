@@ -500,6 +500,7 @@ input {
 
 #rightSecondery {
   position: absolute;
+  height: 80px;
   bottom: -25rem;
   left: -7rem;
   z-index: 1000;
@@ -510,7 +511,8 @@ input {
   position: absolute;
 }
 
-.imageModal {
+.imageModal,
+.videoModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -525,8 +527,8 @@ input {
 
 .enlargedImageContainer {
   position: relative;
-  width: 100%;
-  max-width: 600px;
+  width: 40%;
+  height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -538,43 +540,12 @@ input {
   object-fit: contain;
 }
 
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 50px;
-  width: 30px;
-  height: 30px;
-  background: rgba(0, 0, 0, 0.6);
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 1001;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s ease;
-}
-
 .imageModal img {
   max-width: 90%;
   max-height: 90%;
   cursor: default;
 }
 
-.videoModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
-}
 .videoModal video {
   max-width: 90%;
   max-height: 90%;
@@ -877,7 +848,7 @@ img.selectedPartnerLogo {
     margin-bottom: 20rem;
   }
   #rightSecondery {
-    transform: translate(10%, 10%);
+    transform: translate(10%, 730%);
   }
   .contactForm {
     width: 25rem;
@@ -917,7 +888,7 @@ img.selectedPartnerLogo {
     transform: translate(-15%, -10%);
   }
   #rightSecondery {
-    transform: translate(30%, -1%);
+    transform: translate(30%, 500%);
   }
 }
 
@@ -951,7 +922,7 @@ img.selectedPartnerLogo {
     transform: translate(-30%, -10%);
   }
   #rightSecondery {
-    transform: translate(35%, 0);
+    transform: translate(35%, 470%);
   }
 }
 
@@ -981,7 +952,7 @@ img.selectedPartnerLogo {
     transform: translate(-20%, -10%);
   }
   #rightSecondery {
-    transform: translate(30%, 1%);
+    transform: translate(30%, 480%);
   }
   .content.whatIs {
     margin-bottom: 10rem;
@@ -1036,7 +1007,7 @@ img.selectedPartnerLogo {
     transform: translate(-30%);
   }
   #rightSecondery {
-    transform: translate(50%, -2%);
+    transform: translate(50%, 430%);
   }
 }
 
@@ -1147,6 +1118,9 @@ img.selectedPartnerLogo {
   .left .primary {
     transform: translateX(-10%);
   }
+  .enlargedImageContainer {
+    width: 70%;
+  }
   .content.double p {
     width: 100%;
     line-height: 2rem;
@@ -1217,7 +1191,7 @@ img.selectedPartnerLogo {
   #rightSecondery {
     left: -0.5rem;
     top: -3rem;
-    transform: translate(-5%, -2%);
+    transform: translate(-5%, 350%);
   }
   #rightPrimary {
     transform: translate(-10%, 1%);
@@ -1314,7 +1288,7 @@ img.selectedPartnerLogo {
     transform: translate(-15%, -10%);
   }
   #rightSecondery {
-    transform: translate(-1%, -3%);
+    transform: translate(-1%, 290%);
   }
   .contentSection h2 {
     font-size: 1.6rem;

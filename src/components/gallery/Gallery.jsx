@@ -1,21 +1,21 @@
-import one from "../assets/galleryImages/first.webp";
-import two from "../assets/galleryImages/second.webp";
-import three from "../assets/galleryImages/three.webp";
-import four from "../assets/galleryImages/four.webp";
-import gif from "../assets/galleryImages/statueGif.gif";
-import six from "../assets/galleryImages/instPage.webp";
-import seven from "../assets/galleryImages/7.webp";
-import eight from "../assets/galleryImages/secondGif.gif";
-import nine from "../assets/galleryImages/9.webp";
-import ten from "../assets/galleryImages/10.webp";
-import eleven from "../assets/galleryImages/11.webp";
-import twelve from "../assets/galleryImages/12.webp";
-import thirteen from "../assets/galleryImages/13.webp";
-import fourteen from "../assets/galleryImages/14.webp";
-import fifteen from "../assets/galleryImages/15.webp";
-import sixteen from "../assets/galleryImages/16.webp";
-import seventeen from "../assets/galleryImages/17.webp";
-import video from "../assets/gifVideo.mp4";
+import one from "../../assets/galleryImages/first.webp";
+import two from "../../assets/galleryImages/second.webp";
+import three from "../../assets/galleryImages/three.webp";
+import four from "../../assets/galleryImages/four.webp";
+import gif from "../../assets/galleryImages/statueGif.gif";
+import six from "../../assets/galleryImages/six.webp";
+import seven from "../../assets/galleryImages/7.webp";
+import eight from "../../assets/galleryImages/secondGif.gif";
+import nine from "../../assets/galleryImages/9.webp";
+import ten from "../../assets/galleryImages/10.webp";
+import eleven from "../../assets/galleryImages/11.webp";
+import twelve from "../../assets/galleryImages/12.webp";
+import thirteen from "../../assets/galleryImages/13.webp";
+import fourteen from "../../assets/galleryImages/14.webp";
+import fifteen from "../../assets/galleryImages/15.webp";
+import sixteen from "../../assets/galleryImages/16.webp";
+import seventeen from "../../assets/galleryImages/17.webp";
+import video from "../../assets/gifVideo.mp4";
 import { ImEnlarge } from "react-icons/im";
 import { useState } from "react";
 
@@ -87,9 +87,6 @@ function Gallery() {
             className="enlargedImageContainer"
             onClick={(e) => e.stopPropagation()}
           >
-            <button className="closeButton" onClick={closeModal}>
-              ✖
-            </button>
             <img src={enlargedImage} alt="Enlarged" />
           </div>
         </div>
@@ -101,9 +98,6 @@ function Gallery() {
             className="enlargedImageContainer"
             onClick={(e) => e.stopPropagation()}
           >
-            <button className="closeButton" onClick={closeModal}>
-              ✖
-            </button>
             <video
               src={video}
               controls
