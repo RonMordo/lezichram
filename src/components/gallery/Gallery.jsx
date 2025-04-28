@@ -151,7 +151,7 @@ function Gallery() {
   const handleTouchMoveModal = (e) => {
     if (startY !== null) {
       const currentY = e.touches[0].clientY;
-      if (currentY - startY > 30) {
+      if (currentY - startY > 100) {
         closeModal();
       }
     }
@@ -256,8 +256,14 @@ function Gallery() {
           <div
             className="enlargedImageContainer"
             onClick={(e) => e.stopPropagation()}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
+            onTouchStart={(e) => {
+              handleTouchStart(e);
+              handleTouchStartModal(e);
+            }}
+            onTouchMove={(e) => {
+              handleTouchMove(e);
+              handleTouchMoveModal(e);
+            }}
             onTouchEnd={handleTouchEnd}
           >
             {isVideo ? (
