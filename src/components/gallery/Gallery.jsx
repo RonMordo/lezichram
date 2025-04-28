@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import { ImEnlarge } from "react-icons/im";
+
 import one from "../../assets/galleryImages/first.webp";
 import two from "../../assets/galleryImages/second.webp";
 import three from "../../assets/galleryImages/three.webp";
@@ -24,11 +27,10 @@ import twentythree from "../../assets/galleryImages/23.webp";
 import twentyfour from "../../assets/galleryImages/24.webp";
 import twentyfive from "../../assets/galleryImages/25.webp";
 import twentysix from "../../assets/galleryImages/26.webp";
-import video from "../../assets/gifVideo.mp4";
-import { ImEnlarge } from "react-icons/im";
-import { useState } from "react";
 
 function Gallery() {
+  const BATCH_SIZE = 4;
+
   const images = [
     {
       src: one,
@@ -42,8 +44,11 @@ function Gallery() {
     },
     { src: three, description: "השרטוט הראשון של המיצג" },
     { src: four, description: "תהליך יצירת הפוסטים הראשונים באפריל 2022" },
+    {
+      src: twentysix,
+      description: "הדמיה למיצגים בחניון רעים עם המחשה לחלון זכרונות של נופל",
+    },
     { src: gif, description: "מיצג בכיכר דיזינגוף (תמונה מיום הזיכרון 2024)" },
-    { src: six, description: "עמוד אינסטגרם" },
     { src: seven, description: "מיצג בגן צ׳רלוס קלור ת״א (מיום הזיכרון 2022)" },
     {
       src: eight,
@@ -107,12 +112,10 @@ function Gallery() {
       src: twentyfive,
       description: "שלושה חברים עומדים ומסתכלים על המיצג (תמונה ממאי 2024)",
     },
-    {
-      src: twentysix,
-      description: "הדמיה למיצגים בחניון רעים עם המחשה לחלון זכרונות של נופל",
-    },
+    { src: six, description: "עמוד אינסטגרם" },
   ];
 
+  const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
   const [enlarged, setEnlarged] = useState({ src: null, description: "" });
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(Array(images.length).fill(false));
@@ -140,17 +143,21 @@ function Gallery() {
     setIsVideoOpen(false);
   };
 
+  const loadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + BATCH_SIZE, images.length));
+  };
+
+  const collapse = () => {
+    setVisibleCount(BATCH_SIZE);
+  };
+
   return (
     <>
       <div id="gallery" className="gallery">
         <h2>גלריה</h2>
         <div className="galleryImages">
-          {images.map((image, i) => (
-            <div
-              className="gridImage"
-              key={i}
-              id={i === 5 ? "tall" : undefined}
-            >
+          {images.slice(0, visibleCount).map((image, i) => (
+            <div className="gridImage" key={i}>
               <div className={`skeletonLoading ${isLoaded[i] ? "hide" : ""}`} />
               <img
                 src={image.src}
@@ -170,6 +177,16 @@ function Gallery() {
             </div>
           ))}
         </div>
+
+        {visibleCount < images.length ? (
+          <button className="loadMoreBtn" onClick={loadMore}>
+            הצג עוד
+          </button>
+        ) : (
+          <button className="collapseBtn" onClick={collapse}>
+            הצג פחות
+          </button>
+        )}
       </div>
 
       {enlarged.src && (

@@ -860,6 +860,25 @@ img.selectedPartnerLogo {
   font-size: 1.3rem;
 }
 
+.loadMoreBtn,
+.collapseBtn {
+  background-color: rgb(255, 166, 0);
+  border: none;
+  color: white;
+  font-family: "Rubik";
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  padding: 0.2rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.loadMoreBtn:hover,
+.collapseBtn:hover {
+  transform: scale(1.05);
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
