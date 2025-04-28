@@ -69,7 +69,7 @@ function Gallery() {
               key={i}
               id={i === 5 ? "tall" : undefined}
             >
-              <img src={src} alt="" />
+              <img src={src} alt="" loading="lazy" />
               <div
                 className="enlarge"
                 onClick={() => (i === 7 ? openVideo() : handleEnlarge(src))}
