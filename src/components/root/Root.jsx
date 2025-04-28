@@ -1,6 +1,6 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
-import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import PartnersSection from "../partnersSection/PartnersSection";
@@ -12,21 +12,56 @@ import instagramLogo from "../../assets/instagramLogo1.webp";
 function Root() {
   const location = useLocation();
   const isHowItStarted = location.pathname === "/how-it-started";
-
+  const navigate = useNavigate();
   const [showIntro, setShowIntro] = useState(true);
+  const [isNavFixed, setIsNavFixed] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIntro(false);
     }, 3000);
-    return () => clearTimeout(timer);
+
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setIsNavFixed(true);
+      } else {
+        setIsNavFixed(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
+  const handleAnchorClick = (e, anchorId) => {
+    e.preventDefault();
+
+    if (location.pathname !== "/") {
+      navigate("/", { replace: false });
+      setTimeout(() => {
+        scrollToAnchor(anchorId);
+      }, 100);
+    } else {
+      scrollToAnchor(anchorId);
+    }
+  };
+
+  const scrollToAnchor = (anchorId) => {
+    const element = document.getElementById(anchorId);
+    if (element) {
+      const yOffset = -150;
+      const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
 
   return (
     <>
-      <Helmet>
-        <link rel="preload" as="image" href={lezichramLogo} />
-      </Helmet>
+      <link rel="preload" as="image" href={lezichramLogo} />
       <div id="scroll-container" className="root">
         <AnimatePresence>
           {showIntro && (
@@ -60,11 +95,18 @@ function Root() {
             <div className="title">
               <img src={lezichramLogo} alt="Lezichram logo" />
             </div>
-            <nav className="nav">
-              <Link className="navLink" to={"/how-it-started"}>
+            <nav className={`nav ${isNavFixed ? "fixed" : ""}`}>
+              <Link
+                className="navLink"
+                to={isHowItStarted ? "/" : "/how-it-started"}
+              >
                 המיזם
               </Link>
-              <a className="navLink" href="#search">
+              <a
+                className="navLink"
+                href="#search"
+                onClick={(e) => handleAnchorClick(e, "search")}
+              >
                 חיפוש חלל
               </a>
               <a
@@ -75,10 +117,18 @@ function Root() {
               >
                 <img src={instagramLogo} alt="Instagram Logo" />
               </a>
-              <a className="navLink" href="#contact">
+              <a
+                className="navLink"
+                href="#contact"
+                onClick={(e) => handleAnchorClick(e, "contact")}
+              >
                 דברו איתנו
               </a>
-              <a className="navLink" href="#gallery">
+              <a
+                className="navLink"
+                href="#gallery"
+                onClick={(e) => handleAnchorClick(e, "gallery")}
+              >
                 גלריה
               </a>
             </nav>

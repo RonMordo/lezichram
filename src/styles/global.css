@@ -57,16 +57,30 @@ body {
 }
 
 .nav {
+  position: sticky;
+  max-width: 90%;
+  top: 1rem;
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   justify-content: center;
   align-items: center;
-  background-color: rgba(1, 81, 156, 0.1);
-  padding: 1rem 0;
+  padding: 1rem;
   border-radius: 1rem;
-  box-shadow: 0px 8px 6.3px 0px #00000036;
+  background-color: rgba(1, 81, 156, 0.1);
+  box-shadow: 0px 8px 6.3px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#scroll-container:has(.nav:is(:sticky)) .nav {
+  background-color: rgba(1, 81, 156, 0.5);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+.nav.fixed {
+  background-color: rgba(1, 81, 156, 0.5);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
 }
 
 .navLink {
@@ -1057,6 +1071,9 @@ img.selectedPartnerLogo {
 @media (max-width: 480px) {
   html {
     font-size: 13px;
+  }
+  .navLink {
+    font-size: 1rem;
   }
   .about {
     font-size: 1.8rem;
