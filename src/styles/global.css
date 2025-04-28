@@ -603,6 +603,23 @@ input {
   object-fit: contain;
 }
 
+.enlargedImage {
+  max-width: 90%;
+  max-height: 90%;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .imageModal img {
   max-width: 90%;
   max-height: 90%;
@@ -877,6 +894,31 @@ img.selectedPartnerLogo {
 .loadMoreBtn:hover,
 .collapseBtn:hover {
   transform: scale(1.05);
+}
+
+.imageModal .navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+}
+
+.imageModal .navArrow.left {
+  left: 16px;
+}
+
+.imageModal .navArrow.right {
+  right: 16px;
+}
+
+.imageModal .navArrow svg {
+  margin: 0;
+  display: block;
 }
 
 @keyframes spin {

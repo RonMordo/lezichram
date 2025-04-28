@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ImEnlarge } from "react-icons/im";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import one from "../../assets/galleryImages/first.webp";
 import two from "../../assets/galleryImages/second.webp";
@@ -29,7 +30,7 @@ import twentyfive from "../../assets/galleryImages/25.webp";
 import twentysix from "../../assets/galleryImages/26.webp";
 
 function Gallery() {
-  const BATCH_SIZE = 4;
+  const BATCH_SIZE = 6;
 
   const images = [
     {
@@ -38,9 +39,8 @@ function Gallery() {
         "מיצג ברחבת הבימה ת״א, ודגל ישראל שמשתקף דרכו (תמונה מיום הזיכרון 2024)",
     },
     {
-      src: two,
-      description:
-        "אנשים מתאספים ליד המיצג כדי לחוות מקרוב (תמונה מיום הזיכרון 2022)",
+      src: eight,
+      description: "ההשראה לפרויקט לזכרם. חלון זכרונות בצורת גוף של נופל...",
     },
     { src: three, description: "השרטוט הראשון של המיצג" },
     { src: four, description: "תהליך יצירת הפוסטים הראשונים באפריל 2022" },
@@ -48,12 +48,13 @@ function Gallery() {
       src: twentysix,
       description: "הדמיה למיצגים בחניון רעים עם המחשה לחלון זכרונות של נופל",
     },
-    { src: gif, description: "מיצג בכיכר דיזינגוף (תמונה מיום הזיכרון 2024)" },
-    { src: seven, description: "מיצג בגן צ׳רלוס קלור ת״א (מיום הזיכרון 2022)" },
     {
-      src: eight,
-      description: "ההשראה לפרויקט לזכרם. חלון זכרונות בצורת גוף של נופל...",
+      src: two,
+      description:
+        "אנשים מתאספים ליד המיצג כדי לחוות מקרוב (תמונה מיום הזיכרון 2022)",
     },
+    { src: seven, description: "מיצג בגן צ׳רלוס קלור ת״א (מיום הזיכרון 2022)" },
+    { src: gif, description: "מיצג בכיכר דיזינגוף (תמונה מיום הזיכרון 2024)" },
     { src: nine, description: "" },
     {
       src: ten,
@@ -116,9 +117,45 @@ function Gallery() {
   ];
 
   const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
-  const [enlarged, setEnlarged] = useState({ src: null, description: "" });
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(null);
   const [isLoaded, setIsLoaded] = useState(Array(images.length).fill(false));
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
+  const [startY, setStartY] = useState(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (currentIndex !== null) {
+        closeModal();
+      }
+    };
+
+    if (currentIndex !== null) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("scroll", handleScroll);
+    } else {
+      document.body.style.overflow = "";
+      window.removeEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [currentIndex]);
+
+  const handleTouchStartModal = (e) => {
+    setStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchMoveModal = (e) => {
+    if (startY !== null) {
+      const currentY = e.touches[0].clientY;
+      if (currentY - startY > 30) {
+        closeModal();
+      }
+    }
+  };
 
   const handleIsLoaded = (idx) => {
     setIsLoaded((prev) => {
@@ -128,19 +165,22 @@ function Gallery() {
     });
   };
 
-  const handleEnlarge = (image) => {
-    setEnlarged({ src: image.src, description: image.description });
-    setIsVideoOpen(false);
-  };
-
-  const openVideo = () => {
-    setIsVideoOpen(true);
-    setEnlarged({ src: null, description: "" });
+  const openModal = (index) => {
+    setCurrentIndex(index);
   };
 
   const closeModal = () => {
-    setEnlarged({ src: null, description: "" });
-    setIsVideoOpen(false);
+    setCurrentIndex(null);
+  };
+
+  const showPrev = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((idx) => Math.max(idx - 1, 0));
+  };
+
+  const showNext = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((idx) => Math.min(idx + 1, images.length - 1));
   };
 
   const loadMore = () => {
@@ -150,6 +190,31 @@ function Gallery() {
   const collapse = () => {
     setVisibleCount(BATCH_SIZE);
   };
+
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX - touchEndX > 50) {
+      if (currentIndex < images.length - 1) {
+        setCurrentIndex((idx) => idx + 1);
+      }
+    } else if (touchEndX - touchStartX > 50) {
+      if (currentIndex > 0) {
+        setCurrentIndex((idx) => idx - 1);
+      }
+    }
+    setTouchStartX(0);
+    setTouchEndX(0);
+  };
+
+  const media = currentIndex !== null ? images[currentIndex] : null;
+  const isVideo = media?.src.endsWith(".mp4");
 
   return (
     <>
@@ -165,10 +230,7 @@ function Gallery() {
                 onLoad={() => handleIsLoaded(i)}
                 style={{ visibility: isLoaded[i] ? "visible" : "hidden" }}
               />
-              <div
-                className="enlarge"
-                onClick={() => (i === 7 ? openVideo() : handleEnlarge(image))}
-              >
+              <div className="enlarge" onClick={() => openModal(i)}>
                 <ImEnlarge
                   size={20}
                   style={{ visibility: isLoaded[i] ? "visible" : "hidden" }}
@@ -189,34 +251,40 @@ function Gallery() {
         )}
       </div>
 
-      {enlarged.src && (
+      {currentIndex !== null && (
         <div className="imageModal" onClick={closeModal}>
           <div
             className="enlargedImageContainer"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
-            <img src={enlarged.src} alt="Enlarged" />
-            {enlarged.description && (
+            {isVideo ? (
+              <video
+                src={media.src}
+                controls
+                autoPlay
+                style={{ maxWidth: "90%", maxHeight: "90%" }}
+              />
+            ) : (
+              <img src={media.src} alt="Enlarged" />
+            )}
+            {media.description && (
               <div className="modalDescription">
-                <p>{enlarged.description}</p>
+                <p>{media.description}</p>
               </div>
             )}
-          </div>
-        </div>
-      )}
-
-      {isVideoOpen && (
-        <div className="videoModal" onClick={closeModal}>
-          <div
-            className="enlargedImageContainer"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <video
-              src={video}
-              controls
-              autoPlay
-              style={{ maxWidth: "90%", maxHeight: "90%" }}
-            />
+            {currentIndex > 0 && (
+              <button className="navArrow left" onClick={showPrev}>
+                <FaChevronLeft size={24} />
+              </button>
+            )}
+            {currentIndex < images.length - 1 && (
+              <button className="navArrow right" onClick={showNext}>
+                <FaChevronRight size={24} />
+              </button>
+            )}
           </div>
         </div>
       )}
