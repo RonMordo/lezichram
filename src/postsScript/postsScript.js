@@ -7,7 +7,7 @@ dotenv.config();
 
 //–– Config & clients
 const ACCESS_TOKEN = process.env.VITE_INSTAGRAM_API_KEY;
-const IG_USER_ID = process.env.VITE_IGUSERID;
+const IG_USER_ID = process.env.VITE_IG_USERID;
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 

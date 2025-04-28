@@ -111,7 +111,7 @@ function Root() {
               </a>
               <a
                 className="navLink img"
-                href="https://www.instagram.com/reel/DHGsKnyMM40/?igsh=MXVzajdjbnY1cDA2Zw=="
+                href="https://www.instagram.com/lezichram_?igsh=a3drdjhremNuMGo="
                 target="_blank"
                 rel="noopener noreferrer"
               >
