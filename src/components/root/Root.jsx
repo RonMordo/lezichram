@@ -3,10 +3,10 @@ import { FaChevronLeft } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import PartnersSection from "../partnersSection/PartnersSection";
-import lezichramLogo from "../../assets/lezichramLogo.webp";
+import lezichramLogo from "../../assets/lezichramLogo1.webp";
 import Gallery from "../gallery/Gallery";
 import ContactPage from "../contactPage/ContactPage";
-import instagramLogo from "../../assets/instagramLogo.webp";
+import instagramLogo from "../../assets/instagramLogo1.webp";
 
 function Root() {
   const location = useLocation();
