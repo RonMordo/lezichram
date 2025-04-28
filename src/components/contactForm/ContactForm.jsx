@@ -12,7 +12,7 @@ function ContactForm({
   const showForm = !isSubmitting && !success;
 
   return (
-    <form onSubmit={onSubmit} className="contactForm" dir="rtl">
+    <form id="contact" onSubmit={onSubmit} className="contactForm" dir="rtl">
       {showForm && <h2>דברו איתנו</h2>}
 
       {success ? (

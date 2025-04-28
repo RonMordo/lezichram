@@ -12,6 +12,7 @@ function SearchPage({
 }) {
   return (
     <motion.div
+      id="search"
       className="searchPage"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

@@ -225,10 +225,6 @@ function HowItStarted() {
             className="enlargedImageContainer"
             onClick={(e) => e.stopPropagation()}
           >
-            <button className="closeButton" onClick={closeModal}>
-              ✖
-            </button>
-
             <FadeImage
               src={enlargedImage}
               alt="Enlarged view"

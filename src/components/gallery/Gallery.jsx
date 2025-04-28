@@ -60,7 +60,7 @@ function Gallery() {
 
   return (
     <>
-      <div className="gallery">
+      <div id="gallery" className="gallery">
         <h2>גלריה</h2>
         <div className="galleryImages">
           {images.map((src, i) => (

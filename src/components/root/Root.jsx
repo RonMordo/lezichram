@@ -3,9 +3,10 @@ import { FaChevronLeft } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import PartnersSection from "../partnersSection/PartnersSection";
-import lezichramLogo from "/lezichramLogo.svg";
+import lezichramLogo from "../../assets/lezichramLogo.webp";
 import Gallery from "../gallery/Gallery";
 import ContactPage from "../contactPage/ContactPage";
+import instagramLogo from "../../assets/instagramLogo.webp";
 
 function Root() {
   const location = useLocation();
@@ -54,6 +55,28 @@ function Root() {
           <div className="title">
             <img src={lezichramLogo} alt="Lezichram logo" />
           </div>
+          <nav className="nav">
+            <Link className="navLink" to={"/how-it-started"}>
+              המיזם
+            </Link>
+            <a className="navLink" href="#search">
+              חיפוש חלל
+            </a>
+            <a
+              className="navLink img"
+              href="https://www.instagram.com/reel/DHGsKnyMM40/?igsh=MXVzajdjbnY1cDA2Zw=="
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={instagramLogo} alt="Instagram Logo" />
+            </a>
+            <a className="navLink" href="#contact">
+              דברו איתנו
+            </a>
+            <a className="navLink" href="#gallery">
+              גלריה
+            </a>
+          </nav>
           <div className="about">
             <p>הנצחה חדשה לעולם חדש</p>
             <p>המטרה להגדיל את המודעות לנופלים בחיי</p>
