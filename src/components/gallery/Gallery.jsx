@@ -2,10 +2,10 @@ import one from "../../assets/galleryImages/first.webp";
 import two from "../../assets/galleryImages/second.webp";
 import three from "../../assets/galleryImages/three.webp";
 import four from "../../assets/galleryImages/four.webp";
-import gif from "../../assets/galleryImages/statueGif.gif";
+import gif from "../../assets/galleryImages/statueGif.mp4";
 import six from "../../assets/galleryImages/six.webp";
 import seven from "../../assets/galleryImages/7.webp";
-import eight from "../../assets/galleryImages/secondGif.gif";
+import eight from "../../assets/galleryImages/secondGif.mp4";
 import nine from "../../assets/galleryImages/9.webp";
 import ten from "../../assets/galleryImages/10.webp";
 import eleven from "../../assets/galleryImages/11.webp";
@@ -45,13 +45,11 @@ function Gallery() {
   const [isLoaded, setIsLoaded] = useState(Array(images.length).fill(false));
 
   const handleIsLoaded = (idx) => {
-    setTimeout(() => {
-      setIsLoaded((prev) => {
-        const next = [...prev];
-        next[idx] = true;
-        return next;
-      });
-    }, 2000);
+    setIsLoaded((prev) => {
+      const next = [...prev];
+      next[idx] = true;
+      return next;
+    });
   };
 
   const handleEnlarge = (src) => {
