@@ -293,6 +293,10 @@ input {
   animation: shimmer 1.5s infinite;
 }
 
+.gridImage .skeletonLoading {
+  border-radius: 0;
+}
+
 @keyframes shimmer {
   0% {
     left: -150px;

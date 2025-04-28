@@ -20,9 +20,6 @@ import { ImEnlarge } from "react-icons/im";
 import { useState } from "react";
 
 function Gallery() {
-  const [enlargedImage, setEnlargedImage] = useState(null);
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
-
   const images = [
     one,
     two,
@@ -42,6 +39,20 @@ function Gallery() {
     sixteen,
     seventeen,
   ];
+
+  const [enlargedImage, setEnlargedImage] = useState(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(Array(images.length).fill(false));
+
+  const handleIsLoaded = (idx) => {
+    setTimeout(() => {
+      setIsLoaded((prev) => {
+        const next = [...prev];
+        next[idx] = true;
+        return next;
+      });
+    }, 2000);
+  };
 
   const handleEnlarge = (src) => {
     setEnlargedImage(src);
@@ -69,12 +80,21 @@ function Gallery() {
               key={i}
               id={i === 5 ? "tall" : undefined}
             >
-              <img src={src} alt="" loading="lazy" />
+              <div className={`skeletonLoading ${isLoaded[i] ? "hide" : ""}`} />
+              <img
+                src={src}
+                alt=""
+                onLoad={() => handleIsLoaded(i)}
+                style={{ visibility: isLoaded[i] ? "visible" : "hidden" }}
+              />
               <div
                 className="enlarge"
                 onClick={() => (i === 7 ? openVideo() : handleEnlarge(src))}
               >
-                <ImEnlarge size={20} />
+                <ImEnlarge
+                  size={20}
+                  style={{ visibility: isLoaded[i] ? "visible" : "hidden" }}
+                />
               </div>
             </div>
           ))}

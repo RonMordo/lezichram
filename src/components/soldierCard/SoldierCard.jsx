@@ -26,7 +26,6 @@ function SoldierCard({ soldierData }) {
         position: "relative",
       }}
     >
-      {/* Always render the skeleton */}
       <div className={`skeletonLoading ${isLoaded ? "hide" : ""}`} />
 
       <div className="postHeader">
