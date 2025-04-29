@@ -17,10 +17,8 @@ function Root() {
   const [isNavFixed, setIsNavFixed] = useState(false);
   const [activeNav, setActiveNav] = useState(null);
 
-  // Determine current route
   const isHowItStarted = location.pathname === "/how-it-started";
 
-  // Intro animation and nav-fix on scroll
   useEffect(() => {
     const timer = setTimeout(() => setShowIntro(false), 3000);
     const handleScroll = () => setIsNavFixed(window.scrollY > 200);
@@ -32,27 +30,30 @@ function Root() {
     };
   }, []);
 
-  // Scrollspy: update activeNav based on section in view
   useEffect(() => {
+    if (!["/", "/how-it-started"].includes(location.pathname)) {
+      setActiveNav(null);
+      return;
+    }
+
     const sectionIds = ["title", "contact", "gallery"];
     const handleScrollSpy = () => {
-      const triggerPoint = window.scrollY + window.innerHeight / 3;
+      const trigger = window.scrollY + window.innerHeight / 3;
       let current = null;
+
       sectionIds.forEach((id) => {
         const el = document.getElementById(id);
-        if (el && el.offsetTop <= triggerPoint) {
-          current = id;
-        }
+        if (el && el.offsetTop <= trigger) current = id;
       });
+
       setActiveNav(current);
     };
 
     window.addEventListener("scroll", handleScrollSpy);
     handleScrollSpy();
     return () => window.removeEventListener("scroll", handleScrollSpy);
-  }, []);
+  }, [location.pathname]);
 
-  // Smooth scrolling for anchor clicks
   const handleAnchorClick = (e, anchorId) => {
     e.preventDefault();
     if (location.pathname !== "/") {
@@ -115,7 +116,6 @@ function Root() {
             <div className="fixed-bg" />
 
             <nav className={`nav ${isNavFixed ? "fixed" : ""}`}>
-              {/* "המיזם" link */}
               <Link
                 className="navLink"
                 to={isHowItStarted ? "/" : "/how-it-started"}
@@ -124,13 +124,15 @@ function Root() {
                 המיזם
               </Link>
 
-              {/* Scrollspy anchors */}
               <a
                 className="navLink"
                 href="#title"
                 onClick={(e) => handleAnchorClick(e, "title")}
                 style={{
-                  color: activeNav === "title" ? "rgb(255, 166, 0)" : "white",
+                  color:
+                    location.pathname === "/" && activeNav === "title"
+                      ? "rgb(255, 166, 0)"
+                      : "white",
                 }}
               >
                 חיפוש חלל
