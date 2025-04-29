@@ -1,3 +1,5 @@
+// src/components/root/Root.jsx
+
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,8 +15,12 @@ function Root() {
   const navigate = useNavigate();
   const [showIntro, setShowIntro] = useState(true);
   const [isNavFixed, setIsNavFixed] = useState(false);
-  const [activeNav, setActiveNav] = useState("route");
+  const [activeNav, setActiveNav] = useState(null);
 
+  // Determine current route
+  const isHowItStarted = location.pathname === "/how-it-started";
+
+  // Intro animation and nav-fix on scroll
   useEffect(() => {
     const timer = setTimeout(() => setShowIntro(false), 3000);
     const handleScroll = () => setIsNavFixed(window.scrollY > 200);
@@ -26,9 +32,29 @@ function Root() {
     };
   }, []);
 
+  // Scrollspy: update activeNav based on section in view
+  useEffect(() => {
+    const sectionIds = ["title", "contact", "gallery"];
+    const handleScrollSpy = () => {
+      const triggerPoint = window.scrollY + window.innerHeight / 3;
+      let current = null;
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= triggerPoint) {
+          current = id;
+        }
+      });
+      setActiveNav(current);
+    };
+
+    window.addEventListener("scroll", handleScrollSpy);
+    handleScrollSpy();
+    return () => window.removeEventListener("scroll", handleScrollSpy);
+  }, []);
+
+  // Smooth scrolling for anchor clicks
   const handleAnchorClick = (e, anchorId) => {
     e.preventDefault();
-    setActiveNav(anchorId);
     if (location.pathname !== "/") {
       navigate("/", { replace: false });
       setTimeout(() => scrollToAnchor(anchorId), 100);
@@ -39,11 +65,10 @@ function Root() {
 
   const scrollToAnchor = (anchorId) => {
     const element = document.getElementById(anchorId);
-    if (element) {
-      const yOffset = -150;
-      const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
+    if (!element) return;
+    const yOffset = -150;
+    const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+    window.scrollTo({ top: y, behavior: "smooth" });
   };
 
   return (
@@ -63,22 +88,23 @@ function Root() {
               <motion.p
                 dir="rtl"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 1, 0, 1] }}
-                exit={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{
-                  opacity: {
-                    times: [0, 0.45, 0.9, 1],
-                    duration: 2,
-                    delay: 0.5,
-                    ease: "easeInOut",
-                  },
+                  opacity: { duration: 1, delay: 0.5, ease: "easeInOut" },
                 }}
               >
                 לזכרם
-                <br />
-                <span dir="rtl" id="introFirst">
-                  כל עוד מישהו זוכר אותי, אני חי.
-                </span>
+              </motion.p>
+              <motion.p
+                id="introFirst"
+                dir="rtl"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  opacity: { duration: 1, delay: 0.5, ease: "easeInOut" },
+                }}
+              >
+                כל עוד מישהו זוכר אותי, אני חי.
               </motion.p>
             </motion.div>
           )}
@@ -87,29 +113,25 @@ function Root() {
         {!showIntro && (
           <>
             <div className="fixed-bg" />
+
             <nav className={`nav ${isNavFixed ? "fixed" : ""}`}>
+              {/* "המיזם" link */}
               <Link
                 className="navLink"
-                to={
-                  location.pathname === "/how-it-started"
-                    ? "/"
-                    : "/how-it-started"
-                }
-                onClick={() => setActiveNav("route")}
-                style={
-                  activeNav === "route" ? { color: "rgb(255, 166, 0)" } : {}
-                }
+                to={isHowItStarted ? "/" : "/how-it-started"}
+                style={{ color: isHowItStarted ? "rgb(255, 166, 0)" : "white" }}
               >
                 המיזם
               </Link>
 
+              {/* Scrollspy anchors */}
               <a
                 className="navLink"
                 href="#title"
                 onClick={(e) => handleAnchorClick(e, "title")}
-                style={
-                  activeNav === "title" ? { color: "rgb(255, 166, 0)" } : {}
-                }
+                style={{
+                  color: activeNav === "title" ? "rgb(255, 166, 0)" : "white",
+                }}
               >
                 חיפוש חלל
               </a>
@@ -127,9 +149,9 @@ function Root() {
                 className="navLink"
                 href="#contact"
                 onClick={(e) => handleAnchorClick(e, "contact")}
-                style={
-                  activeNav === "contact" ? { color: "rgb(255, 166, 0)" } : {}
-                }
+                style={{
+                  color: activeNav === "contact" ? "rgb(255, 166, 0)" : "white",
+                }}
               >
                 דברו איתנו
               </a>
@@ -138,9 +160,9 @@ function Root() {
                 className="navLink"
                 href="#gallery"
                 onClick={(e) => handleAnchorClick(e, "gallery")}
-                style={
-                  activeNav === "gallery" ? { color: "rgb(255, 166, 0)" } : {}
-                }
+                style={{
+                  color: activeNav === "gallery" ? "rgb(255, 166, 0)" : "white",
+                }}
               >
                 גלריה
               </a>
@@ -154,27 +176,18 @@ function Root() {
               <p>המטרה להגדיל את המודעות לנופלים בחיי</p>
               <p>היומיום ולהנגיש את ההנצחה לכולם</p>
             </div>
+
             <div className="howItStartedButton">
-              <Link
-                to={
-                  location.pathname === "/how-it-started"
-                    ? "/"
-                    : "/how-it-started"
-                }
-              >
+              <Link to={isHowItStarted ? "/" : "/how-it-started"}>
                 <button>
                   <motion.span
-                    animate={{
-                      rotate: location.pathname === "/how-it-started" ? -90 : 0,
-                    }}
+                    animate={{ rotate: isHowItStarted ? -90 : 0 }}
                     transition={{ duration: 0.3 }}
                     style={{ display: "flex", alignItems: "center" }}
                   >
                     <FaChevronLeft />
                   </motion.span>
-                  {location.pathname === "/how-it-started"
-                    ? "חזרה לחיפוש"
-                    : "הכירו את המיזם"}
+                  {isHowItStarted ? "חזרה לחיפוש" : "הכירו את המיזם"}
                 </button>
               </Link>
             </div>
@@ -183,6 +196,7 @@ function Root() {
             <PartnersSection />
             <ContactPage />
             <Gallery />
+
             <p className="app-credit">
               Developed by Ron Mordukhovich
               <br />© {new Date().getFullYear()} All rights reserved.
