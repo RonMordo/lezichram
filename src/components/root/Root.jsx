@@ -92,9 +92,6 @@ function Root() {
         {!showIntro && (
           <>
             <div className="fixed-bg" />
-            <div className="title">
-              <img src={lezichramLogo} alt="Lezichram logo" />
-            </div>
             <nav className={`nav ${isNavFixed ? "fixed" : ""}`}>
               <Link
                 className="navLink"
@@ -132,6 +129,9 @@ function Root() {
                 גלריה
               </a>
             </nav>
+            <div className="title">
+              <img src={lezichramLogo} alt="Lezichram logo" />
+            </div>
             <div className="about">
               <p>הנצחה חדשה לעולם חדש</p>
               <p>המטרה להגדיל את המודעות לנופלים בחיי</p>

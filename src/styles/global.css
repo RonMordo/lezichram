@@ -20,7 +20,6 @@ body {
 
 .root {
   width: 100%;
-  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,18 +47,20 @@ body {
   color: rgb(255, 166, 0);
 }
 
+.title {
+  margin-top: 6rem;
+}
+
 .title img {
   width: 15rem;
 }
 
 .nav {
-  position: sticky;
+  position: fixed;
   max-width: 90%;
   height: 70px;
-  top: 1rem;
   display: flex;
   gap: 1rem;
-  margin: 1rem 0;
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -91,10 +92,16 @@ body {
 
 .navLink.img {
   background-color: transparent;
+  transform: translateY(30px);
+  box-shadow: 0px 4px 12px 0px #00000080;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav img {
-  width: 3rem;
+  width: 4rem;
 }
 
 .fixed-bg {
@@ -115,7 +122,9 @@ body {
   margin-bottom: 1rem;
   color: white;
   border-radius: 1rem;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
 }
 
 h2 {
@@ -640,7 +649,7 @@ input {
   padding: 1rem 0;
   border-radius: 1rem;
   box-shadow: 0px 8px 6.3px 0px #00000036;
-  margin-top: 6rem;
+  margin-top: 1rem;
 }
 
 .partnersContainer h2 {
@@ -1145,8 +1154,18 @@ img.selectedPartnerLogo {
   html {
     font-size: 13px;
   }
+  .nav {
+    width: 100%;
+    max-width: none;
+  }
   .navLink {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+  }
+  .title {
+    margin-top: 9rem;
+  }
+  .title img {
+    width: 18rem;
   }
   .about {
     font-size: 1.8rem;
@@ -1190,6 +1209,7 @@ img.selectedPartnerLogo {
   .partnersContainer {
     width: 90%;
     min-height: 230px;
+    margin-top: 8rem;
   }
   .partnersContainer h3 {
     font-size: 1.3rem;
@@ -1363,7 +1383,16 @@ img.selectedPartnerLogo {
   html {
     font-size: 13px;
   }
+  .title img {
+    width: 14rem;
+  }
   .about {
+    font-size: 1.3rem;
+  }
+  .nav {
+    height: 50px;
+  }
+  .navLink {
     font-size: 1.1rem;
   }
   .soldiersContainer {
@@ -1371,6 +1400,9 @@ img.selectedPartnerLogo {
   }
   .searchBar input {
     width: 80%;
+  }
+  .searchBar h2 {
+    font-size: 2rem;
   }
   .searchBar button {
     top: 4.4rem;
@@ -1387,6 +1419,11 @@ img.selectedPartnerLogo {
   }
   .howItStartedContainer {
     font-size: 0.8rem;
+  }
+  .howItStartedButton button {
+    width: 12rem;
+    font-size: 1.2rem;
+    padding: 0.4rem;
   }
   #firstEnlarge {
     transform: translate(-35%, -10%);
