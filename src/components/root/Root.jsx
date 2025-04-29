@@ -1,6 +1,5 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import PartnersSection from "../partnersSection/PartnersSection";
@@ -11,26 +10,16 @@ import instagramLogo from "../../assets/instagramLogo1.webp";
 
 function Root() {
   const location = useLocation();
-  const isHowItStarted = location.pathname === "/how-it-started";
   const navigate = useNavigate();
   const [showIntro, setShowIntro] = useState(true);
   const [isNavFixed, setIsNavFixed] = useState(false);
+  const [activeNav, setActiveNav] = useState("route");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowIntro(false);
-    }, 3000);
-
-    const handleScroll = () => {
-      if (window.scrollY > 200) {
-        setIsNavFixed(true);
-      } else {
-        setIsNavFixed(false);
-      }
-    };
+    const timer = setTimeout(() => setShowIntro(false), 3000);
+    const handleScroll = () => setIsNavFixed(window.scrollY > 200);
 
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       clearTimeout(timer);
       window.removeEventListener("scroll", handleScroll);
@@ -39,12 +28,10 @@ function Root() {
 
   const handleAnchorClick = (e, anchorId) => {
     e.preventDefault();
-
+    setActiveNav(anchorId);
     if (location.pathname !== "/") {
       navigate("/", { replace: false });
-      setTimeout(() => {
-        scrollToAnchor(anchorId);
-      }, 100);
+      setTimeout(() => scrollToAnchor(anchorId), 100);
     } else {
       scrollToAnchor(anchorId);
     }
@@ -76,14 +63,22 @@ function Root() {
               <motion.p
                 dir="rtl"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                animate={{ opacity: [0, 1, 0, 1] }}
                 exit={{ opacity: 0 }}
                 transition={{
-                  opacity: { duration: 1, delay: 0.5 },
-                  ease: "easeInOut",
+                  opacity: {
+                    times: [0, 0.45, 0.9, 1],
+                    duration: 2,
+                    delay: 0.5,
+                    ease: "easeInOut",
+                  },
                 }}
               >
                 לזכרם
+                <br />
+                <span dir="rtl" id="introFirst">
+                  כל עוד מישהו זוכר אותי, אני חי.
+                </span>
               </motion.p>
             </motion.div>
           )}
@@ -95,17 +90,30 @@ function Root() {
             <nav className={`nav ${isNavFixed ? "fixed" : ""}`}>
               <Link
                 className="navLink"
-                to={isHowItStarted ? "/" : "/how-it-started"}
+                to={
+                  location.pathname === "/how-it-started"
+                    ? "/"
+                    : "/how-it-started"
+                }
+                onClick={() => setActiveNav("route")}
+                style={
+                  activeNav === "route" ? { color: "rgb(255, 166, 0)" } : {}
+                }
               >
                 המיזם
               </Link>
+
               <a
                 className="navLink"
-                href="#search"
-                onClick={(e) => handleAnchorClick(e, "search")}
+                href="#title"
+                onClick={(e) => handleAnchorClick(e, "title")}
+                style={
+                  activeNav === "title" ? { color: "rgb(255, 166, 0)" } : {}
+                }
               >
                 חיפוש חלל
               </a>
+
               <a
                 className="navLink img"
                 href="https://www.instagram.com/lezichram_?igsh=a3drdjhremNuMGo="
@@ -114,22 +122,31 @@ function Root() {
               >
                 <img src={instagramLogo} alt="Instagram Logo" />
               </a>
+
               <a
                 className="navLink"
                 href="#contact"
                 onClick={(e) => handleAnchorClick(e, "contact")}
+                style={
+                  activeNav === "contact" ? { color: "rgb(255, 166, 0)" } : {}
+                }
               >
                 דברו איתנו
               </a>
+
               <a
                 className="navLink"
                 href="#gallery"
                 onClick={(e) => handleAnchorClick(e, "gallery")}
+                style={
+                  activeNav === "gallery" ? { color: "rgb(255, 166, 0)" } : {}
+                }
               >
                 גלריה
               </a>
             </nav>
-            <div className="title">
+
+            <div id="title" className="title">
               <img src={lezichramLogo} alt="Lezichram logo" />
             </div>
             <div className="about">
@@ -138,16 +155,26 @@ function Root() {
               <p>היומיום ולהנגיש את ההנצחה לכולם</p>
             </div>
             <div className="howItStartedButton">
-              <Link to={isHowItStarted ? "/" : "/how-it-started"}>
+              <Link
+                to={
+                  location.pathname === "/how-it-started"
+                    ? "/"
+                    : "/how-it-started"
+                }
+              >
                 <button>
                   <motion.span
-                    animate={{ rotate: isHowItStarted ? -90 : 0 }}
+                    animate={{
+                      rotate: location.pathname === "/how-it-started" ? -90 : 0,
+                    }}
                     transition={{ duration: 0.3 }}
                     style={{ display: "flex", alignItems: "center" }}
                   >
                     <FaChevronLeft />
                   </motion.span>
-                  {isHowItStarted ? "חזרה לחיפוש" : "הכירו את המיזם"}
+                  {location.pathname === "/how-it-started"
+                    ? "חזרה לחיפוש"
+                    : "הכירו את המיזם"}
                 </button>
               </Link>
             </div>
