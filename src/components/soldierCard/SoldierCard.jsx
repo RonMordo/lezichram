@@ -44,7 +44,12 @@ function SoldierCard({ soldierData }) {
           loading="lazy"
           alt="Soldier instagram post"
           onLoad={() => setIsLoaded(true)}
-          style={{ display: isLoaded ? "block" : "none" }}
+          style={{
+            width: "100%",
+            height: "auto",
+            opacity: isLoaded ? 1 : 0,
+            transition: "opacity 0.3s ease-in-out",
+          }}
         />
       </div>
 
