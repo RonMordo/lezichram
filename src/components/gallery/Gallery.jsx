@@ -29,6 +29,8 @@ import twentyfour from "../../assets/galleryImages/24.webp";
 import twentyfive from "../../assets/galleryImages/25.webp";
 import twentysix from "../../assets/galleryImages/26.webp";
 
+import video from "../../assets/gifVideo.mp4";
+
 function Gallery() {
   const BATCH_SIZE = 6;
 
@@ -125,11 +127,8 @@ function Gallery() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (currentIndex !== null) {
-        closeModal();
-      }
+      if (currentIndex !== null) closeModal();
     };
-
     if (currentIndex !== null) {
       document.body.style.overflow = "hidden";
       window.addEventListener("scroll", handleScroll);
@@ -137,107 +136,103 @@ function Gallery() {
       document.body.style.overflow = "";
       window.removeEventListener("scroll", handleScroll);
     }
-
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("scroll", handleScroll);
     };
   }, [currentIndex]);
 
-  const handleTouchStartModal = (e) => {
-    setStartY(e.touches[0].clientY);
-  };
-
+  const handleTouchStartModal = (e) => setStartY(e.touches[0].clientY);
   const handleTouchMoveModal = (e) => {
-    if (startY !== null) {
-      const currentY = e.touches[0].clientY;
-      if (currentY - startY > 100) {
-        closeModal();
-      }
+    if (startY !== null && e.touches[0].clientY - startY > 100) {
+      closeModal();
     }
   };
 
-  const handleIsLoaded = (idx) => {
+  const handleIsLoaded = (idx) =>
     setIsLoaded((prev) => {
       const next = [...prev];
       next[idx] = true;
       return next;
     });
-  };
 
-  const openModal = (index) => {
-    setCurrentIndex(index);
-  };
-
-  const closeModal = () => {
-    setCurrentIndex(null);
-  };
+  const openModal = (i) => setCurrentIndex(i);
+  const closeModal = () => setCurrentIndex(null);
 
   const showPrev = (e) => {
     e.stopPropagation();
-    setCurrentIndex((idx) => Math.max(idx - 1, 0));
+    setCurrentIndex((i) => Math.max(i - 1, 0));
   };
-
   const showNext = (e) => {
     e.stopPropagation();
-    setCurrentIndex((idx) => Math.min(idx + 1, images.length - 1));
+    setCurrentIndex((i) => Math.min(i + 1, images.length - 1));
   };
 
-  const loadMore = () => {
-    setVisibleCount((prev) => Math.min(prev + BATCH_SIZE, images.length));
-  };
+  const loadMore = () =>
+    setVisibleCount((v) => Math.min(v + BATCH_SIZE, images.length));
+  const collapse = () => setVisibleCount(BATCH_SIZE);
 
-  const collapse = () => {
-    setVisibleCount(BATCH_SIZE);
-  };
-
-  const handleTouchStart = (e) => {
-    setTouchStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEndX(e.touches[0].clientX);
-  };
-
+  const handleTouchStart = (e) => setTouchStartX(e.touches[0].clientX);
+  const handleTouchMove = (e) => setTouchEndX(e.touches[0].clientX);
   const handleTouchEnd = () => {
-    if (touchStartX - touchEndX > 50) {
-      if (currentIndex < images.length - 1) {
-        setCurrentIndex((idx) => idx + 1);
-      }
-    } else if (touchEndX - touchStartX > 50) {
-      if (currentIndex > 0) {
-        setCurrentIndex((idx) => idx - 1);
-      }
+    if (touchStartX - touchEndX > 50 && currentIndex < images.length - 1) {
+      setCurrentIndex((i) => i + 1);
+    } else if (touchEndX - touchStartX > 50 && currentIndex > 0) {
+      setCurrentIndex((i) => i - 1);
     }
     setTouchStartX(0);
     setTouchEndX(0);
   };
 
   const media = currentIndex !== null ? images[currentIndex] : null;
-  const isVideo = media?.src.endsWith(".mp4");
+  const isVideo = media?.src.toLowerCase().endsWith(".mp4");
 
   return (
     <>
       <div id="gallery" className="gallery">
         <h2>גלריה</h2>
         <div className="galleryImages">
-          {images.slice(0, visibleCount).map((image, i) => (
-            <div className="gridImage" key={i}>
-              <div className={`skeletonLoading ${isLoaded[i] ? "hide" : ""}`} />
-              <img
-                src={image.src}
-                alt={image.description || `Image ${i + 1}`}
-                onLoad={() => handleIsLoaded(i)}
-                style={{ visibility: isLoaded[i] ? "visible" : "hidden" }}
-              />
-              <div className="enlarge" onClick={() => openModal(i)}>
-                <ImEnlarge
-                  size={20}
-                  style={{ visibility: isLoaded[i] ? "visible" : "hidden" }}
+          {images.slice(0, visibleCount).map((image, i) => {
+            const gridVideo = image.src.toLowerCase().endsWith(".mp4");
+            return (
+              <div className="gridImage" key={i}>
+                <div
+                  className={`skeletonLoading ${isLoaded[i] ? "hide" : ""}`}
                 />
+
+                {gridVideo ? (
+                  <video
+                    src={image.src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onLoadedData={() => handleIsLoaded(i)}
+                  />
+                ) : (
+                  <img
+                    loading="lazy"
+                    src={image.src}
+                    alt={image.description || `Image ${i + 1}`}
+                    onLoad={() => handleIsLoaded(i)}
+                    style={{
+                      visibility: isLoaded[i] ? "visible" : "hidden",
+                    }}
+                  />
+                )}
+
+                <div className="enlarge" onClick={() => openModal(i)}>
+                  <ImEnlarge
+                    size={20}
+                    style={{
+                      visibility: isLoaded[i] ? "visible" : "hidden",
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {visibleCount < images.length ? (
@@ -266,21 +261,32 @@ function Gallery() {
             }}
             onTouchEnd={handleTouchEnd}
           >
-            {isVideo ? (
+            {media.src === eight ? (
+              <video
+                src={video}
+                controls
+                autoPlay
+                preload="metadata"
+                style={{ width: "100%", height: "100%" }}
+              />
+            ) : isVideo ? (
               <video
                 src={media.src}
                 controls
                 autoPlay
-                style={{ maxWidth: "90%", maxHeight: "90%" }}
+                preload="metadata"
+                style={{ width: "100%", height: "100%" }}
               />
             ) : (
               <img src={media.src} alt="Enlarged" />
             )}
+
             {media.description && (
               <div className="modalDescription">
                 <p>{media.description}</p>
               </div>
             )}
+
             {currentIndex > 0 && (
               <button className="navArrow left" onClick={showPrev}>
                 <FaChevronLeft size={24} />

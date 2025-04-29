@@ -48,10 +48,6 @@ body {
   color: rgb(255, 166, 0);
 }
 
-.title {
-  /* margin-top: 5rem; */
-}
-
 .title img {
   width: 15rem;
 }
@@ -728,7 +724,8 @@ img.selectedPartnerLogo {
   grid-auto-rows: 250px;
 }
 
-.galleryImages img {
+.galleryImages img,
+.gallery video {
   width: 100%;
   height: 100%;
   object-fit: cover;
