@@ -41,6 +41,7 @@ function SoldierCard({ soldierData }) {
       <div className="postImage">
         <img
           src={soldierData.imgSrc}
+          loading="lezy"
           alt="Soldier instagram post"
           onLoad={() => setIsLoaded(true)}
           style={{ display: isLoaded ? "block" : "none" }}

@@ -32,9 +32,6 @@ function App() {
         commentsCount: row.comments_count,
       }));
       setSoldiersData(normalized);
-      console.log(
-        soldiersData.some((soldier) => soldier.name === "מעוז פניגשטיין")
-      );
     }
     loadSoldiers();
   }, []);
