@@ -136,7 +136,7 @@ h2 {
   position: absolute;
   width: 1.3rem;
   left: 7rem;
-  top: 4rem;
+  top: 4.1rem;
   font-family: "Rubik";
   background-color: transparent;
   border: none;
@@ -1166,7 +1166,7 @@ img.selectedPartnerLogo {
     font-size: 2.5rem;
   }
   .searchBar button {
-    top: 4.5rem;
+    top: 4.4rem;
     left: 4rem;
   }
   input {
