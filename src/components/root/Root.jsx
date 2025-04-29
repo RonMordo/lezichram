@@ -119,7 +119,12 @@ function Root() {
               <Link
                 className="navLink"
                 to={isHowItStarted ? "/" : "/how-it-started"}
-                style={{ color: isHowItStarted ? "rgb(255, 166, 0)" : "white" }}
+                style={{
+                  color:
+                    isHowItStarted && !isNavFixed
+                      ? "rgb(255, 166, 0)"
+                      : "white",
+                }}
               >
                 המיזם
               </Link>
