@@ -78,15 +78,15 @@ function ContactPage() {
     }
     try {
       await emailjs.send(
-        "service_9aua3aj",
-        "template_t5k3zln",
+        "service_iwsqsjm",
+        "template_upjj7k6",
         {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           message: formData.message,
         },
-        "WqabIc6Hp1Od-BnmP"
+        "lcKCeDjabcrmW16hM"
       );
       setSuccess(true);
       setFormData({ name: "", email: "", phone: "", message: "" });
