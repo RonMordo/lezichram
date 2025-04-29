@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import ContactForm from "../contactForm/ContactForm";
 
@@ -18,6 +18,14 @@ function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (success) {
+      document
+        .getElementById("form-confirmation")
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [success]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

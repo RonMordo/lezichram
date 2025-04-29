@@ -16,7 +16,7 @@ function ContactForm({
       {showForm && <h2>דברו איתנו</h2>}
 
       {success ? (
-        <div className="successContainer">
+        <div id="form-confirmation" className="successContainer">
           <img
             src={handsEmojie}
             alt="תודה"
