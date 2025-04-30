@@ -1,5 +1,3 @@
-// src/components/root/Root.jsx
-
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
