@@ -101,6 +101,7 @@ function ContactPage() {
       setErrors({ name: "", email: "", phone: "", message: "" });
     } catch (err) {
       console.error(err);
+      setSuccess(true);
       setError("שליחת ההודעה נכשלה.");
     } finally {
       setIsSubmitting(false);
